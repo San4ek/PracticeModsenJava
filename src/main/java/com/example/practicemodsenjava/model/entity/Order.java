@@ -14,24 +14,28 @@ import java.util.UUID;
 @Setter
 @ToString
 @RequiredArgsConstructor
-@Table(name = "categories")
-public class Category {
-
+@Table(name = "orders")
+public class Order {
     @Id
     @UuidGenerator
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @Column(name = "name")
-    private String name;
+    @ManyToOne(cascade = {
+            CascadeType.PERSIST,
+            CascadeType.MERGE,
+            CascadeType.REFRESH,
+            CascadeType.DETACH
+    })
+    @JoinColumn(name = "users_id")
+    private User user;
 
     @OneToMany(
-            mappedBy = "category",
-            cascade = CascadeType.ALL
-    )
+            mappedBy = "order",
+            cascade = CascadeType.ALL)
     @ToString.Exclude
-    private List<Product> products;
+    private List<OrderItem> orderItems;
 
     @Override
     public final boolean equals(Object o) {
@@ -40,8 +44,8 @@ public class Category {
         Class<?> oEffectiveClass = o instanceof HibernateProxy ? ((HibernateProxy) o).getHibernateLazyInitializer().getPersistentClass() : o.getClass();
         Class<?> thisEffectiveClass = this instanceof HibernateProxy ? ((HibernateProxy) this).getHibernateLazyInitializer().getPersistentClass() : this.getClass();
         if (thisEffectiveClass != oEffectiveClass) return false;
-        Category category = (Category) o;
-        return getId() != null && Objects.equals(getId(), category.getId());
+        Order order = (Order) o;
+        return getId() != null && Objects.equals(getId(), order.getId());
     }
 
     @Override
