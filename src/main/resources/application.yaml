@@ -1,17 +1,12 @@
 spring:
-  application:
-    name: PracticeModsenJava
+    application:
+        name: PracticeModsenJava
 
-  datasource:
-    driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/pizza_db
-    username: postgres
-    password: postgres
+    datasource:
+        driver-class-name: org.postgresql.Driver
+        url: jdbc:postgresql://localhost:5432/pizza_db
+        username: postgres
+        password: postgres
 
-  liquibase:
-    change-log: classpath:db/changelog/db.changelog-master.xml
-
-  jpa:
-    hibernate:
-      ddl-auto: none
-#    show-sql: true
+    liquibase:
+        change-log: classpath:db/changelog/db.changelog-master.xml

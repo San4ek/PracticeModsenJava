@@ -8,6 +8,9 @@
         <tagDatabase tag="v.1.0"/>
     </changeSet>
 
+    <include file="users.xml" relativeToChangelogFile="true"/>
+    <include file="orders.xml" relativeToChangelogFile="true"/>
+
     <include file="categories.xml" relativeToChangelogFile="true"/>
     <include file="products.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>
