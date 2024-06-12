@@ -19,9 +19,9 @@
                 <constraints nullable="false"/>
             </column>
             <column name="full_name" type="varchar(45)"/>
-            <column name="gender" type="integer"/>
+            <column name="gender" type="varchar(45)"/>
             <column name="birthday" type="date"/>
-            <column name="role" type="integer">
+            <column name="role" type="varchar(45)">
                 <constraints nullable="false"/>
             </column>
         </createTable>
