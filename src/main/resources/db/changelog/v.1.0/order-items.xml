@@ -15,6 +15,9 @@
             <column name="product_id" type="bigint">
                 <constraints nullable="false" foreignKeyName="FK_order_items_product" references="products(id)"/>
             </column>
+            <column name="amount" type="integer">
+                <constraints nullable="false"/>
+            </column>
         </createTable>
     </changeSet>
 </databaseChangeLog>
