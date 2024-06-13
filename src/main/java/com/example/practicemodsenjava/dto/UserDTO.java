@@ -16,10 +16,12 @@ public class UserDTO {
     private UUID id;
     @Email(message = "Email should be valid")
     @NotBlank(message = "Email is mandatory")
+    @NotNull
     @Size(max = 20, message = "Email should not be longer than 20 characters")
     private String email;
 
     @NotBlank(message = "Login is mandatory")
+    @NotNull
     @Size(min = 4, max = 20, message = "Login should be between 4 and 20 characters")
     private String login;
 
@@ -27,9 +29,11 @@ public class UserDTO {
     @Size(min = 8, max = 300, message = "Password should be between 8 and 300 characters")
     private String password;
 
+    @NotNull
     @Size(max = 45, message = "Full name should not be longer than 45 characters")
     private String fullName;
 
+    @NotNull
     @NotNull(message = "Gender is mandatory")
     private Gender gender;
 
