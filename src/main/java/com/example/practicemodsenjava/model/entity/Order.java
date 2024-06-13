@@ -13,11 +13,10 @@ import java.util.UUID;
 @Getter
 @Setter
 @ToString
-@RequiredArgsConstructor
 @Table(name = "orders")
 public class Order {
     @Id
-    @UuidGenerator
+    @UuidGenerator(style = UuidGenerator.Style.TIME)
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;

@@ -12,12 +12,11 @@ import java.util.UUID;
 @Getter
 @Setter
 @ToString
-@RequiredArgsConstructor
 @Table(name = "order_items")
 public class OrderItem {
 
     @Id
-    @UuidGenerator
+    @UuidGenerator(style = UuidGenerator.Style.TIME)
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
@@ -30,6 +29,9 @@ public class OrderItem {
     @ManyToOne
     @JoinColumn(name = "product_id")
     private Product product;
+
+    @Column(name = "amount", nullable = false)
+    private int amount;
 
     @Override
     public final boolean equals(Object o) {
