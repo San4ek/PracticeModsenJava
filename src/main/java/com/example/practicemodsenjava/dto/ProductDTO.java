@@ -15,6 +15,6 @@ public class ProductDTO {
     private UUID categoryId;
 
     @NotBlank(message = "Name is mandatory")
-    @Size(max = 100, message = "Name should not be longer than 100 characters")
+    @Size(min = 1, max = 100, message = "Name should be between 1 and 100 characters")
     private String name;
 }

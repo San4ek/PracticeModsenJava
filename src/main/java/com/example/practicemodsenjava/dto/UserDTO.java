@@ -20,11 +20,11 @@ public class UserDTO {
     private String email;
 
     @NotBlank(message = "Login is mandatory")
-    @Size(max = 20, message = "Login should not be longer than 20 characters")
+    @Size(min = 4, max = 20, message = "Login should be between 4 and 20 characters")
     private String login;
 
     @NotBlank(message = "Password is mandatory")
-    @Size(max = 300, message = "Password should not be longer than 300 characters")
+    @Size(min = 8, max = 300, message = "Password should be between 8 and 300 characters")
     private String password;
 
     @Size(max = 45, message = "Full name should not be longer than 45 characters")

@@ -14,5 +14,4 @@ public class OrderItemDTO {
 
     @NotNull(message = "Product ID is mandatory")
     private UUID productId;
-
 }
