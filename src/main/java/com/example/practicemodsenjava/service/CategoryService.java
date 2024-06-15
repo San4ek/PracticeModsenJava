@@ -1,19 +1,19 @@
 package com.example.practicemodsenjava.service;
 
-import com.example.practicemodsenjava.dto.CategoryDTO;
+import com.example.practicemodsenjava.model.dto.response.CategoryResponse;
 
 import java.util.List;
 import java.util.UUID;
 
 public interface CategoryService {
 
-    CategoryDTO createCategory(CategoryDTO categoryDTO);
+    CategoryResponse getCategoryById(UUID categoryId);
 
-    CategoryDTO updateCategory(UUID id, CategoryDTO categoryDTO);
+    List<CategoryResponse> getAllCategories();
 
-    void deleteCategory(UUID id);
+    CategoryResponse createCategory(String categoryName);
 
-    CategoryDTO getCategoryById(UUID id);
+    CategoryResponse updateCategory(UUID categoryId, String categoryName);
 
-    List<CategoryDTO> getAllCategories();
+    void deleteCategory(UUID categoryId);
 }
