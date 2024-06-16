@@ -1,21 +1,19 @@
 package com.example.practicemodsenjava.service;
 
-import com.example.practicemodsenjava.dto.ProductDTO;
+import com.example.practicemodsenjava.model.dto.response.ProductResponse;
 
 import java.util.List;
 import java.util.UUID;
 
 public interface ProductService {
 
-    ProductDTO createProduct(ProductDTO productDTO);
+    ProductResponse getProductById(UUID productId);
 
-    ProductDTO updateProduct(UUID id, ProductDTO productDTO);
+    List<ProductResponse> getProductsByCategoryId(UUID categoryId);
 
-    void deleteProduct(UUID id);
+    ProductResponse createProduct(UUID categoryId, String productName);
 
-    ProductDTO getProductById(UUID id);
+    ProductResponse updateProduct(UUID productId, String productName);
 
-    List<ProductDTO> getAllProducts();
-
-    List<ProductDTO> getProductsByCategoryId(UUID categoryId);
+    void deleteProduct(UUID productId);
 }

@@ -1,19 +1,22 @@
 package com.example.practicemodsenjava.service;
 
-import com.example.practicemodsenjava.dto.UserDTO;
+import com.example.practicemodsenjava.model.dto.response.UserResponse;
+import com.example.practicemodsenjava.model.enums.Gender;
+import com.example.practicemodsenjava.model.enums.Role;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
 public interface UserService {
 
-    UserDTO createUser(UserDTO userDTO);
+    UserResponse getUserById(UUID userId);
 
-    UserDTO updateUser(UUID id, UserDTO userDTO);
+    List<UserResponse> getAllUsers();
 
-    void deleteUser(UUID id);
+    UserResponse createUser(String email, String login, String password, String fullName, Gender gender, LocalDateTime birthday, Role role);
 
-    UserDTO getUserById(UUID id);
+    UserResponse updateUser(UUID userId, String email, String login, String fullName, Gender gender, LocalDateTime birthday, Role role);
 
-    List<UserDTO> getAllUsers();
+    void deleteUser(UUID userId);
 }
