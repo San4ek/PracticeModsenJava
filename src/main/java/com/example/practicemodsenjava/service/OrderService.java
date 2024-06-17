@@ -1,21 +1,18 @@
 package com.example.practicemodsenjava.service;
 
-import com.example.practicemodsenjava.dto.OrderDTO;
+import com.example.practicemodsenjava.model.dto.request.OrderItemRequest;
+import com.example.practicemodsenjava.model.dto.response.OrderResponse;
 
 import java.util.List;
 import java.util.UUID;
 
 public interface OrderService {
 
-    OrderDTO createOrder(OrderDTO orderDTO);
+    OrderResponse getOrderById(UUID orderId);
 
-    OrderDTO updateOrder(UUID id, OrderDTO orderDTO);
+    List<OrderResponse> getOrdersByUserId(UUID userId);
 
-    void deleteOrder(UUID id);
+    OrderResponse createOrder(UUID userId, List<OrderItemRequest> orderItems);
 
-    OrderDTO getOrderById(UUID id);
-
-    List<OrderDTO> getAllOrders();
-
-    List<OrderDTO> getOrdersByUserId(UUID userId);
+    void deleteOrder(UUID orderId);
 }
