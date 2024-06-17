@@ -7,14 +7,12 @@ import org.springframework.stereotype.Component;
 @Component
 public class UserMapper {
 
+    // TODO
     public UserResponse toUserResponse(User user) {
         return new UserResponse(
                 user.getId(),
                 user.getEmail(),
                 user.getLogin(),
-                user.getFullName(),
-                user.getGender(),
-                user.getBirthday(),
                 user.getRole()
         );
     }

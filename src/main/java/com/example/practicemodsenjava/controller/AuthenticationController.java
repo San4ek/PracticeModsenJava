@@ -1,29 +1,33 @@
 package com.example.practicemodsenjava.controller;
 
-import com.example.practicemodsenjava.repository.UserRepository;
-import com.example.practicemodsenjava.utils.JwtUtils;
-import lombok.AllArgsConstructor;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-//import org.springframework.security.authentication.AuthenticationManager;
+import com.example.practicemodsenjava.model.dto.request.LoginRequest;
+import com.example.practicemodsenjava.model.dto.request.SignupRequest;
+import com.example.practicemodsenjava.model.dto.response.JwtResponse;
+import com.example.practicemodsenjava.service.AuthenticationService;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
-@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@AllArgsConstructor
-@RequestMapping("/api/authentication")
+@RequiredArgsConstructor
+@RequestMapping("/auth")
 public class AuthenticationController {
-    private final AuthenticationManager authenticationManager;
 
-    private final UserRepository userRepository;
+    private final AuthenticationService authenticationService;
 
-    private final PasswordEncoder passwordEncoder;
+    @PostMapping("/login")
+    @ResponseStatus(HttpStatus.CREATED)
+    public JwtResponse login(
+            @RequestBody @Valid LoginRequest loginRequest) {
+        return authenticationService.login(loginRequest);
+    }
 
-    private final JwtUtils jwtUtils;
-
-    @PostMapping("/signin")
+    @PostMapping("/sign-up")
+    @ResponseStatus(HttpStatus.CREATED)
+    public JwtResponse signUp(
+            @RequestBody @Valid SignupRequest signupRequest) {
+        return authenticationService.signUp(signupRequest);
+    }
 
 }

@@ -22,20 +22,16 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @ManyToOne(cascade = {
-            CascadeType.PERSIST,
-            CascadeType.MERGE,
-            CascadeType.REFRESH,
-            CascadeType.DETACH
-    })
-    @JoinColumn(name = "users_id")
-    private User user;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "personal_info")
+    private PersonalInfo personalInfo;
 
     @OneToMany(
             mappedBy = "order",
             cascade = CascadeType.ALL)
     @ToString.Exclude
     private List<OrderItem> orderItems;
+
 
     @Override
     public final boolean equals(Object o) {

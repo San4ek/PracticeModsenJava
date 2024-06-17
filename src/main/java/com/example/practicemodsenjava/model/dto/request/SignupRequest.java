@@ -10,19 +10,19 @@ import java.util.UUID;
 
 @Builder
 public record SignupRequest(
+        @NotNull
         @Email(message = "Email should be valid")
         @NotBlank(message = "Email is mandatory")
-        @NotNull
         @Size(max = 50, message = "Email should not be longer than 50 characters")
         String email,
 
-        @NotBlank(message = "Login is mandatory")
         @NotNull
+        @NotBlank(message = "Login is mandatory")
         @Size(max = 20, message = "Login should not be longer than 20 characters")
         String login,
 
-        @NotBlank(message = "Password is mandatory")
         @NotNull
+        @NotBlank(message = "Password is mandatory")
         @Size(min = 8, max = 300, message = "Password should be between 8 and 300 characters")
         String password,
 
@@ -34,9 +34,7 @@ public record SignupRequest(
         Gender gender,
 
         @Past(message = "Birthday must be in the past")
-        LocalDateTime birthday,
+        LocalDateTime birthday
 
-        @NotNull(message = "Role is mandatory")
-        Role role
 ) {
 }

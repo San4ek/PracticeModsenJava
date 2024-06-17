@@ -4,15 +4,10 @@ import lombok.Builder;
 
 import java.util.List;
 
+// TODO add refresh token
 @Builder
 public record JwtResponse(
-        String token,
-        String type,
-        String refreshToken,
-        Long id,
-        String login,
-        String email,
-        List<String> roles
-) {
-
-}
+        String token
+//        long expiresIn,
+//        String refreshToken
+) {}
