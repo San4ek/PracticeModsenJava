@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 //import org.springframework.security.authentication.AuthenticationManager;
@@ -25,4 +26,7 @@ public class AuthenticationController {
     private final PasswordEncoder passwordEncoder;
 
     private final JwtUtils jwtUtils;
+
+    @PostMapping("/signin")
+
 }
