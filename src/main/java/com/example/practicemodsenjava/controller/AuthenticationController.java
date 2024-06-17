@@ -1,8 +1,7 @@
-package com.example.practicemodsenjava.authenticationserver.controller;
+package com.example.practicemodsenjava.controller;
 
-import com.example.practicemodsenjava.authenticationserver.repository.OrderIdRepository;
-import com.example.practicemodsenjava.authenticationserver.repository.UserRepository;
-import com.example.practicemodsenjava.authenticationserver.utils.JwtUtils;
+import com.example.practicemodsenjava.repository.UserRepository;
+import com.example.practicemodsenjava.utils.JwtUtils;
 import lombok.AllArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -20,8 +19,6 @@ public class AuthenticationController {
     private final AuthenticationManager authenticationManager;
 
     private final UserRepository userRepository;
-
-    private final OrderIdRepository orderIdRepository;
 
     private final PasswordEncoder passwordEncoder;
 

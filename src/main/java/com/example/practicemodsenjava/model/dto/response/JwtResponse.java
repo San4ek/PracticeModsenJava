@@ -1,4 +1,4 @@
-package com.example.practicemodsenjava.authenticationserver.model.dto.response;
+package com.example.practicemodsenjava.model.dto.response;
 
 import lombok.Builder;
 
@@ -8,8 +8,9 @@ import java.util.List;
 public record JwtResponse(
         String token,
         String type,
+        String refreshToken,
         Long id,
-        String username,
+        String login,
         String email,
         List<String> roles
 ) {

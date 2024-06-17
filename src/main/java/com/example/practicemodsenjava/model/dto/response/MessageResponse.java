@@ -1,4 +1,4 @@
-package com.example.practicemodsenjava.authenticationserver.model.dto.response;
+package com.example.practicemodsenjava.model.dto.response;
 
 import lombok.Builder;
 

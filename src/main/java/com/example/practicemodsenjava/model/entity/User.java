@@ -21,7 +21,6 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @Table(name = "users")
 public class User {
-
     @Id
     @UuidGenerator
     @Column(name = "id", nullable = false)
@@ -37,23 +36,9 @@ public class User {
     @Column(name = "password", nullable = false, length = 300)
     private String password;
 
-    @Column(name = "full_name", length = 45)
-    private String fullName;
-
-    @Enumerated(EnumType.STRING)
-    @Column(name = "gender")
-    private Gender gender;
-
-    @Column(name = "birthday")
-    private LocalDateTime birthday;
-
     @Enumerated(EnumType.STRING)
     @Column(name = "role")
     private Role role;
-
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    @ToString.Exclude
-    private List<Order> orders = new ArrayList<>();
 
     @Override
     public final boolean equals(Object o) {

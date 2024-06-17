@@ -1,4 +1,4 @@
-package com.example.practicemodsenjava.authenticationserver.config;
+package com.example.practicemodsenjava.config;
 
 
 import org.springframework.context.annotation.Bean;
