@@ -6,21 +6,18 @@
 
     <changeSet id="create-table-users" author="Ptuxa">
         <createTable tableName="users">
-            <column name="id" type="bigint" autoIncrement="true">
+            <column name="id" type="uuid" autoIncrement="1">
                 <constraints nullable="false" primaryKey="true"/>
             </column>
             <column name="email" type="varchar(20)">
-                <constraints nullable="false"/>
+                <constraints nullable="false" unique="true"/>
             </column>
             <column name="login" type="varchar(20)">
-                <constraints nullable="false"/>
+                <constraints nullable="false" unique="true"/>
             </column>
             <column name="password" type="varchar(300)">
                 <constraints nullable="false"/>
             </column>
-            <column name="full_name" type="varchar(45)"/>
-            <column name="gender" type="varchar(45)"/>
-            <column name="birthday" type="date"/>
             <column name="role" type="varchar(45)">
                 <constraints nullable="false"/>
             </column>

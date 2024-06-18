@@ -1,0 +1,25 @@
+spring:
+  #  application:
+  #    name: PracticeModsenJava
+
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/pizza_db
+    username: postgres
+    password: postgres
+
+  liquibase:
+    change-log: classpath:db/changelog/db.changelog-master.xml
+
+my:
+  test: 1
+
+auth:
+  secret: t45ugi54gh498fui34nf348fg2b3fi3ugfby4ifu
+
+app:
+  token-access:
+    key-secret: AFAKJFsdfsdAfasfksdafsasdfkhkadsAKSf
+    lifetime: 300
+  token-refresh:
+    lifetime: 86400000

@@ -4,13 +4,19 @@
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                    https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
 
-    <changeSet id="create-category-table" author="Vladislav Protchenko">
-        <createTable tableName="categories">
+    <changeSet id="create-tokens-refresh-table" author="Ptuxa">
+        <createTable tableName="tokens_refresh">
             <column name="id" type="uuid" autoIncrement="1">
                 <constraints nullable="false" primaryKey="true"/>
             </column>
-            <column name="name" type="varchar(45)">
+            <column name="access_token" type="varchar(300)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="expiry_date" type="date">
                 <constraints nullable="false"/>
+            </column>
+            <column name="user_id" type="uuid">
+                <constraints nullable="false" foreignKeyName="FK_tokens_refresh" references="users(id)"/>
             </column>
         </createTable>
     </changeSet>

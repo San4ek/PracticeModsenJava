@@ -11,10 +11,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
-    <groupId>com.example.practicemodsenjava</groupId>
+    <groupId>by.modsen.practice.group11</groupId>
     <artifactId>PracticeModsenJava</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>pom</packaging>
     <name>PracticeModsenJava</name>
     <description>PracticeModsenJava</description>
 

@@ -4,13 +4,22 @@
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                    https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
 
-    <changeSet id="create-category-table" author="Vladislav Protchenko">
-        <createTable tableName="categories">
+    <changeSet id="create-table-personal-info" author="Ptuxa">
+        <createTable tableName="personal_info">
             <column name="id" type="uuid" autoIncrement="1">
                 <constraints nullable="false" primaryKey="true"/>
             </column>
-            <column name="name" type="varchar(45)">
+            <column name="full_name" type="varchar(45)">
                 <constraints nullable="false"/>
+            </column>
+            <column name="gender" type="varchar(255)">
+                <constraints/>
+            </column>
+            <column name="birthday" type="date">
+                <constraints/>
+            </column>
+            <column name="user_id" type="uuid">
+                <constraints nullable="false" foreignKeyName="FK_personal_info_user" references="users(id)"/>
             </column>
         </createTable>
     </changeSet>

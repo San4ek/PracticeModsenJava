@@ -6,14 +6,17 @@
 
     <changeSet id="0" author="admin">
         <createTable tableName="order_items">
-            <column name="id" type="bigint" autoIncrement="true">
+            <column name="id" type="uuid" autoIncrement="1">
                 <constraints nullable="false" primaryKey="true"/>
             </column>
-            <column name="order_id" type="bigint">
+            <column name="order_id" type="uuid">
                 <constraints nullable="false" foreignKeyName="FK_order_items_order" references="orders(id)"/>
             </column>
-            <column name="product_id" type="bigint">
+            <column name="product_id" type="uuid">
                 <constraints nullable="false" foreignKeyName="FK_order_items_product" references="products(id)"/>
+            </column>
+            <column name="amount" type="integer">
+                <constraints nullable="false"/>
             </column>
         </createTable>
     </changeSet>

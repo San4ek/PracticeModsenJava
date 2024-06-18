@@ -6,13 +6,13 @@
 
     <changeSet id="create-product-table" author="Vladislav Protchenko">
         <createTable tableName="products">
-            <column name="id" type="bigint" autoIncrement="true">
+            <column name="id" type="uuid" autoIncrement="1">
                 <constraints nullable="false" primaryKey="true"/>
             </column>
-            <column name="category_id" type="bigint">
-                <constraints nullable="false" foreignKeyName="category_id" references="categories(id)"/>
+            <column name="category_id" type="uuid">
+                <constraints nullable="false" foreignKeyName="FK_products_category" references="categories(id)"/>
             </column>
-            <column name="name" type="varchar(45)">
+            <column name="name" type="varchar(255)">
                 <constraints nullable="false"/>
             </column>
         </createTable>

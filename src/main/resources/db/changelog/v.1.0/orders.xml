@@ -6,11 +6,11 @@
 
     <changeSet id="create-table-orders" author="Ptuxa">
         <createTable tableName="orders">
-            <column name="id" type="bigint" autoIncrement="true">
+            <column name="id" type="uuid" autoIncrement="1">
                 <constraints nullable="false" primaryKey="true"/>
             </column>
-            <column name="users_id" type="integer">
-                <constraints nullable="false" foreignKeyName="FK_orders_users" references="users(id)"/>
+            <column name="personal_info_id" type="uuid">
+                <constraints nullable="false" foreignKeyName="FK_order_personal_info" references="personal_info(id)"/>
             </column>
         </createTable>
     </changeSet>
