@@ -2,15 +2,15 @@ package com.example.practicemodsenjava.mapper;
 
 import com.example.practicemodsenjava.model.dto.response.CategoryResponse;
 import com.example.practicemodsenjava.model.entity.Category;
-import org.springframework.stereotype.Component;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.factory.Mappers;
 
-@Component
-public class CategoryMapper {
+@Mapper
+public interface CategoryMapper {
 
-    public CategoryResponse toCategoryResponse(Category category) {
-        return new CategoryResponse(
-                category.getId(),
-                category.getName()
-        );
-    }
+    CategoryMapper INSTANCE = Mappers.getMapper(CategoryMapper.class);
+
+    @Mapping(source = "id", target = "categoryId")
+    CategoryResponse toCategoryResponse(Category category);
 }

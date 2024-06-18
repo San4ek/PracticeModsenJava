@@ -2,26 +2,22 @@ package com.example.practicemodsenjava.mapper;
 
 import com.example.practicemodsenjava.model.dto.response.OrderResponse;
 import com.example.practicemodsenjava.model.entity.Order;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.factory.Mappers;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.stream.Collectors;
 
 @Component
-public class OrderMapper {
+@Mapper(uses = OrderItemMapper.class)
+public interface OrderMapper {
 
-    private final OrderItemMapper orderItemMapper;
+    OrderMapper INSTANCE = Mappers.getMapper(OrderMapper.class);
 
-    public OrderMapper(OrderItemMapper orderItemMapper) {
-        this.orderItemMapper = orderItemMapper;
-    }
-
-    public OrderResponse toOrderResponse(Order order) {
-        return new OrderResponse(
-                order.getId(),
-                order.getUser().getId(),
-                order.getOrderItems().stream()
-                        .map(orderItemMapper::toOrderItemResponse)
-                        .collect(Collectors.toList())
-        );
-    }
+    @Mapping(source = "order.id", target = "id")
+    @Mapping(source = "order.user.id", target = "userId")
+    @Mapping(source = "order.orderItems", target = "orderItems")
+    OrderResponse toOrderResponse(Order order);
 }

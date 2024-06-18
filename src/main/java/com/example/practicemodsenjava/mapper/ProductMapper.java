@@ -2,16 +2,18 @@ package com.example.practicemodsenjava.mapper;
 
 import com.example.practicemodsenjava.model.dto.response.ProductResponse;
 import com.example.practicemodsenjava.model.entity.Product;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.factory.Mappers;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ProductMapper {
+@Mapper
+public interface ProductMapper {
 
-    public ProductResponse toProductResponse(Product product) {
-        return new ProductResponse(
-                product.getId(),
-                product.getCategory().getId(),
-                product.getName()
-        );
-    }
+    ProductMapper INSTANCE = Mappers.getMapper(ProductMapper.class);
+
+    @Mapping(source = "product.id", target = "id")
+    @Mapping(source = "product.category.id", target = "categoryId")
+    ProductResponse toProductResponse(Product product);
 }

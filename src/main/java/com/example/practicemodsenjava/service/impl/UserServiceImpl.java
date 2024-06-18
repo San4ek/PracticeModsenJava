@@ -1,5 +1,6 @@
 package com.example.practicemodsenjava.service.impl;
 
+import com.example.practicemodsenjava.exceptionHandling.GlobalExceptionHandler;
 import com.example.practicemodsenjava.model.dto.response.UserResponse;
 import com.example.practicemodsenjava.mapper.UserMapper;
 import com.example.practicemodsenjava.model.entity.User;
@@ -10,7 +11,7 @@ import com.example.practicemodsenjava.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import com.example.practicemodsenjava.exceptionHandling.GlobalExceptionHandler;
+
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
@@ -48,7 +49,7 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public UserResponse createUser(String email, String login, String password, String fullName, Gender gender, LocalDateTime birthday, Role role) {
         User user = new User();
-        // Set properties for user
+        // Устанавливаем свойства для user
         // user.setEmail(email);
         // user.setLogin(login);
         // user.setPassword(password);
@@ -65,7 +66,7 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public UserResponse updateUser(UUID userId, String email, String login, String fullName, Gender gender, LocalDateTime birthday, Role role) {
         User user = getUserOrThrow(userId);
-        // Update properties for user
+        // Обновляем свойства для user
         // user.setEmail(email);
         // user.setLogin(login);
         // user.setFullName(fullName);
@@ -76,7 +77,6 @@ public class UserServiceImpl implements UserService {
         User updatedUser = userRepository.save(user);
         return userMapper.toUserResponse(updatedUser);
     }
-
 
     @Override
     @Transactional

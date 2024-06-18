@@ -1,5 +1,6 @@
 package com.example.practicemodsenjava.service.impl;
 
+import com.example.practicemodsenjava.exceptionHandling.GlobalExceptionHandler;
 import com.example.practicemodsenjava.model.dto.response.OrderItemResponse;
 import com.example.practicemodsenjava.mapper.OrderItemMapper;
 import com.example.practicemodsenjava.model.entity.OrderItem;
@@ -8,7 +9,7 @@ import com.example.practicemodsenjava.service.OrderItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import com.example.practicemodsenjava.exceptionHandling.GlobalExceptionHandler;
+
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -38,7 +39,7 @@ public class OrderItemServiceImpl implements OrderItemService {
     @Transactional
     public OrderItemResponse createOrderItem(UUID orderId, UUID productId, int amount) {
         OrderItem orderItem = new OrderItem();
-        // Set properties for orderItem
+        // Устанавливаем свойства для orderItem
         // orderItem.setOrder(...);
         // orderItem.setProduct(...);
         // orderItem.setAmount(amount);

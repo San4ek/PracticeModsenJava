@@ -1,5 +1,6 @@
 package com.example.practicemodsenjava.service.impl;
 
+import com.example.practicemodsenjava.exceptionHandling.GlobalExceptionHandler;
 import com.example.practicemodsenjava.model.dto.response.ProductResponse;
 import com.example.practicemodsenjava.mapper.ProductMapper;
 import com.example.practicemodsenjava.model.entity.Product;
@@ -8,7 +9,6 @@ import com.example.practicemodsenjava.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import com.example.practicemodsenjava.exceptionHandling.GlobalExceptionHandler;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -45,7 +45,7 @@ public class ProductServiceImpl implements ProductService {
     @Transactional
     public ProductResponse createProduct(UUID categoryId, String productName) {
         Product product = new Product();
-        // Set properties for product
+        // Устанавливаем свойства для product
         // product.setCategory(...);
         // product.setName(productName);
 
@@ -57,7 +57,7 @@ public class ProductServiceImpl implements ProductService {
     @Transactional
     public ProductResponse updateProduct(UUID productId, String productName) {
         Product product = getProductOrThrow(productId);
-        // Update properties for product
+        // Обновляем свойства для product
         // product.setName(productName);
 
         Product updatedProduct = productRepository.save(product);
@@ -70,7 +70,6 @@ public class ProductServiceImpl implements ProductService {
         Product product = getProductOrThrow(productId);
         productRepository.delete(product);
     }
-
 
     private Product getProductOrThrow(UUID productId) {
         return productRepository.findById(productId)
