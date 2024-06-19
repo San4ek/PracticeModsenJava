@@ -1,6 +1,8 @@
 package com.example.practicemodsenjava.exceptionHandling;
 
-public record ErrorDTO (
-    String name,
+import java.time.LocalTime;
+
+public record ErrorDto (
+    LocalTime time,
     String message
 ){}
