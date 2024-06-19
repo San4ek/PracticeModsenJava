@@ -1,8 +1,8 @@
 package com.example.practicemodsenjava.exceptionHandling;
 
-import java.time.LocalTime;
+import java.time.OffsetTime;
 
 public record ErrorDto (
-    LocalTime time,
+    OffsetTime time,
     String message
-){}
+){ }
