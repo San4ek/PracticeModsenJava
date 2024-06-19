@@ -5,7 +5,6 @@ import lombok.Builder;
 @Builder
 public record TokenRefreshResponse(
         String tokenAccess,
-        String tokenRefresh,
-        String tokenType
+        String tokenRefresh
 ) {
 }

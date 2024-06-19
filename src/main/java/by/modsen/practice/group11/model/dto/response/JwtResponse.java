@@ -8,10 +8,5 @@ import java.util.UUID;
 @Builder
 public record JwtResponse(
         String tokenAccess,
-        String type,
-        String tokenRefresh,
-        UUID id,
-        String login,
-        String email,
-        String role
+        String tokenRefresh
 ) {}

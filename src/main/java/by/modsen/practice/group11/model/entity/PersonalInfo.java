@@ -2,10 +2,7 @@ package by.modsen.practice.group11.model.entity;
 
 import by.modsen.practice.group11.model.enums.Gender;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.hibernate.annotations.UuidGenerator;
 
 import java.time.LocalDateTime;
@@ -16,8 +13,10 @@ import java.util.UUID;
 @Entity
 @Getter
 @Setter
+@Builder
 @ToString
-@RequiredArgsConstructor
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "personal_info")
 public class PersonalInfo {
     @Id

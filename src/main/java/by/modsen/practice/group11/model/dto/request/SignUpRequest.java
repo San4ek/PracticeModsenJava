@@ -33,6 +33,5 @@ public record SignUpRequest(
 
         @Past(message = "Birthday must be in the past")
         LocalDateTime birthday
-
 ) {
 }

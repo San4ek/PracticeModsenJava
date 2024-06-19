@@ -19,26 +19,26 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @RequestMapping("/auth")
 public class AuthenticationController {
-//    private final AuthenticationService authenticationService;
-//
-//    @PostMapping("/login")
-//    public ResponseEntity<JwtResponse> loginUser(@Valid @RequestBody LoginRequest loginRequest) {
-//        return ResponseEntity.ok(authenticationService.loginUser(loginRequest));
-//    }
-//
-//    @PostMapping("/sign-up")
-//    @ResponseStatus(HttpStatus.CREATED)
-//    public ResponseEntity<MessageResponse> signUpUser(@Valid @RequestBody SignUpRequest signupRequest) {
-//        return ResponseEntity.ok(authenticationService.signUpUser(signupRequest));
-//    }
-//
-//    @PostMapping("/signout")
-//    public ResponseEntity<MessageResponse> logoutUser() {
-//        return ResponseEntity.ok(authenticationService.logoutUser());
-//    }
-//
-//    @PostMapping("/refresh-token")
-//    public ResponseEntity<TokenRefreshResponse> refreshToken(@Valid @RequestBody TokenRefreshRequest tokenRefreshRequest) {
-//        return ResponseEntity.ok(authenticationService.refreshToken(tokenRefreshRequest));
-//    }
+    private final AuthenticationService authenticationService;
+
+    @PostMapping("/login")
+    public ResponseEntity<JwtResponse> loginUser(@Valid @RequestBody LoginRequest loginRequest) {
+        return ResponseEntity.ok(authenticationService.loginUser(loginRequest));
+    }
+
+    @PostMapping("/sign-up")
+    @ResponseStatus(HttpStatus.CREATED)
+    public ResponseEntity<MessageResponse> signUpUser(@Valid @RequestBody SignUpRequest signupRequest) {
+        return ResponseEntity.ok(authenticationService.signUpUser(signupRequest));
+    }
+
+    @PostMapping("/signout")
+    public ResponseEntity<MessageResponse> logoutUser() {
+        return ResponseEntity.ok(authenticationService.logoutUser());
+    }
+
+    @PostMapping("/refresh-token")
+    public ResponseEntity<TokenRefreshResponse> refreshToken(@Valid @RequestBody TokenRefreshRequest tokenRefreshRequest) {
+        return ResponseEntity.ok(authenticationService.refreshToken(tokenRefreshRequest));
+    }
 }
