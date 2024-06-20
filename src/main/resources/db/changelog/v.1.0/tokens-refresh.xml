@@ -12,7 +12,7 @@
             <column name="access_token" type="varchar(300)">
                 <constraints nullable="false" unique="true"/>
             </column>
-            <column name="expiry_date" type="date">
+            <column name="expiry_date" type="timestamp">
                 <constraints nullable="false"/>
             </column>
             <column name="user_id" type="uuid">

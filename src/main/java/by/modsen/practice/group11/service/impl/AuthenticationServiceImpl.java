@@ -46,7 +46,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         UserJwt userJwt = (UserJwt) authentication.getPrincipal();
         String accessToken = accessTokenUtils.generateAccessToken(userJwt);
         List<String> roles = userJwt.getAuthorities().stream().map(item -> item.getAuthority()).collect(Collectors.toList());
-        TokenRefresh refreshToken = refreshTokenUtils.createRefreshToken(userJwt.getId());
+        TokenRefresh refreshToken = refreshTokenUtils.takeOrCreateActualRefreshToken(userJwt.getId());
         return new JwtResponse(accessToken, refreshToken.getToken());
     }
 
@@ -65,7 +65,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                 .email(signUpRequest.email())
                 .login(signUpRequest.login())
                 .password(passwordEncoder.encode(signUpRequest.password()))
-                .role(Role.CUSTOMER)
+                .role(Role.ROLE_CUSTOMER)
                 .build());
         PersonalInfo personalInfo = PersonalInfo.builder()
                 .birthday(signUpRequest.birthday())

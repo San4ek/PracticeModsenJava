@@ -1,11 +1,12 @@
 package by.modsen.practice.group11.model.entity;
 
 import by.modsen.practice.group11.model.enums.Gender;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.UuidGenerator;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -32,8 +33,9 @@ public class PersonalInfo {
     @Column(name = "gender")
     private Gender gender;
 
+    @JsonFormat(pattern="dd-MM-yyyy")
     @Column(name = "birthday")
-    private LocalDateTime birthday;
+    private LocalDate birthday;
 
     @OneToOne
     @JoinColumn(name = "user_id", nullable = false)

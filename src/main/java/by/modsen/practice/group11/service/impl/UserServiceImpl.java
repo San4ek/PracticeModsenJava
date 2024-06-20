@@ -1,31 +1,25 @@
 package by.modsen.practice.group11.service.impl;
 
+import by.modsen.practice.group11.mapper.UserMapper;
 import by.modsen.practice.group11.model.dto.response.UserResponse;
 import by.modsen.practice.group11.model.entity.User;
-import by.modsen.practice.group11.model.enums.Gender;
 import by.modsen.practice.group11.model.enums.Role;
-import by.modsen.practice.group11.service.UserService;
-import by.modsen.practice.group11.mapper.UserMapper;
 import by.modsen.practice.group11.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import by.modsen.practice.group11.service.UserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import java.time.LocalDateTime;
+
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+@RequiredArgsConstructor
 @Service
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final UserMapper userMapper;
-
-    @Autowired
-    public UserServiceImpl(UserRepository userRepository, UserMapper userMapper) {
-        this.userRepository = userRepository;
-        this.userMapper = userMapper;
-    }
 
     @Override
     @Transactional(readOnly = true)

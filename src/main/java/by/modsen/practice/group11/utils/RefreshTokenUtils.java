@@ -28,6 +28,18 @@ public class RefreshTokenUtils {
         return refreshTokenRepository.findByToken(refreshToken);
     }
 
+    public TokenRefresh takeOrCreateActualRefreshToken(UUID userId) {
+        return refreshTokenRepository.findByUserId(userId).map(tokenRefresh -> {
+            try {
+                verifyExpiration(tokenRefresh);
+            } catch (RuntimeException ex) {
+                tokenRefresh = createRefreshToken(userId);
+            }
+
+            return tokenRefresh;
+        }).orElse(createRefreshToken(userId));
+    }
+
     public TokenRefresh createRefreshToken(UUID userId) {
         TokenRefresh refreshToken = new TokenRefresh();
 

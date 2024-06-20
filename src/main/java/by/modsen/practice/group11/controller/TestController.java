@@ -1,7 +1,6 @@
 package by.modsen.practice.group11.controller;
 
 import lombok.RequiredArgsConstructor;
-import lombok.Value;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,8 +24,8 @@ public class TestController {
     }
 
     @GetMapping("/admin")
-    @PreAuthorize("hasRole('MODERATOR')")
-    public String moderatorAccess() {
+    @PreAuthorize("hasRole('ADMIN')")
+    public String adminAccess() {
         return "Admin Board.";
     }
 }

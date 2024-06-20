@@ -18,7 +18,7 @@ public class AccessTokenUtils {
     private String accessTokenKeySecret;
 
     @Value("${app.token-access.lifetime}")
-    private int accessTokenLifetime;
+    private Long accessTokenLifetime;
 
     public String generateAccessToken(UserJwt userJwt) {
         return generateAccessTokenFromUsername(userJwt.getUsername());
@@ -26,7 +26,7 @@ public class AccessTokenUtils {
 
     public String generateAccessTokenFromUsername(String login) {
         return Jwts.builder().setSubject(login).setIssuedAt(new Date())
-                .setExpiration(new Date((new Date()).getTime() + accessTokenLifetime)).signWith(SignatureAlgorithm.HS512, accessTokenKeySecret)
+                .setExpiration(new Date(System.currentTimeMillis() + accessTokenLifetime * 1000)).signWith(SignatureAlgorithm.HS512, accessTokenKeySecret)
                 .compact();
     }
 

@@ -1,10 +1,13 @@
 package by.modsen.practice.group11.model.dto.request;
 
 import by.modsen.practice.group11.model.enums.Gender;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.*;
 import lombok.Builder;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Builder
 public record SignUpRequest(
@@ -28,10 +31,12 @@ public record SignUpRequest(
         @Size(max = 45, message = "Full name should not be longer than 45 characters")
         String fullName,
 
+        @Enumerated(EnumType.STRING)
         @NotNull(message = "Gender is mandatory")
         Gender gender,
 
+        @JsonFormat(pattern="dd-MM-yyyy")
         @Past(message = "Birthday must be in the past")
-        LocalDateTime birthday
+        LocalDate birthday
 ) {
 }

@@ -11,15 +11,9 @@ spring:
   liquibase:
     change-log: classpath:db/changelog/db.changelog-master.xml
 
-my:
-  test: 1
-
-auth:
-  secret: t45ugi54gh498fui34nf348fg2b3fi3ugfby4ifu
-
 app:
   token-access:
-    key-secret: AFAKJFsdfsdAfasfksdafsasdfkhkadsAKSf
+    key-secret: AFAKJFsdfsdAfasfksdafsasdfkhkadsAKSfsdgkljsghdsHGHSDKGHDKSHGDKSGdkshKHGksdhgkds1DSGDSGDSGasfsNFKASNfkas
     lifetime: 300
   token-refresh:
     lifetime: 86400000

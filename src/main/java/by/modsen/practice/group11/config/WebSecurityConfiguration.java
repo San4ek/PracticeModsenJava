@@ -56,15 +56,25 @@ public class WebSecurityConfiguration { // extends WebSecurityConfigurerAdapter 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
+//                .anonymous(AbstractHttpConfigurer::disable)         // AnonymousAuthenticationFilter
+//                .sessionManagement(AbstractHttpConfigurer::disable) // DisableEncodeUrlFilter, SessionManagementFilter
+//                .exceptionHandling(AbstractHttpConfigurer::disable) // ExceptionTranslationFilter
+//                .headers(AbstractHttpConfigurer::disable)           // HeaderWriterFilter
+//                .logout(AbstractHttpConfigurer::disable)            // LogoutFilter
+//                .requestCache(AbstractHttpConfigurer::disable)      // RequestCacheAwareFilter
+//                .servletApi(AbstractHttpConfigurer::disable)        // SecurityContextHolderAwareRequestFilter
+//                .securityContext(AbstractHttpConfigurer::disable)
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(AbstractHttpConfigurer::disable)
+                .sessionManagement(config -> config.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> {
                     // TODO: fix matchers
-//                    auth.requestMatchers("auth/", "test/").permitAll();
-                    auth.anyRequest().permitAll();
+                    auth.
+                            requestMatchers("auth/**").permitAll().
+                            requestMatchers("test/**").permitAll().
+                            anyRequest().authenticated();
                 })
                 .authenticationProvider(authenticationProvider())
-                .sessionManagement(config -> config.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(authTokenFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
