@@ -1,17 +1,15 @@
 package by.modsen.practice.group11.mapper;
 
-import by.modsen.practice.group11.model.entity.Product;
 import by.modsen.practice.group11.model.dto.response.ProductResponse;
-import org.springframework.stereotype.Component;
+import by.modsen.practice.group11.model.entity.Product;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.MappingConstants;
 
-@Component
-public class ProductMapper {
+@Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
+public interface ProductMapper {
 
-    public ProductResponse toProductResponse(Product product) {
-        return new ProductResponse(
-                product.getId(),
-                product.getCategory().getId(),
-                product.getName()
-        );
-    }
+    @Mapping(target = "categoryId", source = "category.id")
+    ProductResponse toProductResponse(Product product);
+
 }

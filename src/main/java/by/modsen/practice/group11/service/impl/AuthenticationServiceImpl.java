@@ -24,9 +24,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -43,9 +41,9 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     public JwtResponse loginUser(LoginRequest loginRequest) {
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.login(), loginRequest.password()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
+
         UserJwt userJwt = (UserJwt) authentication.getPrincipal();
         String accessToken = accessTokenUtils.generateAccessToken(userJwt);
-        List<String> roles = userJwt.getAuthorities().stream().map(item -> item.getAuthority()).collect(Collectors.toList());
         TokenRefresh refreshToken = refreshTokenUtils.takeOrCreateActualRefreshToken(userJwt.getId());
         return new JwtResponse(accessToken, refreshToken.getToken());
     }
@@ -81,7 +79,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     @Override
     public MessageResponse logoutUser() {
         UserJwt userDetails = (UserJwt) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
+        SecurityContextHolder.clearContext();
         UUID userId = userDetails.getId();
 
         refreshTokenUtils.deleteByUserId(userId);

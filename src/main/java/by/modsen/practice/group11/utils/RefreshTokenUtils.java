@@ -31,20 +31,19 @@ public class RefreshTokenUtils {
     public TokenRefresh takeOrCreateActualRefreshToken(UUID userId) {
         return refreshTokenRepository.findByUserId(userId).map(tokenRefresh -> {
             try {
-                verifyExpiration(tokenRefresh);
+                tokenRefresh = verifyExpiration(tokenRefresh);
             } catch (RuntimeException ex) {
                 tokenRefresh = createRefreshToken(userId);
             }
-
             return tokenRefresh;
-        }).orElse(createRefreshToken(userId));
+        }).orElseGet(() -> createRefreshToken(userId));
     }
 
     public TokenRefresh createRefreshToken(UUID userId) {
         TokenRefresh refreshToken = new TokenRefresh();
 
         refreshToken.setUser(userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found")));
-        refreshToken.setExpiryDate(Instant.now().plusMillis(refreshTokenLifeTime));
+        refreshToken.setExpiryDate(Instant.now().plusMillis(refreshTokenLifeTime * 1000));
         refreshToken.setToken(UUID.randomUUID().toString());
 
         refreshToken = refreshTokenRepository.save(refreshToken);
@@ -56,12 +55,11 @@ public class RefreshTokenUtils {
             refreshTokenRepository.delete(token);
             throw new RuntimeException(/*token.getToken(), */"Refresh token was expired. Please make a new signin request");
         }
-
         return token;
     }
 
     @Transactional
-    public int deleteByUserId(UUID userId) {
-        return refreshTokenRepository.deleteByUser(userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found")));
+    public void deleteByUserId(UUID userId) {
+        refreshTokenRepository.deleteByUser(userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found")));
     }
 }

@@ -26,7 +26,7 @@ public class AccessTokenUtils {
 
     public String generateAccessTokenFromUsername(String login) {
         return Jwts.builder().setSubject(login).setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + accessTokenLifetime * 1000)).signWith(SignatureAlgorithm.HS512, accessTokenKeySecret)
+                .setExpiration(new Date(System.currentTimeMillis() + accessTokenLifetime * 1000)).signWith(SignatureAlgorithm.HS256, accessTokenKeySecret)
                 .compact();
     }
 
@@ -49,7 +49,6 @@ public class AccessTokenUtils {
         } catch (IllegalArgumentException e) {
             logger.error("JWT claims string is empty: {}", e.getMessage());
         }
-
         return false;
     }
 }

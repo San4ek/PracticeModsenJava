@@ -1,17 +1,13 @@
 package by.modsen.practice.group11.mapper;
 
-import by.modsen.practice.group11.model.entity.OrderItem;
 import by.modsen.practice.group11.model.dto.response.OrderItemResponse;
-import org.springframework.stereotype.Component;
+import by.modsen.practice.group11.model.entity.OrderItem;
+import org.mapstruct.Mapper;
+import org.mapstruct.MappingConstants;
 
-@Component
-public class OrderItemMapper {
+@Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
+public interface OrderItemMapper {
 
-    public OrderItemResponse toOrderItemResponse(OrderItem orderItem) {
-        return new OrderItemResponse(
-                orderItem.getId(),
-                orderItem.getProduct().getId(),
-                orderItem.getAmount()
-        );
-    }
+    OrderItemResponse toOrderItemResponse(OrderItem orderItem);
+
 }

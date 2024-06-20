@@ -16,4 +16,4 @@ app:
     key-secret: AFAKJFsdfsdAfasfksdafsasdfkhkadsAKSfsdgkljsghdsHGHSDKGHDKSHGDKSGdkshKHGksdhgkds1DSGDSGDSGasfsNFKASNfkas
     lifetime: 300
   token-refresh:
-    lifetime: 86400000
+    lifetime: 86400

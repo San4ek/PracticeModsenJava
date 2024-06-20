@@ -10,10 +10,13 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Repository
-public interface TokenRefreshRepository extends JpaRepository<TokenRefresh, Long> {
+public interface TokenRefreshRepository extends JpaRepository<TokenRefresh, UUID> {
     Optional<TokenRefresh> findByToken(String token);
     Optional<TokenRefresh> findByUserId(UUID userId);
 
     @Modifying
-    int deleteByUser(User user);
+    void deleteByUser(User user);
+
+    @Modifying
+    void deleteByUserId(UUID userId);
 }

@@ -2,7 +2,6 @@ package by.modsen.practice.group11.service.impl;
 
 import by.modsen.practice.group11.model.entity.Category;
 import by.modsen.practice.group11.service.CategoryService;
-//import com.example.practicemodsenjava.exceptionHandling.GlobalExceptionHandler;
 import by.modsen.practice.group11.model.dto.response.CategoryResponse;
 import by.modsen.practice.group11.mapper.CategoryMapper;
 import by.modsen.practice.group11.repository.CategoryRepository;

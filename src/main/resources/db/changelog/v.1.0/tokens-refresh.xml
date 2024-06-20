@@ -16,7 +16,7 @@
                 <constraints nullable="false"/>
             </column>
             <column name="user_id" type="uuid">
-                <constraints nullable="false" foreignKeyName="FK_tokens_refresh" references="users(id)"/>
+                <constraints nullable="false" unique="true" foreignKeyName="FK_tokens_refresh" references="users(id)"/>
             </column>
         </createTable>
     </changeSet>

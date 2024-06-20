@@ -41,11 +41,13 @@ public class User{
     @OneToOne(
             mappedBy = "user",
             cascade = CascadeType.ALL)
+    @ToString.Exclude
     private PersonalInfo personalInfo;
 
     @OneToOne(
             mappedBy = "user",
-            cascade = CascadeType.ALL)
+            cascade = CascadeType.REMOVE)
+    @ToString.Exclude
     private TokenRefresh tokenRefresh;
 
     @Override
@@ -63,39 +65,4 @@ public class User{
     public final int hashCode() {
         return this instanceof HibernateProxy ? ((HibernateProxy) this).getHibernateLazyInitializer().getPersistentClass().hashCode() : getClass().hashCode();
     }
-//
-//    @Override
-//    public Collection<? extends GrantedAuthority> getAuthorities() {
-//        return List.of(new SimpleGrantedAuthority(role.name()));
-//    }
-//
-//    @Override
-//    public String getUsername() {
-//        return login;
-//    }
-//
-//    @Override
-//    public String getPassword() {
-//        return password;
-//    }
-//
-//    @Override
-//    public boolean isAccountNonExpired() {
-//        return UserDetails.super.isAccountNonExpired();
-//    }
-//
-//    @Override
-//    public boolean isAccountNonLocked() {
-//        return UserDetails.super.isAccountNonLocked();
-//    }
-//
-//    @Override
-//    public boolean isCredentialsNonExpired() {
-//        return UserDetails.super.isCredentialsNonExpired();
-//    }
-//
-//    @Override
-//    public boolean isEnabled() {
-//        return UserDetails.super.isEnabled();
-//    }
 }

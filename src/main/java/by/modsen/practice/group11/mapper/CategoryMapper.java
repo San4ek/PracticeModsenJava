@@ -1,16 +1,13 @@
 package by.modsen.practice.group11.mapper;
 
-import by.modsen.practice.group11.model.entity.Category;
 import by.modsen.practice.group11.model.dto.response.CategoryResponse;
-import org.springframework.stereotype.Component;
+import by.modsen.practice.group11.model.entity.Category;
+import org.mapstruct.Mapper;
+import org.mapstruct.MappingConstants;
 
-@Component
-public class CategoryMapper {
+@Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
+public interface CategoryMapper {
 
-    public CategoryResponse toCategoryResponse(Category category) {
-        return new CategoryResponse(
-                category.getId(),
-                category.getName()
-        );
-    }
+    CategoryResponse toCategoryResponse(Category category);
+
 }

@@ -39,6 +39,7 @@ public class PersonalInfo {
 
     @OneToOne
     @JoinColumn(name = "user_id", nullable = false)
+    @ToString.Exclude
     private User user;
 
     @OneToMany(

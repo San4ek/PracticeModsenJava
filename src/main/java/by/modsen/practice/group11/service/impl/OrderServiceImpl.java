@@ -9,7 +9,6 @@ import by.modsen.practice.group11.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-//import com.example.practicemodsenjava.exceptionHandling.GlobalExceptionHandler;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
