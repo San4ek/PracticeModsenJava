@@ -1,6 +1,8 @@
 package com.example.practicemodsenjava.model.dto.request;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
+
 import com.example.practicemodsenjava.model.enums.Gender;
 import com.example.practicemodsenjava.model.enums.Role;
 import jakarta.validation.constraints.Email;
@@ -10,6 +12,9 @@ import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Size;
 
 public record UserRequest(
+
+        UUID id,
+
         @Email(message = "Email should be valid")
         @NotBlank(message = "Email is mandatory")
         @NotNull
