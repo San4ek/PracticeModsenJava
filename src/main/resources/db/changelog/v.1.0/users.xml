@@ -6,8 +6,8 @@
 
     <changeSet id="create-table-users" author="Ptuxa">
         <createTable tableName="users">
-            <column name="id" type="uuid" autoIncrement="1">
-                <constraints nullable="false" primaryKey="true"/>
+            <column name="id" type="${uuid_type}" valueComputed="${uuid_function}">
+                <constraints nullable="false" primaryKey="true" unique="true"/>
             </column>
             <column name="email" type="varchar(20)">
                 <constraints nullable="false" unique="true"/>

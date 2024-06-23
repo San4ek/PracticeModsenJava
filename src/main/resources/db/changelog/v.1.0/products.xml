@@ -6,8 +6,8 @@
 
     <changeSet id="create-product-table" author="Vladislav Protchenko">
         <createTable tableName="products">
-            <column name="id" type="uuid" autoIncrement="1">
-                <constraints nullable="false" primaryKey="true"/>
+            <column name="id" type="${uuid_type}" valueComputed="${uuid_function}">
+                <constraints nullable="false" primaryKey="true" unique="true"/>
             </column>
             <column name="category_id" type="uuid">
                 <constraints nullable="false" foreignKeyName="FK_products_category" references="categories(id)"/>
