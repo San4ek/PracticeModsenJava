@@ -5,6 +5,7 @@ import by.modsen.practice.group11.service.OrderItemService;
 import by.modsen.practice.group11.model.dto.response.OrderItemResponse;
 import by.modsen.practice.group11.mapper.OrderItemMapper;
 import by.modsen.practice.group11.repository.OrderItemRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,16 +14,11 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class OrderItemServiceImpl implements OrderItemService {
 
     private final OrderItemRepository orderItemRepository;
     private final OrderItemMapper orderItemMapper;
-
-    @Autowired
-    public OrderItemServiceImpl(OrderItemRepository orderItemRepository, OrderItemMapper orderItemMapper) {
-        this.orderItemRepository = orderItemRepository;
-        this.orderItemMapper = orderItemMapper;
-    }
 
     @Override
     @Transactional(readOnly = true)

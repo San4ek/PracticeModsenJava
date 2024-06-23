@@ -59,19 +59,19 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         }
 
         // Create new user's account
-        User user = userRepository.save(User.builder()
-                .email(signUpRequest.email())
-                .login(signUpRequest.login())
-                .password(passwordEncoder.encode(signUpRequest.password()))
-                .role(Role.ROLE_CUSTOMER)
-                .build());
         PersonalInfo personalInfo = PersonalInfo.builder()
                 .birthday(signUpRequest.birthday())
                 .fullName(signUpRequest.fullName())
                 .gender(signUpRequest.gender())
-                .user(user)
                 .build();
         personalInfoRepository.save(personalInfo);
+        userRepository.save(User.builder()
+                .email(signUpRequest.email())
+                .login(signUpRequest.login())
+                .password(passwordEncoder.encode(signUpRequest.password()))
+                .role(Role.ROLE_CUSTOMER)
+                .personalInfo(personalInfo)
+                .build());
 
         return new MessageResponse("User registered successfully!");
     }

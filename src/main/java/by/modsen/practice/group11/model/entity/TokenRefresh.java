@@ -23,7 +23,7 @@ public class TokenRefresh {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @Column(name = "access_token", nullable = false, unique = true)
+    @Column(name = "token", nullable = false, unique = true)
     private String token;
 
     @Column(name = "expiry_date", nullable = false)

@@ -1,5 +1,6 @@
 package by.modsen.practice.group11.mapper;
 
+import by.modsen.practice.group11.model.dto.request.ProductRequest;
 import by.modsen.practice.group11.model.dto.response.ProductResponse;
 import by.modsen.practice.group11.model.entity.Product;
 import org.mapstruct.Mapper;
@@ -11,5 +12,5 @@ public interface ProductMapper {
 
     @Mapping(target = "categoryId", source = "category.id")
     ProductResponse toProductResponse(Product product);
-
+    Product toProduct(ProductRequest productRequest);
 }

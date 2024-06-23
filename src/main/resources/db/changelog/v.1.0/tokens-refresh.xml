@@ -9,7 +9,7 @@
             <column name="id" type="uuid" autoIncrement="1">
                 <constraints nullable="false" primaryKey="true"/>
             </column>
-            <column name="access_token" type="varchar(300)">
+            <column name="token" type="varchar(300)">
                 <constraints nullable="false" unique="true"/>
             </column>
             <column name="expiry_date" type="timestamp">

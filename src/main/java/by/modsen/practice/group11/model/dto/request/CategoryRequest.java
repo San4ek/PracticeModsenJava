@@ -6,7 +6,7 @@ import jakarta.validation.constraints.Size;
 
 public record CategoryRequest(
         @NotBlank(message = "Name is mandatory")
-        @NotNull
         @Size(min = 1, max = 100, message = "Name should be between 1 and 100 characters")
-        String name) {}
+        String name
+) {}
 

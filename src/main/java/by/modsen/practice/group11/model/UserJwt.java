@@ -27,7 +27,7 @@ public class UserJwt implements UserDetails {
     private final Collection<? extends GrantedAuthority> accessRights;
 
     public static UserJwt build(User user) {
-        List<GrantedAuthority> accessRights = Arrays.asList(new SimpleGrantedAuthority(user.getRole().name()));
+        List<GrantedAuthority> accessRights = List.of(new SimpleGrantedAuthority(user.getRole().name()));
         return new UserJwt(
                 user.getId(),
                 user.getLogin(),

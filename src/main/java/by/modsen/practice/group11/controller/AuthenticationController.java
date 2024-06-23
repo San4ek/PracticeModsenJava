@@ -26,12 +26,11 @@ public class AuthenticationController {
     }
 
     @PostMapping("/sign-up")
-    @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<MessageResponse> signUpUser(@Valid @RequestBody SignUpRequest signupRequest) {
         return ResponseEntity.ok(authenticationService.signUpUser(signupRequest));
     }
 
-    @PostMapping("/signout")
+    @PostMapping("/logout")
     public ResponseEntity<MessageResponse> logoutUser() {
         return ResponseEntity.ok(authenticationService.logoutUser());
     }

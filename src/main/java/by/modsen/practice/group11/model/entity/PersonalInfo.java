@@ -33,12 +33,14 @@ public class PersonalInfo {
     @Column(name = "gender")
     private Gender gender;
 
-    @JsonFormat(pattern="dd-MM-yyyy")
+    @JsonFormat(pattern = "dd-MM-yyyy")
     @Column(name = "birthday")
     private LocalDate birthday;
 
-    @OneToOne
-    @JoinColumn(name = "user_id", nullable = false)
+    @OneToOne(
+            mappedBy = "personalInfo",
+            cascade = CascadeType.ALL
+    )
     @ToString.Exclude
     private User user;
 

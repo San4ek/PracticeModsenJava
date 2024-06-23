@@ -18,7 +18,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "users")
-public class User{
+public class User {
     @Id
     @UuidGenerator
     @Column(name = "id", nullable = false)
@@ -38,9 +38,8 @@ public class User{
     @Column(name = "role", nullable = false)
     private Role role;
 
-    @OneToOne(
-            mappedBy = "user",
-            cascade = CascadeType.ALL)
+    @OneToOne
+    @JoinColumn(name = "personal_info_id", nullable = false)
     @ToString.Exclude
     private PersonalInfo personalInfo;
 

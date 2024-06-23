@@ -1,11 +1,14 @@
 package by.modsen.practice.group11.service.impl;
 
+import by.modsen.practice.group11.model.dto.request.ProductRequest;
+import by.modsen.practice.group11.model.entity.Category;
 import by.modsen.practice.group11.model.entity.Product;
+import by.modsen.practice.group11.repository.CategoryRepository;
 import by.modsen.practice.group11.service.ProductService;
 import by.modsen.practice.group11.model.dto.response.ProductResponse;
 import by.modsen.practice.group11.mapper.ProductMapper;
 import by.modsen.practice.group11.repository.ProductRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
@@ -13,16 +16,13 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository productRepository;
+    private final CategoryRepository categoryRepository;
     private final ProductMapper productMapper;
 
-    @Autowired
-    public ProductServiceImpl(ProductRepository productRepository, ProductMapper productMapper) {
-        this.productRepository = productRepository;
-        this.productMapper = productMapper;
-    }
 
     @Override
     @Transactional(readOnly = true)
@@ -41,23 +41,29 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    @Transactional
-    public ProductResponse createProduct(UUID categoryId, String productName) {
-        Product product = new Product();
-        // Set properties for product
-        // product.setCategory(...);
-        // product.setName(productName);
+    public List<ProductResponse> getProductByCategoryName(String categoryName) {
+        List<Product> products = productRepository.findByCategory_Name(categoryName);
+        return products.stream()
+                .map(productMapper::toProductResponse)
+                .toList();
+    }
 
-        Product savedProduct = productRepository.save(product);
+    @Override
+    @Transactional
+    public ProductResponse createProduct(UUID categoryId, ProductRequest productRequest) {
+        // TODO добавить исключения
+        Category category = categoryRepository.findById(categoryId).get();
+
+        Product savedProduct = productRepository.save(productMapper.toProduct(productRequest));
+        savedProduct.setCategory(category);
         return productMapper.toProductResponse(savedProduct);
     }
 
     @Override
     @Transactional
-    public ProductResponse updateProduct(UUID productId, String productName) {
+    public ProductResponse updateProduct(UUID productId, ProductRequest productRequest) {
         Product product = getProductOrThrow(productId);
-        // Update properties for product
-        // product.setName(productName);
+        product.setName(productRequest.name());
 
         Product updatedProduct = productRepository.save(product);
         return productMapper.toProductResponse(updatedProduct);

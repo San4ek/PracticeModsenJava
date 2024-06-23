@@ -21,6 +21,9 @@
             <column name="role" type="varchar(45)">
                 <constraints nullable="false"/>
             </column>
+            <column name="personal_info_id" type="uuid">
+                <constraints nullable="false" foreignKeyName="FK_user_personal_info" references="personal_info(id)"/>
+            </column>
         </createTable>
     </changeSet>
 </databaseChangeLog>

@@ -1,11 +1,12 @@
 package by.modsen.practice.group11.service.impl;
 
+import by.modsen.practice.group11.model.dto.request.CategoryRequest;
 import by.modsen.practice.group11.model.entity.Category;
 import by.modsen.practice.group11.service.CategoryService;
 import by.modsen.practice.group11.model.dto.response.CategoryResponse;
 import by.modsen.practice.group11.mapper.CategoryMapper;
 import by.modsen.practice.group11.repository.CategoryRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,16 +15,11 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class CategoryServiceImpl implements CategoryService {
 
     private final CategoryRepository categoryRepository;
     private final CategoryMapper categoryMapper;
-
-    @Autowired
-    public CategoryServiceImpl(CategoryRepository categoryRepository, CategoryMapper categoryMapper) {
-        this.categoryRepository = categoryRepository;
-        this.categoryMapper = categoryMapper;
-    }
 
     @Override
     @Transactional(readOnly = true)
@@ -43,18 +39,16 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     @Transactional
-    public CategoryResponse createCategory(String categoryName) {
-        Category category = new Category();
-        category.setName(categoryName);
-        Category savedCategory = categoryRepository.save(category);
+    public CategoryResponse createCategory(CategoryRequest categoryRequest) {
+        Category savedCategory = categoryRepository.save(categoryMapper.toCategory(categoryRequest));
         return categoryMapper.toCategoryResponse(savedCategory);
     }
 
     @Override
     @Transactional
-    public CategoryResponse updateCategory(UUID categoryId, String categoryName) {
+    public CategoryResponse updateCategory(UUID categoryId, CategoryRequest categoryRequest) {
         Category category = getCategoryOrThrow(categoryId);
-        category.setName(categoryName);
+        category.setName(categoryRequest.name());
         Category updatedCategory = categoryRepository.save(category);
         return categoryMapper.toCategoryResponse(updatedCategory);
     }

@@ -12,5 +12,5 @@ public record OrderRequest(
 
         @NotEmpty(message = "Order items are mandatory")
         @Valid
-        List<by.modsen.practice.group11.model.dto.request.OrderItemRequest> orderItems
+        List<OrderItemRequest> orderItems
 ) {}

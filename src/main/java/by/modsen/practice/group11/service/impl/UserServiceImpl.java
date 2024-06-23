@@ -1,6 +1,8 @@
 package by.modsen.practice.group11.service.impl;
 
+import by.modsen.practice.group11.mapper.PersonalInfoMapper;
 import by.modsen.practice.group11.mapper.UserMapper;
+import by.modsen.practice.group11.model.dto.request.UserRequest;
 import by.modsen.practice.group11.model.dto.response.UserResponse;
 import by.modsen.practice.group11.model.entity.User;
 import by.modsen.practice.group11.model.enums.Role;
@@ -14,12 +16,13 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-@RequiredArgsConstructor
 @Service
+@RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final UserMapper userMapper;
+    private final PersonalInfoMapper personalInfoMapper;
 
     @Override
     @Transactional(readOnly = true)
@@ -39,33 +42,20 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public UserResponse createUser(String email, String login, String password, Role role) {
-        User user = new User();
-        // Set properties for user
-        // user.setEmail(email);
-        // user.setLogin(login);
-        // user.setPassword(password);
-        // user.setFullName(fullName);
-        // user.setGender(gender);
-        // user.setBirthday(birthday);
-        // user.setRole(role);
-
-        User savedUser = userRepository.save(user);
+    public UserResponse createUser(UserRequest userRequest) {
+        User savedUser = userRepository.save(userMapper.toUser(userRequest));
         return userMapper.toUserResponse(savedUser);
     }
 
     @Override
     @Transactional
-    public UserResponse updateUser(UUID userId, String email, String login, Role role) {
+    public UserResponse updateUser(UUID userId, UserRequest userRequest) {
         User user = getUserOrThrow(userId);
-        // Update properties for user
-        // user.setEmail(email);
-        // user.setLogin(login);
-        // user.setFullName(fullName);
-        // user.setGender(gender);
-        // user.setBirthday(birthday);
-        // user.setRole(role);
-
+        user.setEmail(userRequest.email());
+        user.setRole(userRequest.role());
+        user.setLogin(userRequest.login());
+        user.setPassword(userRequest.password());
+        user.setPersonalInfo(personalInfoMapper.toPersonalInfo(userRequest.personalInfoRequest()));
         User updatedUser = userRepository.save(user);
         return userMapper.toUserResponse(updatedUser);
     }

@@ -1,5 +1,6 @@
 package by.modsen.practice.group11.service;
 
+import by.modsen.practice.group11.model.dto.request.UserRequest;
 import by.modsen.practice.group11.model.dto.response.UserResponse;
 import by.modsen.practice.group11.model.enums.Gender;
 import by.modsen.practice.group11.model.enums.Role;
@@ -14,9 +15,9 @@ public interface UserService {
 
     List<UserResponse> getAllUsers();
 
-    UserResponse createUser(String email, String login, String password, Role role);
+    UserResponse createUser(UserRequest userRequest);
 
-    UserResponse updateUser(UUID userId, String email, String login, Role role);
+    UserResponse updateUser(UUID userId, UserRequest userRequest);
 
     void deleteUser(UUID userId);
 }

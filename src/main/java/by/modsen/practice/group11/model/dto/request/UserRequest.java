@@ -1,10 +1,10 @@
 package by.modsen.practice.group11.model.dto.request;
 
-import by.modsen.practice.group11.model.enums.Gender;
 import by.modsen.practice.group11.model.enums.Role;
-import jakarta.validation.constraints.*;
-
-import java.time.LocalDateTime;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 public record UserRequest(
         @Email(message = "Email should be valid")
@@ -23,18 +23,9 @@ public record UserRequest(
         @Size(min = 8, max = 300, message = "Password should be between 8 and 300 characters")
         String password,
 
-        @NotNull
-        @Size(max = 45, message = "Full name should not be longer than 45 characters")
-        String fullName,
-
-        @NotNull(message = "Gender is mandatory")
-        Gender gender,
-
-        @Past(message = "Birthday must be in the past")
-        LocalDateTime birthday,
-
         @NotNull(message = "Role is mandatory")
-        Role role
-) {
+        Role role,
 
-}
+        @NotNull(message = "Personal info is mandatory")
+        PersonalInfoRequest personalInfoRequest
+) { }

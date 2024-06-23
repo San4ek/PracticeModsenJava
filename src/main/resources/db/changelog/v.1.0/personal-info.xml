@@ -18,9 +18,9 @@
             <column name="birthday" type="date">
                 <constraints/>
             </column>
-            <column name="user_id" type="uuid">
-                <constraints nullable="false" foreignKeyName="FK_personal_info_user" references="users(id)"/>
-            </column>
+<!--            <column name="user_id" type="uuid">-->
+<!--                <constraints nullable="false" foreignKeyName="FK_personal_info_user" references="users(id)"/>-->
+<!--            </column>-->
         </createTable>
     </changeSet>
 </databaseChangeLog>
