@@ -1,11 +1,10 @@
 package by.modsen.practice.group11.service.impl;
 
-import by.modsen.practice.group11.mapper.PersonalInfoMapper;
-import by.modsen.practice.group11.mapper.UserMapper;
+import by.modsen.practice.group11.service.mapper.PersonalInfoMapper;
+import by.modsen.practice.group11.service.mapper.UserMapper;
 import by.modsen.practice.group11.model.dto.request.UserRequest;
 import by.modsen.practice.group11.model.dto.response.UserResponse;
 import by.modsen.practice.group11.model.entity.User;
-import by.modsen.practice.group11.model.enums.Role;
 import by.modsen.practice.group11.repository.UserRepository;
 import by.modsen.practice.group11.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +14,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
+
+// ToDo: Change service methods
 
 @Service
 @RequiredArgsConstructor

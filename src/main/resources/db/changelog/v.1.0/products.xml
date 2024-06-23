@@ -6,7 +6,7 @@
 
     <changeSet id="create-product-table" author="Vladislav Protchenko">
         <createTable tableName="products">
-            <column name="id" type="uuid" autoIncrement="1">
+            <column name="id" type="uuid" valueComputed="${uuid_function}">
                 <constraints nullable="false" primaryKey="true"/>
             </column>
             <column name="category_id" type="uuid">

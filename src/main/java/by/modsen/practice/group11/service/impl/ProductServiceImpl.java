@@ -6,7 +6,7 @@ import by.modsen.practice.group11.model.entity.Product;
 import by.modsen.practice.group11.repository.CategoryRepository;
 import by.modsen.practice.group11.service.ProductService;
 import by.modsen.practice.group11.model.dto.response.ProductResponse;
-import by.modsen.practice.group11.mapper.ProductMapper;
+import by.modsen.practice.group11.service.mapper.ProductMapper;
 import by.modsen.practice.group11.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,6 +14,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
+
+// ToDo: Change service methods
 
 @Service
 @RequiredArgsConstructor

@@ -6,7 +6,7 @@
 
     <changeSet id="create-tokens-refresh-table" author="Ptuxa">
         <createTable tableName="tokens_refresh">
-            <column name="id" type="uuid" autoIncrement="1">
+            <column name="id" type="uuid" valueComputed="${uuid_function}">
                 <constraints nullable="false" primaryKey="true"/>
             </column>
             <column name="token" type="varchar(300)">

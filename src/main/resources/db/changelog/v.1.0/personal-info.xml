@@ -6,7 +6,7 @@
 
     <changeSet id="create-table-personal-info" author="Ptuxa">
         <createTable tableName="personal_info">
-            <column name="id" type="uuid" autoIncrement="1">
+            <column name="id" type="uuid" valueComputed="${uuid_function}">
                 <constraints nullable="false" primaryKey="true"/>
             </column>
             <column name="full_name" type="varchar(45)">

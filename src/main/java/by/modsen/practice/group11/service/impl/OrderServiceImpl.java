@@ -1,6 +1,6 @@
 package by.modsen.practice.group11.service.impl;
 
-import by.modsen.practice.group11.mapper.OrderItemMapper;
+import by.modsen.practice.group11.service.mapper.OrderItemMapper;
 import by.modsen.practice.group11.model.UserJwt;
 import by.modsen.practice.group11.model.entity.Order;
 import by.modsen.practice.group11.model.entity.OrderItem;
@@ -11,7 +11,7 @@ import by.modsen.practice.group11.repository.UserRepository;
 import by.modsen.practice.group11.service.OrderService;
 import by.modsen.practice.group11.model.dto.request.OrderItemRequest;
 import by.modsen.practice.group11.model.dto.response.OrderResponse;
-import by.modsen.practice.group11.mapper.OrderMapper;
+import by.modsen.practice.group11.service.mapper.OrderMapper;
 import by.modsen.practice.group11.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -22,6 +22,8 @@ import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+
+// ToDo: Change service methods
 @Service
 @RequiredArgsConstructor
 public class OrderServiceImpl implements OrderService {
@@ -78,7 +80,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     @Transactional
     public void removeOrderItemFromOrder(UUID orderId, UUID orderItemId) {
-        orderItemRepository.deleteByOrderIdAndId(orderId, orderItemId);
+//        orderItemRepository.deleteByOrderIdAndId(orderId, orderItemId);
     }
 
     @Override
@@ -90,7 +92,7 @@ public class OrderServiceImpl implements OrderService {
 
     private Order getOrderOrThrow(UUID orderId) {
         return orderRepository.findById(orderId)
-                .orElseThrow(); // ToDo: Create exception
+                .orElseThrow();
 //                .orElseThrow(() -> new GlobalExceptionHandler("Order with id " + orderId + " not found"));
     }
 }

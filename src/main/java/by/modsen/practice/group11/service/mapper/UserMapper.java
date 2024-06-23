@@ -1,4 +1,4 @@
-package by.modsen.practice.group11.mapper;
+package by.modsen.practice.group11.service.mapper;
 
 import by.modsen.practice.group11.model.dto.request.UserRequest;
 import by.modsen.practice.group11.model.dto.response.UserResponse;
@@ -6,6 +6,8 @@ import by.modsen.practice.group11.model.entity.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;
+
+// ToDo: Change mapper
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface UserMapper {

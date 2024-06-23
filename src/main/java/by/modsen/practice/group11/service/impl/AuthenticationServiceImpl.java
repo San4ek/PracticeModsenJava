@@ -26,6 +26,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.UUID;
 
+// ToDo: Change service methods
+
 @Service
 @RequiredArgsConstructor
 public class AuthenticationServiceImpl implements AuthenticationService {
