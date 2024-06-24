@@ -14,5 +14,7 @@ public interface ProductMapper {
 
     @Mapping(target = "categoryId", source = "category.id")
     ProductResponse toProductResponse(Product product);
+
+    @Mapping(source = "categoryId", target = "category", qualifiedByName = "categoryRefFromCategoryId")
     Product toProduct(ProductRequest productRequest);
 }

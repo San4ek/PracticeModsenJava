@@ -57,6 +57,7 @@ public class WebSecurityConfiguration { // extends WebSecurityConfigurerAdapter 
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(AbstractHttpConfigurer::disable)
                 .sessionManagement(config -> config.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                ,
                 .authorizeHttpRequests(auth -> {
                     auth.
                             requestMatchers("auth/**").permitAll().

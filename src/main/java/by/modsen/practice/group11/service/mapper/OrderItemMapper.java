@@ -7,7 +7,7 @@ import org.mapstruct.*;
 
 import java.util.List;
 
-@Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
+@Mapper(componentModel = MappingConstants.ComponentModel.SPRING, uses = CustomMapper.class)
 public interface OrderItemMapper {
     OrderItemResponse toOrderItemResponse(OrderItem orderItem);
 
@@ -16,5 +16,6 @@ public interface OrderItemMapper {
     List<OrderItemResponse> toOrderItemResponseList(List<OrderItem> ordersItems);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    @Mapping(source = "storyId", target = "story", qualifiedByName = "storyRefFromStoryId")
     OrderItem partialUpdate(OrderItemRequest categoryRequest, @MappingTarget OrderItem category);
 }

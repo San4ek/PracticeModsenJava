@@ -36,6 +36,9 @@ public class ProductServiceImpl implements ProductService {
     @Override
     @Transactional(readOnly = true)
     public List<ProductResponse> getProductsByCategoryId(UUID categoryId) {
+//        categoryRepository.findById(categoryId).orElseThrow(() -> new )
+
+
         List<Product> products = productRepository.findByCategory_Id(categoryId);
         return products.stream()
                 .map(productMapper::toProductResponse)
