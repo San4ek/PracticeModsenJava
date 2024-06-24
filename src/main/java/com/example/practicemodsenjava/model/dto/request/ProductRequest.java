@@ -6,6 +6,9 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 public record ProductRequest(
+
+        UUID id,
+
         @NotNull(message = "Category ID is mandatory")
         UUID categoryId,
 
