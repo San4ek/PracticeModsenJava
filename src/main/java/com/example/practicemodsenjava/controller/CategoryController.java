@@ -5,6 +5,7 @@ import com.example.practicemodsenjava.model.dto.response.CategoryListResponse;
 import com.example.practicemodsenjava.model.dto.response.CategoryResponse;
 import com.example.practicemodsenjava.service.CategoryService;
 import com.example.practicemodsenjava.service.impl.CategoryServiceImpl;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,21 +17,15 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.UUID;
 
 @RestController
 @RequestMapping("/categories")
+@RequiredArgsConstructor
 public class CategoryController {
 
-    private final CategoryService categoryService;
-
-    @Autowired
-    public CategoryController(CategoryServiceImpl categoryServiceImpl){
-        this.categoryService = categoryServiceImpl;
-    }
+    private final CategoryServiceImpl categoryService;
 
     @GetMapping("/{id}")
     public ResponseEntity<CategoryResponse> getCategoryById(@PathVariable UUID id) throws NoSuchElementException {
@@ -53,9 +48,9 @@ public class CategoryController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteCategory(@PathVariable UUID id){
+    public ResponseEntity<UUID> deleteCategory(@PathVariable UUID id){
         categoryService.deleteCategory(id);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(id, HttpStatus.OK);
     }
 
 }

@@ -4,9 +4,8 @@ import com.example.practicemodsenjava.mapper.ProductMapper;
 import com.example.practicemodsenjava.model.dto.request.ProductRequest;
 import com.example.practicemodsenjava.model.dto.response.ProductListResponse;
 import com.example.practicemodsenjava.model.dto.response.ProductResponse;
-import com.example.practicemodsenjava.service.ProductService;
 import com.example.practicemodsenjava.service.impl.ProductServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -22,16 +21,11 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/products")
+@RequiredArgsConstructor
 public class ProductController {
 
-    private final ProductService productService;
+    private final ProductServiceImpl productService;
     private final ProductMapper productMapper;
-
-    @Autowired
-    public ProductController(ProductServiceImpl productServiceImpl, ProductMapper productMapper){
-        this.productService = productServiceImpl;
-        this.productMapper = productMapper;
-    }
 
     @GetMapping
     public ResponseEntity<ProductListResponse> getAllProducts() {
@@ -59,9 +53,9 @@ public class ProductController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteProduct(@PathVariable UUID id) throws NoSuchElementException{
+    public ResponseEntity<UUID> deleteProduct(@PathVariable UUID id) throws NoSuchElementException{
         productService.deleteProduct(id);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(id, HttpStatus.OK);
     }
 
 }

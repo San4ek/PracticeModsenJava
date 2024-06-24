@@ -4,9 +4,8 @@ import com.example.practicemodsenjava.mapper.OrderMapper;
 import com.example.practicemodsenjava.model.dto.request.OrderRequest;
 import com.example.practicemodsenjava.model.dto.response.OrderListResponse;
 import com.example.practicemodsenjava.model.dto.response.OrderResponse;
-import com.example.practicemodsenjava.service.OrderService;
 import com.example.practicemodsenjava.service.impl.OrderServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -17,23 +16,16 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.UUID;
 
 @RestController
 @RequestMapping("/orders")
+@RequiredArgsConstructor
 public class OrderController {
 
-    private final OrderService orderService;
+    private final OrderServiceImpl orderService;
     private final OrderMapper orderMapper;
-
-    @Autowired
-    public OrderController(OrderServiceImpl orderServiceImpl, OrderMapper orderMapper){
-        this.orderService = orderServiceImpl;
-        this.orderMapper = orderMapper;
-    }
 
     @GetMapping("/{id}")
     public ResponseEntity<OrderResponse> getOrderById(@PathVariable UUID id) throws NoSuchElementException {
@@ -61,9 +53,9 @@ public class OrderController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteOrder(@PathVariable UUID id){
+    public ResponseEntity<UUID> deleteOrder(@PathVariable UUID id){
         orderService.deleteOrder(id);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(id, HttpStatus.OK);
     }
 
 }

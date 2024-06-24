@@ -6,6 +6,7 @@ import com.example.practicemodsenjava.model.dto.response.UserListResponse;
 import com.example.practicemodsenjava.model.dto.response.UserResponse;
 import com.example.practicemodsenjava.service.UserService;
 import com.example.practicemodsenjava.service.impl.UserServiceImpl;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,16 +23,11 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/users")
+@RequiredArgsConstructor
 public class UserController {
 
-    private final UserService userService;
+    private final UserServiceImpl userService;
     private final UserMapper userMapper;
-
-    @Autowired
-    public UserController(UserServiceImpl userServiceImpl, UserMapper userMapper){
-        this.userService = userServiceImpl;
-        this.userMapper = userMapper;
-    }
 
     @GetMapping("/{id}")
     public ResponseEntity<UserResponse> getUser(@PathVariable UUID id) throws NoSuchElementException {
@@ -54,9 +50,9 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteUser(@PathVariable UUID id){
+    public ResponseEntity<UUID> deleteUser(@PathVariable UUID id){
         userService.deleteUser(id);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(id, HttpStatus.OK);
     }
 
 }

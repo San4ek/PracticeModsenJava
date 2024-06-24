@@ -3,9 +3,8 @@ package com.example.practicemodsenjava.controller;
 import com.example.practicemodsenjava.model.dto.request.OrderItemRequest;
 import com.example.practicemodsenjava.model.dto.response.OrderItemListResponse;
 import com.example.practicemodsenjava.model.dto.response.OrderItemResponse;
-import com.example.practicemodsenjava.service.OrderItemService;
 import com.example.practicemodsenjava.service.impl.OrderItemServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -15,20 +14,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 import java.util.UUID;
 
 @RestController
 @RequestMapping("/orders/{id}/items")
+@RequiredArgsConstructor
 public class OrderItemController {
 
-    private final OrderItemService orderItemService;
-
-    @Autowired
-    public OrderItemController(OrderItemServiceImpl orderItemServiceImpl){
-        this.orderItemService = orderItemServiceImpl;
-    }
+    private final OrderItemServiceImpl orderItemService;
 
     @GetMapping()
     public ResponseEntity<OrderItemListResponse> getOrderItemsByOrderId(@PathVariable UUID id){
@@ -41,9 +34,9 @@ public class OrderItemController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteOrderItem(@PathVariable UUID id){
+    public ResponseEntity<UUID> deleteOrderItem(@PathVariable UUID id){
         orderItemService.deleteOrderItem(id);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(id, HttpStatus.OK);
     }
 
 
