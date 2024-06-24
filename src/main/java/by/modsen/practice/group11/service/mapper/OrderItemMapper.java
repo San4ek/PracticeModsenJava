@@ -7,15 +7,22 @@ import org.mapstruct.*;
 
 import java.util.List;
 
+//ToDo change mapper
+
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING, uses = CustomMapper.class)
 public interface OrderItemMapper {
+    @Mapping(target = "productId", source = "product.id")
+    @Mapping(target = "orderId", source = "order.id")
     OrderItemResponse toOrderItemResponse(OrderItem orderItem);
-
-    OrderItem toOrderItem(OrderItemRequest orderItem);
 
     List<OrderItemResponse> toOrderItemResponseList(List<OrderItem> ordersItems);
 
+    @Mapping(source = "orderId", target = "order", qualifiedByName = "orderRefFromOrderId")
+    @Mapping(source = "productId", target = "product", qualifiedByName = "productRefFromProductId")
+    OrderItem toOrderItem(OrderItemRequest orderItem);
+
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    @Mapping(source = "storyId", target = "story", qualifiedByName = "storyRefFromStoryId")
+    @Mapping(source = "orderId", target = "order", qualifiedByName = "orderRefFromOrderId")
+    @Mapping(source = "productId", target = "product", qualifiedByName = "productRefFromProductId")
     OrderItem partialUpdate(OrderItemRequest categoryRequest, @MappingTarget OrderItem category);
 }

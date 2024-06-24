@@ -1,5 +1,6 @@
 package by.modsen.practice.group11.model.dto.request;
 
+import by.modsen.practice.group11.model.entity.PersonalInfo;
 import by.modsen.practice.group11.model.enums.Role;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -27,5 +28,5 @@ public record UserRequest(
         Role role,
 
         @NotNull(message = "Personal info is mandatory")
-        PersonalInfoRequest personalInfoRequest
+        PersonalInfo personalInfoId
 ) { }

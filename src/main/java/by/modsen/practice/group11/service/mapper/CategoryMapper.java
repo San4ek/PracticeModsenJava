@@ -11,8 +11,10 @@ import java.util.List;
 public interface CategoryMapper {
 
     CategoryResponse toCategoryResponse(Category category);
-    Category toCategory(CategoryRequest categoryRequest);
+
     List<CategoryResponse> toCategoryResponseList(List<Category> categories);
+
+    Category toCategory(CategoryRequest categoryRequest);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     Category partialUpdate(CategoryRequest categoryRequest, @MappingTarget Category category);
