@@ -6,16 +6,16 @@ import by.modsen.practice.group11.model.entity.Product;
 import by.modsen.practice.group11.repository.CategoryRepository;
 import by.modsen.practice.group11.service.ProductService;
 import by.modsen.practice.group11.model.dto.response.ProductResponse;
+import by.modsen.practice.group11.service.exception.ResourceNotFoundException;
 import by.modsen.practice.group11.service.mapper.ProductMapper;
 import by.modsen.practice.group11.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
-
-// ToDo: Change service methods
 
 @Service
 @RequiredArgsConstructor
@@ -25,66 +25,67 @@ public class ProductServiceImpl implements ProductService {
     private final CategoryRepository categoryRepository;
     private final ProductMapper productMapper;
 
-
     @Override
     @Transactional(readOnly = true)
     public ProductResponse getProductById(UUID productId) {
-        Product product = getProductOrThrow(productId);
-        return productMapper.toProductResponse(product);
+        return productMapper.toProductResponse(getProductOrThrow(productId));
     }
 
     @Override
     @Transactional(readOnly = true)
     public List<ProductResponse> getProductsByCategoryId(UUID categoryId) {
-//        categoryRepository.findById(categoryId).orElseThrow(() -> new )
+        return productMapper.toProductResponseList(getProductsByCategory(categoryId));
+    }
 
-
-        List<Product> products = productRepository.findByCategory_Id(categoryId);
-        return products.stream()
-                .map(productMapper::toProductResponse)
-                .collect(Collectors.toList());
+    @Override
+    public List<ProductResponse> getAllProducts() {
+        return productMapper.toProductResponseList(productRepository.findAll());
     }
 
     @Override
     public List<ProductResponse> getProductByCategoryName(String categoryName) {
-        List<Product> products = productRepository.findByCategory_Name(categoryName);
-        return products.stream()
-                .map(productMapper::toProductResponse)
-                .toList();
+        return productMapper.toProductResponseList(
+                getProductsByCategory(categoryName));
     }
 
     @Override
     @Transactional
-    public ProductResponse createProduct(UUID categoryId, ProductRequest productRequest) {
-        // TODO добавить исключения
-        Category category = categoryRepository.findById(categoryId).get();
-
-        Product savedProduct = productRepository.save(productMapper.toProduct(productRequest));
-        savedProduct.setCategory(category);
-        return productMapper.toProductResponse(savedProduct);
+    public ProductResponse createProduct(ProductRequest productRequest) {
+        return productMapper.toProductResponse(
+                productRepository.save(productMapper.toProduct(productRequest)));
     }
 
     @Override
     @Transactional
     public ProductResponse updateProduct(UUID productId, ProductRequest productRequest) {
-        Product product = getProductOrThrow(productId);
-        product.setName(productRequest.name());
-
-        Product updatedProduct = productRepository.save(product);
-        return productMapper.toProductResponse(updatedProduct);
+        return productMapper.toProductResponse(
+                productRepository.save(productMapper.partialUpdate(productRequest, getProductOrThrow(productId))));
     }
 
     @Override
     @Transactional
     public void deleteProduct(UUID productId) {
-        Product product = getProductOrThrow(productId);
-        productRepository.delete(product);
+        getProductOrThrow(productId);
+        productRepository.deleteById(productId);
     }
 
 
     private Product getProductOrThrow(UUID productId) {
         return productRepository.findById(productId)
-                .orElseThrow(); // ToDo: Create exception
-//                .orElseThrow(() -> new GlobalExceptionHandler("Product with id " + productId + " not found"));
+                .orElseThrow(() -> new ResourceNotFoundException(HttpStatus.NOT_FOUND.value() * 100 + 21, "Can't find product by id = " + productId));
+    }
+
+    private List<Product> getProductsByCategory(String categoryName) {
+        categoryRepository.findCategoryByName(categoryName)
+                .orElseThrow(() -> new ResourceNotFoundException(HttpStatus.NOT_FOUND.value() * 100 + 21, "Can't find category by name = " + categoryName));
+
+        return productRepository.findByCategoryName(categoryName);
+    }
+
+    private List<Product> getProductsByCategory(UUID categoryId) {
+        categoryRepository.findById(categoryId)
+                .orElseThrow(() -> new ResourceNotFoundException(HttpStatus.NOT_FOUND.value() * 100 + 21, "Can't find category by id = " + categoryId));
+
+        return productRepository.findByCategoryId(categoryId);
     }
 }

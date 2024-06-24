@@ -1,7 +1,11 @@
 package by.modsen.practice.group11.service.mapper;
 
+import by.modsen.practice.group11.model.entity.Category;
+import by.modsen.practice.group11.repository.CategoryRepository;
 import by.modsen.practice.group11.model.entity.*;
 import by.modsen.practice.group11.repository.*;
+import by.modsen.practice.group11.repository.CategoryRepository;
+import by.modsen.practice.group11.repository.PersonalInfoRepository;
 import by.modsen.practice.group11.service.exception.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.mapstruct.Named;
