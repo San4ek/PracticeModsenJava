@@ -1,44 +1,67 @@
 package com.example.practicemodsenjava.controller;
 
+import com.example.practicemodsenjava.mapper.ProductMapper;
 import com.example.practicemodsenjava.model.dto.request.ProductRequest;
+import com.example.practicemodsenjava.model.dto.response.ProductListResponse;
 import com.example.practicemodsenjava.model.dto.response.ProductResponse;
 import com.example.practicemodsenjava.service.ProductService;
+import com.example.practicemodsenjava.service.impl.ProductServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import java.util.NoSuchElementException;
 import java.util.UUID;
 
 @RestController
 @RequestMapping("/products")
 public class ProductController {
 
-    @Autowired
-    private ProductService productService;
+    private final ProductService productService;
+    private final ProductMapper productMapper;
 
-    @GetMapping("/{id}")
-    public ProductResponse getProduct(@PathVariable UUID id){
-        return productService.getProductById(id);
+    @Autowired
+    public ProductController(ProductServiceImpl productServiceImpl, ProductMapper productMapper){
+        this.productService = productServiceImpl;
+        this.productMapper = productMapper;
     }
 
-    @GetMapping("/{categoryId}")
-    public List<ProductResponse> getProductsByCategoryId(@PathVariable UUID categoryId){
-        return productService.getProductsByCategoryId(categoryId);
+    @GetMapping
+    public ResponseEntity<ProductListResponse> getAllProducts() {
+        return new ResponseEntity<>(new ProductListResponse(productService.getAllProducts()), HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ProductResponse> getProduct(@PathVariable UUID id) throws NoSuchElementException {
+        return new ResponseEntity<>(productService.getProductById(id), HttpStatus.OK);
+    }
+
+    @GetMapping("/category/{categoryId}")
+    public ResponseEntity<ProductListResponse> getProductsByCategoryId(@PathVariable UUID categoryId){
+        return new ResponseEntity<>(new ProductListResponse(productService.getProductsByCategoryId(categoryId)), HttpStatus.OK);
     }
 
     @PostMapping()
-    public ProductResponse createProduct(@RequestBody ProductRequest productRequest){
-        return productService.createProduct(productRequest.categoryId(), productRequest.name());
+    public ResponseEntity<ProductResponse> createProduct(@RequestBody ProductRequest productRequest){
+        return new ResponseEntity<>(productService.createProduct(productMapper.toProduct(productRequest)), HttpStatus.CREATED);
     }
 
-    @PutMapping()
-    public ProductResponse updateProduct(@RequestBody ProductRequest productRequest){
-        return productService.updateProduct(productRequest.id(), productRequest.name());
+    @PutMapping("/{id}")
+    public ResponseEntity<ProductResponse> updateProduct(@PathVariable UUID id, @RequestBody ProductRequest productRequest) throws NoSuchElementException{
+        return new ResponseEntity<>(productService.updateProduct(id, productMapper.toProduct(productRequest)), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteProduct(@PathVariable UUID id){
+    public ResponseEntity<Void> deleteProduct(@PathVariable UUID id) throws NoSuchElementException{
         productService.deleteProduct(id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }
