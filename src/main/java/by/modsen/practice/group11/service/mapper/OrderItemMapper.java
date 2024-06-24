@@ -7,8 +7,6 @@ import org.mapstruct.*;
 
 import java.util.List;
 
-//ToDo change mapper
-
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING, uses = CustomMapper.class)
 public interface OrderItemMapper {
     @Mapping(target = "productId", source = "product.id")
@@ -19,10 +17,10 @@ public interface OrderItemMapper {
 
     @Mapping(source = "orderId", target = "order", qualifiedByName = "orderRefFromOrderId")
     @Mapping(source = "productId", target = "product", qualifiedByName = "productRefFromProductId")
-    OrderItem toOrderItem(OrderItemRequest orderItem);
+    OrderItem toOrderItem(OrderItemRequest orderItemRequest);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     @Mapping(source = "orderId", target = "order", qualifiedByName = "orderRefFromOrderId")
     @Mapping(source = "productId", target = "product", qualifiedByName = "productRefFromProductId")
-    OrderItem partialUpdate(OrderItemRequest categoryRequest, @MappingTarget OrderItem category);
+    OrderItem partialUpdate(OrderItemRequest orderItemRequest, @MappingTarget OrderItem orderItem);
 }

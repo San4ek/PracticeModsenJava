@@ -7,18 +7,17 @@ import org.mapstruct.*;
 
 import java.util.List;
 
-// ToDo: Change mapper
-
-@Mapper(componentModel = MappingConstants.ComponentModel.SPRING, uses = {CustomMapper.class})
+@Mapper(componentModel = MappingConstants.ComponentModel.SPRING, uses = CustomMapper.class)
 public interface ProductMapper {
     @Mapping(target = "categoryId", source = "category.id")
     ProductResponse toProductResponse(Product product);
 
+    List<ProductResponse> toProductResponseList(List<Product> productList);
+
     @Mapping(source = "categoryId", target = "category", qualifiedByName = "categoryRefFromCategoryId")
     Product toProduct(ProductRequest productRequest);
 
-    List<ProductResponse> toProductResponseList(List<Product> productList);
-
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    @Mapping(source = "categoryId", target = "category", qualifiedByName = "categoryRefFromCategoryId")
     Product partialUpdate(ProductRequest productRequest, @MappingTarget Product product);
 }

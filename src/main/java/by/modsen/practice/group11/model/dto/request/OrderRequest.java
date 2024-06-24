@@ -6,5 +6,5 @@ import java.util.UUID;
 
 public record OrderRequest(
         @NotNull(message = "Personal info is mandatory")
-        UUID personalInfo
+        UUID personalInfoId
 ) {}

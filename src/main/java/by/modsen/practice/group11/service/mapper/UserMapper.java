@@ -3,24 +3,22 @@ package by.modsen.practice.group11.service.mapper;
 import by.modsen.practice.group11.model.dto.request.UserRequest;
 import by.modsen.practice.group11.model.dto.response.UserResponse;
 import by.modsen.practice.group11.model.entity.User;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.MappingConstants;
+import org.mapstruct.*;
 
-// ToDo: Change mapper
+import java.util.List;
 
-@Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
+@Mapper(componentModel = MappingConstants.ComponentModel.SPRING, uses = CustomMapper.class)
 public interface UserMapper {
 
-    @Mapping(source = "personalInfo", target = "personalInfoResponse")
-    @Mapping(source = "personalInfo.fullName", target = "personalInfoResponse.fullName")
-    @Mapping(source = "personalInfo.gender", target = "personalInfoResponse.gender")
-    @Mapping(source = "personalInfo.birthday", target = "personalInfoResponse.birthday")
+    @Mapping(target = "personalInfoId", source = "personalInfo.id")
     UserResponse toUserResponse(User user);
 
-    @Mapping(target = "id", ignore = true)
-    @Mapping(target = "personalInfo.id", ignore = true)
-    @Mapping(target = "personalInfo.user", ignore = true)
-    @Mapping(target = "personalInfo.orders", ignore = true)
+    List<UserResponse> toUserResponseList(List<User> users);
+
+    @Mapping(source = "personalInfoId", target = "personalInfo", qualifiedByName = "personalInfoRefFromPersonalInfoId")
     User toUser(UserRequest userRequest);
+
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    @Mapping(source = "personalInfoId", target = "personalInfo", qualifiedByName = "personalInfoRefFromPersonalInfoId")
+    User partialUpdate(UserRequest userRequest, @MappingTarget User user);
 }

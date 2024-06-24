@@ -61,7 +61,8 @@ public class OrderItemServiceImpl implements OrderItemService {
     @Transactional
     public OrderItemResponse updateOrderItem(UUID orderItemId,  OrderItemRequest orderItemRequest) {
 
-        return orderItemMapper.toOrderItemResponse(orderItemRepository.save(orderItemMapper.partialUpdate(orderItemRequest, getOrderItemOrThrow(orderItemId))));
+        return orderItemMapper.toOrderItemResponse(orderItemRepository.save(orderItemMapper.
+                partialUpdate(orderItemRequest, getOrderItemOrThrow(orderItemId))));
     }
 
     @Override
@@ -75,7 +76,6 @@ public class OrderItemServiceImpl implements OrderItemService {
     @Override
     @Transactional
     public void deleteOrderItemsByOrderId(UUID orderId) {
-
 
         orderItemRepository.deleteByOrder_Id(orderId);
     }

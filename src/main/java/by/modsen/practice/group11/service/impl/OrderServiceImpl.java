@@ -1,5 +1,6 @@
 package by.modsen.practice.group11.service.impl;
 
+import by.modsen.practice.group11.model.dto.request.OrderRequest;
 import by.modsen.practice.group11.service.exception.ResourceNotFoundException;
 import by.modsen.practice.group11.service.mapper.OrderItemMapper;
 import by.modsen.practice.group11.model.UserJwt;
@@ -25,23 +26,49 @@ import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-
-// ToDo: Change service methods
 @Service
 @RequiredArgsConstructor
 public class OrderServiceImpl implements OrderService {
 
     private final OrderRepository orderRepository;
-    private final UserRepository userRepository;
     private final OrderMapper orderMapper;
-    private final OrderItemMapper orderItemMapper;
-    private final OrderItemRepository orderItemRepository;
 
     @Override
     @Transactional(readOnly = true)
     public OrderResponse getOrderById(UUID orderId) {
 
         return orderMapper.toOrderResponse(getOrderOrThrow(orderId));
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<OrderResponse> getAllOrders() {
+
+        return orderMapper.toOrderResponseList(orderRepository.findAll());
+    }
+
+    //ToDO change with userJWt
+
+    @Override
+    @Transactional
+    public OrderResponse createOrder(OrderRequest orderRequest) {
+
+        return orderMapper.toOrderResponse(orderRepository.save(orderMapper.toOrder(orderRequest)));
+    }
+
+    @Override
+    @Transactional
+    public OrderResponse updateOrder(UUID orderId, OrderRequest orderRequest) {
+
+        return orderMapper.toOrderResponse(orderRepository.save(orderMapper.partialUpdate(orderRequest, getOrderOrThrow(orderId))));
+    }
+
+    @Override
+    @Transactional
+    public void deleteOrder(UUID orderId) {
+
+        getOrderOrThrow(orderId);
+        orderRepository.deleteById(orderId);
     }
 
     @Override
@@ -53,50 +80,24 @@ public class OrderServiceImpl implements OrderService {
                 .collect(Collectors.toList());
     }
 
-    @Override
-    @Transactional
-    public OrderResponse createOrder(UserJwt userJwt) {
-
-        Optional<User> optUser = userRepository.findById(userJwt.getId());
-
-        PersonalInfo personalInfo = optUser.get().getPersonalInfo();
-        Order savedOrder = new Order();
-        savedOrder.setPersonalInfo(personalInfo);
-
-        return orderMapper.toOrderResponse(savedOrder);
-    }
-
-    @Override
-    @Transactional
-    public OrderResponse addOrderItemToOrder(
-            OrderItemRequest orderItemRequest, UUID orderId) {
-
-        OrderItem orderItem = orderItemMapper.toOrderItem(orderItemRequest);
-        Order order = orderRepository.findById(orderId).get();
-
-        orderItem.setOrder(order);
-        orderItemRepository.save(orderItem);
-
-        return orderMapper.toOrderResponse(order);
-    }
-
-    @Override
-    @Transactional
-    public void removeOrderItemFromOrder(UUID orderId, UUID orderItemId) {
-//        orderItemRepository.deleteByOrderIdAndId(orderId, orderItemId);
-    }
-
-    @Override
-    @Transactional
-    public void deleteOrder(UUID orderId) {
-
-        getOrderOrThrow(orderId);
-        orderRepository.deleteById(orderId);
-    }
-
     private Order getOrderOrThrow(UUID orderId) {
 
         return orderRepository.findById(orderId)
-                .orElseThrow(() -> new ResourceNotFoundException(HttpStatus.NOT_FOUND.value(), "Order with id " + orderId + " not found"));
+                .orElseThrow(() -> new ResourceNotFoundException(HttpStatus.NOT_FOUND.value() * 100 + 41, "Can't find order by id = " + orderId));
     }
+
+
+    //ToDO: It is useful idea,
+//    @Override
+//    @Transactional
+//    public OrderResponse createOrder(UserJwt userJwt) {
+//
+//        Optional<User> optUser = userRepository.findById(userJwt.getId());
+//
+//        PersonalInfo personalInfo = optUser.get().getPersonalInfo();
+//        Order savedOrder = new Order();
+//        savedOrder.setPersonalInfo(personalInfo);
+//
+//        return orderMapper.toOrderResponse(savedOrder);
+//    }
 }

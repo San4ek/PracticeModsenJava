@@ -17,4 +17,6 @@ public interface OrderService {
     OrderResponse updateOrder(UUID orderId, OrderRequest orderRequest);
 
     void deleteOrder(UUID orderId);
+
+    List<OrderResponse> getOrdersByPersonalInfoId(UUID personalInfoId);
 }
