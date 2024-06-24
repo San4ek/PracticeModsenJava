@@ -13,9 +13,11 @@ public interface ProductService {
 
     List<ProductResponse> getProductsByCategoryId(UUID categoryId);
 
+    List<ProductResponse> getAllProducts();
+
     List<ProductResponse> getProductByCategoryName(String categoryName);
 
-    ProductResponse createProduct(UUID categoryId, ProductRequest productRequest);
+    ProductResponse createProduct(ProductRequest productRequest);
 
     ProductResponse updateProduct(UUID productId, ProductRequest productRequest);
 

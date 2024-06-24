@@ -29,7 +29,7 @@ public class WebSecurityConfiguration { // extends WebSecurityConfigurerAdapter 
 
     private final AuthTokenFilter authTokenFilter;
 
-    private AuthEntryPointJwt unauthorizedHandler;
+    private final AuthEntryPointJwt unauthorizedHandler;
 
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
@@ -56,15 +56,16 @@ public class WebSecurityConfiguration { // extends WebSecurityConfigurerAdapter 
         return http
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(AbstractHttpConfigurer::disable)
+                .exceptionHandling(exception ->
+                    exception.authenticationEntryPoint(unauthorizedHandler)
+                )
                 .sessionManagement(config -> config.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests(auth -> {
-                    auth.
+                .authorizeHttpRequests(auth -> auth.
                             requestMatchers("auth/**").permitAll().
-                            anyRequest().authenticated();
-                })
+                            anyRequest().authenticated()
+                )
                 .authenticationProvider(authenticationProvider())
                 .addFilterBefore(authTokenFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
-
 }

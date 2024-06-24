@@ -24,18 +24,22 @@ public class ProductController {
         return ResponseEntity.ok(productService.getProductById(id));
     }
 
-    @GetMapping("/{category}")
+    @GetMapping("categoryName/{category}")
     public ResponseEntity<List<ProductResponse>> getProductsByCategoryName(
             @PathVariable String category) {
         return ResponseEntity.ok(productService.getProductByCategoryName(category));
     }
 
-    @PostMapping("/{id}")
+    @GetMapping
+    public ResponseEntity<List<ProductResponse>> getAllProducts() {
+        return ResponseEntity.ok(productService.getAllProducts());
+    }
+
+    @PostMapping
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<ProductResponse> createProduct(
-            @PathVariable UUID id,
             @Valid @RequestBody ProductRequest productRequest) {
-        return ResponseEntity.ok(productService.createProduct(id, productRequest));
+        return ResponseEntity.ok(productService.createProduct(productRequest));
     }
 
     @DeleteMapping("/{id}")
