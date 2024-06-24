@@ -20,7 +20,7 @@ public interface OrderItemService {
 
     OrderItemResponse updateOrderItem(UUID orderItemId,  OrderItemRequest orderItemRequest);
 
-    void deleteOrderItemByOrderItemId(UUID orderItemId);
+    void deleteOrderItem(UUID orderItemId);
 
     void deleteOrderItemsByOrderId(UUID orderId);
 }

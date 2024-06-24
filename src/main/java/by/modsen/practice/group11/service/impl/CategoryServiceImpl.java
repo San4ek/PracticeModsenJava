@@ -25,24 +25,28 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     @Transactional(readOnly = true)
     public CategoryResponse getCategoryById(UUID categoryId) {
+
         return categoryMapper.toCategoryResponse(getCategoryOrThrow(categoryId));
     }
 
     @Override
     @Transactional(readOnly = true)
     public List<CategoryResponse> getAllCategories() {
+
         return categoryMapper.toCategoryResponseList(categoryRepository.findAll());
     }
 
     @Override
     @Transactional
     public CategoryResponse createCategory(CategoryRequest categoryRequest) {
+
         return categoryMapper.toCategoryResponse(categoryRepository.save(categoryMapper.toCategory(categoryRequest)));
     }
 
     @Override
     @Transactional
     public CategoryResponse updateCategory(UUID categoryId, CategoryRequest categoryRequest) {
+
         return categoryMapper.toCategoryResponse(categoryRepository.save(categoryMapper.partialUpdate(categoryRequest, getCategoryOrThrow(categoryId))));
     }
 
@@ -55,6 +59,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     private Category getCategoryOrThrow(UUID categoryId) {
+
         return categoryRepository.findById(categoryId)
                 .orElseThrow(() -> new ResourceNotFoundException(HttpStatus.NOT_FOUND.value() * 100 + 21, "Can't find category by id = " + categoryId));
     }

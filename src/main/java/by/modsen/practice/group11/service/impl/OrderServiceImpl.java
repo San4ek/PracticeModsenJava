@@ -1,5 +1,6 @@
 package by.modsen.practice.group11.service.impl;
 
+import by.modsen.practice.group11.service.exception.ResourceNotFoundException;
 import by.modsen.practice.group11.service.mapper.OrderItemMapper;
 import by.modsen.practice.group11.model.UserJwt;
 import by.modsen.practice.group11.model.entity.Order;
@@ -14,9 +15,11 @@ import by.modsen.practice.group11.model.dto.response.OrderResponse;
 import by.modsen.practice.group11.service.mapper.OrderMapper;
 import by.modsen.practice.group11.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.net.http.HttpResponse;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -37,8 +40,8 @@ public class OrderServiceImpl implements OrderService {
     @Override
     @Transactional(readOnly = true)
     public OrderResponse getOrderById(UUID orderId) {
-        Order order = getOrderOrThrow(orderId);
-        return orderMapper.toOrderResponse(order);
+
+        return orderMapper.toOrderResponse(getOrderOrThrow(orderId));
     }
 
     @Override
@@ -86,13 +89,14 @@ public class OrderServiceImpl implements OrderService {
     @Override
     @Transactional
     public void deleteOrder(UUID orderId) {
-        Order order = getOrderOrThrow(orderId);
-        orderRepository.delete(order);
+
+        getOrderOrThrow(orderId);
+        orderRepository.deleteById(orderId);
     }
 
     private Order getOrderOrThrow(UUID orderId) {
+
         return orderRepository.findById(orderId)
-                .orElseThrow();
-//                .orElseThrow(() -> new GlobalExceptionHandler("Order with id " + orderId + " not found"));
+                .orElseThrow(() -> new ResourceNotFoundException(HttpStatus.NOT_FOUND.value(), "Order with id " + orderId + " not found"));
     }
 }

@@ -66,7 +66,7 @@ public class OrderItemServiceImpl implements OrderItemService {
 
     @Override
     @Transactional
-    public void deleteOrderItemByOrderItemId(UUID orderItemId) {
+    public void deleteOrderItem(UUID orderItemId) {
 
         getOrderItemOrThrow(orderItemId);
         orderItemRepository.deleteById(orderItemId);
