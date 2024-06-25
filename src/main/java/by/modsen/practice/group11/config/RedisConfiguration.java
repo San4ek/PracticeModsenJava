@@ -1,6 +1,5 @@
 package by.modsen.practice.group11.config;
 
-import by.modsen.practice.group11.model.entity.AccessToken;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
