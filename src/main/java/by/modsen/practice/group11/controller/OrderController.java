@@ -2,10 +2,12 @@ package by.modsen.practice.group11.controller;
 
 import by.modsen.practice.group11.model.UserJwt;
 import by.modsen.practice.group11.model.dto.request.OrderItemRequest;
+import by.modsen.practice.group11.model.dto.request.OrderRequest;
 import by.modsen.practice.group11.model.dto.response.OrderResponse;
 import by.modsen.practice.group11.service.OrderService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -14,19 +16,44 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.UUID;
 
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/order")
-@PreAuthorize("hasRole('CUSTOMER')")
-@CrossOrigin(origins = "*", maxAge = 3600)
 public class OrderController {
 
     private final OrderService orderService;
 
     @GetMapping("/{id}")
-    public ResponseEntity<OrderResponse> getOrder(@PathVariable UUID id) {
-        return ResponseEntity.ok(orderService.getOrderById(id));
+    public ResponseEntity<OrderResponse> getOrder(@Valid @PathVariable("id") UUID id) {
+
+        return ResponseEntity.status(HttpStatus.OK).body(orderService.getOrderById(id));
     }
+
+    @GetMapping("/all")
+    public ResponseEntity<List<OrderResponse>> getAllOwnOrders (@Valid @AuthenticationPrincipal UserJwt userJwt) {
+
+        return ResponseEntity.status(HttpStatus.OK).body(orderService.getAllOrdersByUserJwt(userJwt));
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<List<OrderResponse>> getAllOwnOrders (@Valid @AuthenticationPrincipal UserJwt userJwt) {
+
+        return ResponseEntity.status(HttpStatus.OK).body(orderService.getAllOrdersByUserJwt(userJwt));
+    }
+
+    List<OrderResponse> getAllOrdersByUserJwt(UserJwt userJwt);
+
+    List<OrderResponse> getAllOrders();
+
+    OrderResponse createOrder(UserJwt userJwt);
+
+    OrderResponse createOrder(OrderRequest orderRequest);
+
+    OrderResponse updateOrder(UUID orderId, OrderRequest orderRequest);
+
+    void deleteOrder(UUID orderId);
+
 
     @GetMapping
     public ResponseEntity<List<OrderResponse>> getOrderByPersonalId(

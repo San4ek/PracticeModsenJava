@@ -18,25 +18,30 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @RequestMapping("/auth")
 public class AuthenticationController {
+
     private final AuthenticationService authenticationService;
 
     @PostMapping("/login")
     public ResponseEntity<JwtResponse> loginUser(@Valid @RequestBody LoginRequest loginRequest) {
-        return ResponseEntity.ok(authenticationService.loginUser(loginRequest));
+
+        return ResponseEntity.status(HttpStatus.OK).body(authenticationService.loginUser(loginRequest));
     }
 
     @PostMapping("/sign-up")
     public ResponseEntity<MessageResponse> signUpUser(@Valid @RequestBody SignUpRequest signupRequest) {
-        return ResponseEntity.ok(authenticationService.signUpUser(signupRequest));
+
+        return ResponseEntity.status(HttpStatus.OK).body(authenticationService.signUpUser(signupRequest));
     }
 
     @PostMapping("/logout")
     public ResponseEntity<MessageResponse> logoutUser() {
-        return ResponseEntity.ok(authenticationService.logoutUser());
+
+        return ResponseEntity.status(HttpStatus.OK).body(authenticationService.logoutUser());
     }
 
     @PostMapping("/refresh-token")
     public ResponseEntity<TokenRefreshResponse> refreshToken(@Valid @RequestBody TokenRefreshRequest tokenRefreshRequest) {
-        return ResponseEntity.ok(authenticationService.refreshToken(tokenRefreshRequest));
+
+        return ResponseEntity.status(HttpStatus.OK).body(authenticationService.refreshToken(tokenRefreshRequest));
     }
 }

@@ -6,7 +6,6 @@ import by.modsen.practice.group11.model.entity.User;
 import by.modsen.practice.group11.repository.UserRepository;
 import by.modsen.practice.group11.service.UserService;
 import by.modsen.practice.group11.service.exception.ResourceNotFoundException;
-import by.modsen.practice.group11.service.mapper.PersonalInfoMapper;
 import by.modsen.practice.group11.service.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -22,7 +21,6 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final UserMapper userMapper;
-    private final PersonalInfoMapper personalInfoMapper;
 
     @Override
     @Transactional(readOnly = true)
