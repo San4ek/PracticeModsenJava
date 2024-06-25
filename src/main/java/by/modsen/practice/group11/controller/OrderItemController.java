@@ -3,10 +3,13 @@ package by.modsen.practice.group11.controller;
 import by.modsen.practice.group11.model.dto.request.OrderItemRequest;
 import by.modsen.practice.group11.model.dto.response.OrderItemResponse;
 import by.modsen.practice.group11.service.OrderItemService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,10 +19,12 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @RequestMapping("/orderItem")
 @CrossOrigin(origins = "*", maxAge = 3600)
+@Tag(name = "OrderItem Controller")
 public class OrderItemController {
     private final OrderItemService orderItemService;
 
     @GetMapping("/{id}")
+    @Operation(summary = "Get orderItem by id")
     public ResponseEntity<OrderItemResponse> getById(
             @Valid @PathVariable UUID id) {
 
@@ -29,6 +34,7 @@ public class OrderItemController {
     }
 
     @GetMapping("/order/{orderId}")
+    @Operation(summary = "Get all orderItem by orderId")
     public ResponseEntity<List<OrderItemResponse>> getAllByOrderId(
             @Valid @PathVariable UUID orderId) {
 
@@ -38,6 +44,7 @@ public class OrderItemController {
     }
 
     @GetMapping("/product/{productId}")
+    @Operation(summary = "Get all orderItem by productId")
     public ResponseEntity<List<OrderItemResponse>> getAllByProductId(
             @Valid @PathVariable UUID productId) {
 
@@ -47,6 +54,8 @@ public class OrderItemController {
     }
 
     @GetMapping
+    @PreAuthorize("hasRole('ADMIN')")
+    @Operation(summary = "Get all")
     public ResponseEntity<List<OrderItemResponse>> getAll() {
 
         return ResponseEntity
@@ -55,6 +64,7 @@ public class OrderItemController {
     }
 
     @PostMapping
+    @Operation(summary = "Create orderItem")
     public ResponseEntity<OrderItemResponse> createOrderItem(
             @Valid @RequestBody OrderItemRequest orderItemRequest) {
 
@@ -64,6 +74,7 @@ public class OrderItemController {
     }
 
     @PutMapping("/{orderItemId}")
+    @Operation(summary = "Update orderItem")
     public ResponseEntity<OrderItemResponse> updateOrderItem(
             @Valid @PathVariable UUID orderItemId,
             @Valid @RequestBody OrderItemRequest orderItemRequest
@@ -76,6 +87,7 @@ public class OrderItemController {
 
     @DeleteMapping("/{orderItemId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
+    @Operation(summary = "Delete orderItem by orderItemId")
     public void deleteOrderItem(@Valid @PathVariable UUID orderItemId) {
 
         orderItemService.deleteOrderItem(orderItemId);
@@ -83,6 +95,7 @@ public class OrderItemController {
 
     @DeleteMapping("/order/{orderId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
+    @Operation(summary = "delete orderItem by orderId")
     public void deleteOrder(@PathVariable UUID orderId) {
 
         orderItemService.deleteOrderItemsByOrderId(orderId);

@@ -3,6 +3,8 @@ package by.modsen.practice.group11.controller;
 import by.modsen.practice.group11.model.dto.request.UserRequest;
 import by.modsen.practice.group11.model.dto.response.UserResponse;
 import by.modsen.practice.group11.service.UserService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -18,10 +20,12 @@ import java.util.UUID;
 @RequestMapping("/admin")
 @PreAuthorize("hasRole('ADMIN')")
 @CrossOrigin(origins = "*", maxAge = 3600)
+@Tag(name = "Admin panel controller")
 public class UserController {
     private final UserService userService;
 
     @GetMapping("/{id}")
+    @Operation(summary = "Get user by id")
     public ResponseEntity<UserResponse> getUser(@PathVariable UUID id) {
 
         return ResponseEntity
@@ -30,6 +34,7 @@ public class UserController {
     }
 
     @GetMapping
+    @Operation(summary = "Get all users")
     public ResponseEntity<List<UserResponse>> getAllUsers() {
 
         return ResponseEntity
@@ -38,6 +43,7 @@ public class UserController {
     }
 
     @PostMapping
+    @Operation(summary = "Create user")
     public ResponseEntity<UserResponse> createUser(
             @Valid @RequestBody UserRequest userRequest) {
 
@@ -47,6 +53,7 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
+    @Operation(summary = "Update user")
     public ResponseEntity<UserResponse> updateUser(
             @PathVariable UUID id,
             @Valid @RequestBody UserRequest userRequest) {
@@ -58,6 +65,7 @@ public class UserController {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
+    @Operation(summary = "Delete user")
     public void deleteUser(@PathVariable UUID id) {
 
         userService.deleteUser(id);

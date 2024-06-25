@@ -4,6 +4,8 @@ import by.modsen.practice.group11.model.UserJwt;
 import by.modsen.practice.group11.model.dto.request.OrderRequest;
 import by.modsen.practice.group11.model.dto.response.OrderResponse;
 import by.modsen.practice.group11.service.OrderService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -15,15 +17,17 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.UUID;
 
-@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/order")
+@Tag(name = "Order Controller")
+@CrossOrigin(origins = "*", maxAge = 3600)
 public class OrderController {
 
     private final OrderService orderService;
 
     @GetMapping("/{id}")
+    @Operation(summary = "Get order by id")
     public ResponseEntity<OrderResponse> getOrder(
             @Valid @PathVariable UUID id) {
 
@@ -33,6 +37,7 @@ public class OrderController {
     }
 
     @GetMapping
+    @Operation(summary = "Get all own orders")
     public ResponseEntity<List<OrderResponse>> getAllOwnOrders (
             @Valid @AuthenticationPrincipal UserJwt userJwt) {
 
@@ -43,6 +48,7 @@ public class OrderController {
 
     @GetMapping("/all")
     @PreAuthorize("hasRole('ADMIN')")
+    @Operation(summary = "Get all orders")
     public ResponseEntity<List<OrderResponse>> getAll() {
 
         return ResponseEntity
@@ -51,6 +57,7 @@ public class OrderController {
     }
 
     @PostMapping
+    @Operation(summary = "Create order")
     public ResponseEntity<OrderResponse> createOrder(
             @AuthenticationPrincipal UserJwt userJwt) {
 
@@ -60,6 +67,7 @@ public class OrderController {
     }
 
     @PostMapping
+    @Operation(summary = "Create order by putting orderRequest")
     public ResponseEntity<OrderResponse> createOrder(
             @Valid @RequestBody OrderRequest orderRequest) {
 
@@ -68,22 +76,8 @@ public class OrderController {
                 .body(orderService.createOrder(orderRequest));
     }
 
-//    @PostMapping("/{orderId}/add")
-//    public ResponseEntity<OrderResponse> addOrderItemToOrder(
-//            @PathVariable UUID orderId,
-//            @RequestBody @Valid OrderItemRequest orderItemRequest) {
-//        return ResponseEntity.ok(orderService.addOrderItemToOrder(orderItemRequest, orderId));
-//    }
-//
-//    @DeleteMapping("/{orderId}/delete/{order_item_id}")
-//    public ResponseEntity<Void> removeOrderItemFromOrder(
-//         @PathVariable UUID orderId,
-//         @PathVariable(value = "order_item_id") UUID orderItemId) {
-//        orderService.removeOrderItemFromOrder(orderId, orderItemId);
-//        return ResponseEntity.noContent().build();
-//    }
-
     @PutMapping("/{id}")
+    @Operation(summary = "Update order")
     public ResponseEntity<OrderResponse> updateOrder(
             @Valid @PathVariable UUID id,
             @Valid @RequestBody OrderRequest orderRequest) {
@@ -95,6 +89,7 @@ public class OrderController {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
+    @Operation(summary = "Delete order")
     public void removeOrder(@Valid @PathVariable UUID id) {
 
         orderService.deleteOrder(id);

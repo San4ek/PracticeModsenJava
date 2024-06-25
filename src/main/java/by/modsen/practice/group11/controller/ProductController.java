@@ -3,6 +3,8 @@ package by.modsen.practice.group11.controller;
 import by.modsen.practice.group11.model.dto.request.ProductRequest;
 import by.modsen.practice.group11.model.dto.response.ProductResponse;
 import by.modsen.practice.group11.service.ProductService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -17,10 +19,12 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @RequestMapping("/product")
 @CrossOrigin(origins = "*", maxAge = 3600)
+@Tag(name = "Product Controller")
 public class ProductController {
     private final ProductService productService;
 
     @GetMapping("/{id}")
+    @Operation(summary = "Get product by id")
     public ResponseEntity<ProductResponse> getProductById(
             @Valid @PathVariable UUID id) {
 
@@ -30,6 +34,7 @@ public class ProductController {
     }
 
     @GetMapping("categoryName/{category}")
+    @Operation(summary = "Get product by category Name")
     public ResponseEntity<List<ProductResponse>> getProductsByCategoryName(
             @Valid @PathVariable String category) {
 
@@ -39,6 +44,7 @@ public class ProductController {
     }
 
     @GetMapping
+    @Operation(summary = "Get all products")
     public ResponseEntity<List<ProductResponse>> getAllProducts() {
 
         return ResponseEntity
@@ -48,6 +54,7 @@ public class ProductController {
 
     @PostMapping
     @PreAuthorize("hasRole('ADMIN')")
+    @Operation(summary = "Create product")
     public ResponseEntity<ProductResponse> createProduct(
             @Valid @RequestBody ProductRequest productRequest) {
 
@@ -59,6 +66,7 @@ public class ProductController {
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     @ResponseStatus(HttpStatus.NO_CONTENT)
+    @Operation(summary = "Delete product")
     public void deleteCategory(
             @Valid @PathVariable UUID id) {
 

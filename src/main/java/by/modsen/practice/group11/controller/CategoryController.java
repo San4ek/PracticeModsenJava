@@ -3,6 +3,8 @@ package by.modsen.practice.group11.controller;
 import by.modsen.practice.group11.model.dto.request.CategoryRequest;
 import by.modsen.practice.group11.model.dto.response.CategoryResponse;
 import by.modsen.practice.group11.service.CategoryService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -17,10 +19,12 @@ import java.util.UUID;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/category")
+@Tag(name = "Category controller")
 public class CategoryController {
     private final CategoryService categoryService;
 
     @GetMapping("/{id}")
+    @Operation(summary = "Get category by id")
     public ResponseEntity<CategoryResponse> getCategoryById(
             @Valid @PathVariable("id") UUID id) {
 
@@ -30,6 +34,7 @@ public class CategoryController {
     }
 
     @GetMapping
+    @Operation(summary = "Get all categories")
     public ResponseEntity<List<CategoryResponse>> getAll() {
 
         return ResponseEntity
@@ -39,6 +44,7 @@ public class CategoryController {
 
     @PostMapping
     @PreAuthorize("hasRole('ADMIN')")
+    @Operation(summary = "Create category")
     public ResponseEntity<CategoryResponse> createCategory(
             @Valid @RequestBody CategoryRequest categoryRequest) {
 
@@ -49,6 +55,7 @@ public class CategoryController {
 
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
+    @Operation(summary = "Update category")
     public ResponseEntity<CategoryResponse> updateCategory(
             @Valid @PathVariable UUID id,
             @Valid @RequestBody CategoryRequest categoryRequest) {
@@ -61,6 +68,7 @@ public class CategoryController {
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     @ResponseStatus(HttpStatus.NO_CONTENT)
+    @Operation(summary = "Delete category")
     public void deleteCategory(@Valid @PathVariable("id") UUID id) {
 
         categoryService.deleteCategory(id);
