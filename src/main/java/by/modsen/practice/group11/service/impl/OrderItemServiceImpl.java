@@ -38,7 +38,7 @@ public class OrderItemServiceImpl implements OrderItemService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<OrderItemResponse> getOrdersItemByItemsId(UUID productId) {
+    public List<OrderItemResponse> getOrdersItemByProductId(UUID productId) {
 
         return orderItemMapper.toOrderItemResponseList(orderItemRepository.findAllByProduct_Id(productId));
     }

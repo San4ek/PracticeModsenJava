@@ -21,15 +21,20 @@ public class CategoryController {
     private final CategoryService categoryService;
 
     @GetMapping("/{id}")
-    public ResponseEntity<CategoryResponse> getCategoryById(@Valid @PathVariable("id") UUID id) {
+    public ResponseEntity<CategoryResponse> getCategoryById(
+            @Valid @PathVariable("id") UUID id) {
 
-        return ResponseEntity.status(HttpStatus.OK).body(categoryService.getCategoryById(id));
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(categoryService.getCategoryById(id));
     }
 
     @GetMapping
     public ResponseEntity<List<CategoryResponse>> getAll() {
 
-        return ResponseEntity.status(HttpStatus.OK).body(categoryService.getAllCategories());
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(categoryService.getAllCategories());
     }
 
     @PostMapping
@@ -37,15 +42,20 @@ public class CategoryController {
     public ResponseEntity<CategoryResponse> createCategory(
             @Valid @RequestBody CategoryRequest categoryRequest) {
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(categoryService.createCategory(categoryRequest));
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(categoryService.createCategory(categoryRequest));
     }
 
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<CategoryResponse> updateCategory(
-            @Valid @PathVariable("id") UUID id, @Valid @RequestBody CategoryRequest categoryRequest) {
+            @Valid @PathVariable UUID id,
+            @Valid @RequestBody CategoryRequest categoryRequest) {
 
-        return ResponseEntity.ok(categoryService.updateCategory(id, categoryRequest));
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(categoryService.updateCategory(id, categoryRequest));
     }
 
     @DeleteMapping("/{id}")

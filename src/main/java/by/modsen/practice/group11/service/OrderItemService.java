@@ -12,7 +12,7 @@ public interface OrderItemService {
 
     List<OrderItemResponse> getOrderItemsByOrderId(UUID orderId);
 
-    List<OrderItemResponse> getOrdersItemByItemsId(UUID productId);
+    List<OrderItemResponse> getOrdersItemByProductId(UUID productId);
 
     List<OrderItemResponse> getAllOrdersItems();
 
