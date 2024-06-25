@@ -18,5 +18,4 @@
     <include file="products.xml" relativeToChangelogFile="true"/>
     <include file="order-items.xml" relativeToChangelogFile="true"/>
     <include file="tokens-refresh.xml" relativeToChangelogFile="true"/>
-
 </databaseChangeLog>

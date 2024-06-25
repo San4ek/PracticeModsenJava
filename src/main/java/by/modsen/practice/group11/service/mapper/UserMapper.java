@@ -17,10 +17,14 @@ public interface UserMapper {
 
     @Mapping(source = "personalInfoId", target = "personalInfo", qualifiedByName = "personalInfoRefFromPersonalInfoId")
     @Mapping(target = "id", ignore = true)
+    @Mapping(target = "tokenRefresh", ignore = true)
+    @Mapping(target = "orders", ignore = true)
     User toUser(UserRequest userRequest);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     @Mapping(source = "personalInfoId", target = "personalInfo", qualifiedByName = "personalInfoRefFromPersonalInfoId")
     @Mapping(target = "id", ignore = true)
+    @Mapping(target = "tokenRefresh", ignore = true)
+    @Mapping(target = "orders", ignore = true)
     User partialUpdate(UserRequest userRequest, @MappingTarget User user);
 }

@@ -7,6 +7,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,6 +21,7 @@ public class OrderItemController {
     private final OrderItemService orderItemService;
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasRole('CUSTOMER') || hasRole('ADMIN')")
     public ResponseEntity<OrderItemResponse> getById(
             @Valid @PathVariable UUID id) {
 
@@ -29,6 +31,7 @@ public class OrderItemController {
     }
 
     @GetMapping("/order/{orderId}")
+    @PreAuthorize("hasRole('CUSTOMER') || hasRole('ADMIN')")
     public ResponseEntity<List<OrderItemResponse>> getAllByOrderId(
             @Valid @PathVariable UUID orderId) {
 
@@ -38,6 +41,7 @@ public class OrderItemController {
     }
 
     @GetMapping("/product/{productId}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<OrderItemResponse>> getAllByProductId(
             @Valid @PathVariable UUID productId) {
 
@@ -47,6 +51,7 @@ public class OrderItemController {
     }
 
     @GetMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<OrderItemResponse>> getAll() {
 
         return ResponseEntity
@@ -55,6 +60,7 @@ public class OrderItemController {
     }
 
     @PostMapping
+    @PreAuthorize("hasRole('CUSTOMER') || hasRole('ADMIN')")
     public ResponseEntity<OrderItemResponse> createOrderItem(
             @Valid @RequestBody OrderItemRequest orderItemRequest) {
 
@@ -64,6 +70,7 @@ public class OrderItemController {
     }
 
     @PutMapping("/{orderItemId}")
+    @PreAuthorize("hasRole('CUSTOMER') || hasRole('ADMIN')")
     public ResponseEntity<OrderItemResponse> updateOrderItem(
             @Valid @PathVariable UUID orderItemId,
             @Valid @RequestBody OrderItemRequest orderItemRequest
@@ -75,6 +82,7 @@ public class OrderItemController {
     }
 
     @DeleteMapping("/{orderItemId}")
+    @PreAuthorize("hasRole('CUSTOMER') || hasRole('ADMIN')")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteOrderItem(@Valid @PathVariable UUID orderItemId) {
 
@@ -82,6 +90,7 @@ public class OrderItemController {
     }
 
     @DeleteMapping("/order/{orderId}")
+    @PreAuthorize("hasRole('CUSTOMER') || hasRole('ADMIN')")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteOrder(@PathVariable UUID orderId) {
 

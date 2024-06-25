@@ -24,6 +24,7 @@ public class OrderController {
     private final OrderService orderService;
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasRole('CUSTOMER') || hasRole('ADMIN')")
     public ResponseEntity<OrderResponse> getOrder(
             @Valid @PathVariable UUID id) {
 
@@ -33,6 +34,7 @@ public class OrderController {
     }
 
     @GetMapping
+    @PreAuthorize("hasRole('CUSTOMER')")
     public ResponseEntity<List<OrderResponse>> getAllOwnOrders (
             @Valid @AuthenticationPrincipal UserJwt userJwt) {
 
@@ -51,15 +53,17 @@ public class OrderController {
     }
 
     @PostMapping
-    public ResponseEntity<OrderResponse> createOrder(
-            @AuthenticationPrincipal UserJwt userJwt) {
+    @PreAuthorize("hasRole('CUSTOMER')")
+    public ResponseEntity<OrderResponse> createOwnOrder(
+            @Valid @AuthenticationPrincipal UserJwt userJwt) {
 
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(orderService.createOrder(userJwt));
     }
 
-    @PostMapping
+    @PostMapping("/admin/create")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<OrderResponse> createOrder(
             @Valid @RequestBody OrderRequest orderRequest) {
 
@@ -68,22 +72,8 @@ public class OrderController {
                 .body(orderService.createOrder(orderRequest));
     }
 
-//    @PostMapping("/{orderId}/add")
-//    public ResponseEntity<OrderResponse> addOrderItemToOrder(
-//            @PathVariable UUID orderId,
-//            @RequestBody @Valid OrderItemRequest orderItemRequest) {
-//        return ResponseEntity.ok(orderService.addOrderItemToOrder(orderItemRequest, orderId));
-//    }
-//
-//    @DeleteMapping("/{orderId}/delete/{order_item_id}")
-//    public ResponseEntity<Void> removeOrderItemFromOrder(
-//         @PathVariable UUID orderId,
-//         @PathVariable(value = "order_item_id") UUID orderItemId) {
-//        orderService.removeOrderItemFromOrder(orderId, orderItemId);
-//        return ResponseEntity.noContent().build();
-//    }
-
     @PutMapping("/{id}")
+    @PreAuthorize("hasRole('CUSTOMER') || hasRole('ADMIN')")
     public ResponseEntity<OrderResponse> updateOrder(
             @Valid @PathVariable UUID id,
             @Valid @RequestBody OrderRequest orderRequest) {
@@ -94,6 +84,7 @@ public class OrderController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('CUSTOMER') || hasRole('ADMIN')")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void removeOrder(@Valid @PathVariable UUID id) {
 

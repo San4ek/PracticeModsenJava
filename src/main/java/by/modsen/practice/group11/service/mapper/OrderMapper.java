@@ -15,17 +15,20 @@ public interface OrderMapper {
 
     List<OrderResponse> toOrderResponseList(List<Order> orders);
 
-    @Mapping(target = "user", source = "userId")
+    @Mapping(target = "user", source = "userId", qualifiedByName = "userRefFromUserId")
     @Mapping(target = "id", ignore = true)
+    @Mapping(target = "orderItems", ignore = true)
     Order toOrder(OrderRequest orderRequest);
 
-    @Mapping(target = "user", source = "id")
+    @Mapping(target = "user", source = "id", qualifiedByName = "userRefFromUserId")
     @Mapping(target = "id", ignore = true)
+    @Mapping(target = "orderItems", ignore = true)
     Order toOrder(UserJwt userJwt);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    @Mapping(target = "user", source = "userId")
+    @Mapping(target = "user", source = "userId", qualifiedByName = "userRefFromUserId")
     @Mapping(target = "id", ignore = true)
+    @Mapping(target = "orderItems", ignore = true)
     Order partialUpdate(OrderRequest orderRequest, @MappingTarget Order order);
 }
 

@@ -14,8 +14,12 @@ public interface CategoryMapper {
 
     List<CategoryResponse> toCategoryResponseList(List<Category> categories);
 
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "products", ignore = true)
     Category toCategory(CategoryRequest categoryRequest);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "products", ignore = true)
     Category partialUpdate(CategoryRequest categoryRequest, @MappingTarget Category category);
 }
