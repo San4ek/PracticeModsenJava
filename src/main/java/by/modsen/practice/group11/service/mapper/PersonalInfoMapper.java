@@ -15,9 +15,11 @@ public interface PersonalInfoMapper {
     List<PersonalInfoResponse> toPersonalInfoResponseList(List<PersonalInfo> personalInfoList);
 
     @Mapping(target = "id", ignore = true)
+    @Mapping(target = "user", ignore = true)
     PersonalInfo toPersonalInfo(PersonalInfoRequest personalInfoRequest);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     @Mapping(target = "id", ignore = true)
+    @Mapping(target = "user", ignore = true)
     PersonalInfo partialUpdate(PersonalInfoRequest personalInfoRequest, @MappingTarget PersonalInfo personalInfo);
 }

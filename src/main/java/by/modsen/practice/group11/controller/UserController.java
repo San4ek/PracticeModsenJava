@@ -17,8 +17,7 @@ import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/admin")
-@PreAuthorize("hasRole('ADMIN')")
+@RequestMapping("/user")
 @CrossOrigin(origins = "*", maxAge = 3600)
 @Tag(name = "Admin panel controller")
 public class UserController {
@@ -26,6 +25,7 @@ public class UserController {
 
     @GetMapping("/{id}")
     @Operation(summary = "Get user by id")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<UserResponse> getUser(@PathVariable UUID id) {
 
         return ResponseEntity
@@ -35,6 +35,7 @@ public class UserController {
 
     @GetMapping
     @Operation(summary = "Get all users")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<UserResponse>> getAllUsers() {
 
         return ResponseEntity
@@ -44,6 +45,7 @@ public class UserController {
 
     @PostMapping
     @Operation(summary = "Create user")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<UserResponse> createUser(
             @Valid @RequestBody UserRequest userRequest) {
 
@@ -54,6 +56,7 @@ public class UserController {
 
     @PutMapping("/{id}")
     @Operation(summary = "Update user")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<UserResponse> updateUser(
             @PathVariable UUID id,
             @Valid @RequestBody UserRequest userRequest) {
@@ -66,6 +69,7 @@ public class UserController {
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @Operation(summary = "Delete user")
+    @PreAuthorize("hasRole('ADMIN')")
     public void deleteUser(@PathVariable UUID id) {
 
         userService.deleteUser(id);

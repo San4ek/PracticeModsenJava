@@ -15,10 +15,8 @@ import java.util.UUID;
 @Entity
 @Getter
 @Setter
-@Builder
 @ToString
-@NoArgsConstructor
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Table(name = "users")
 public class User {
     @Id
@@ -56,6 +54,17 @@ public class User {
             cascade = CascadeType.ALL)
     @ToString.Exclude
     private List<Order> orders = new ArrayList<>();
+
+    @Builder
+    public User(UUID id, String email, String login, String password, Role role,
+                PersonalInfo personalInfo) {
+        this.id = id;
+        this.email = email;
+        this.login = login;
+        this.password = password;
+        this.role = role;
+        this.personalInfo = personalInfo;
+    }
 
     @Override
     public final boolean equals(Object o) {

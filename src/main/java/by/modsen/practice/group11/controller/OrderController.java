@@ -27,6 +27,7 @@ public class OrderController {
     private final OrderService orderService;
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasRole('CUSTOMER') || hasRole('ADMIN')")
     @Operation(summary = "Get order by id")
     public ResponseEntity<OrderResponse> getOrder(
             @Valid @PathVariable UUID id) {
@@ -38,6 +39,7 @@ public class OrderController {
 
     @GetMapping
     @Operation(summary = "Get all own orders")
+    @PreAuthorize("hasRole('CUSTOMER')")
     public ResponseEntity<List<OrderResponse>> getAllOwnOrders (
             @Valid @AuthenticationPrincipal UserJwt userJwt) {
 
@@ -58,15 +60,17 @@ public class OrderController {
 
     @PostMapping
     @Operation(summary = "Create order")
-    public ResponseEntity<OrderResponse> createOrder(
-            @AuthenticationPrincipal UserJwt userJwt) {
+    @PreAuthorize("hasRole('CUSTOMER')")
+    public ResponseEntity<OrderResponse> createOwnOrder(
+            @Valid @AuthenticationPrincipal UserJwt userJwt) {
 
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(orderService.createOrder(userJwt));
     }
 
-    @PostMapping
+    @PostMapping("/admin/create")
+    @PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Create order by putting orderRequest")
     public ResponseEntity<OrderResponse> createOrder(
             @Valid @RequestBody OrderRequest orderRequest) {
@@ -78,6 +82,7 @@ public class OrderController {
 
     @PutMapping("/{id}")
     @Operation(summary = "Update order")
+    @PreAuthorize("hasRole('CUSTOMER') || hasRole('ADMIN')")
     public ResponseEntity<OrderResponse> updateOrder(
             @Valid @PathVariable UUID id,
             @Valid @RequestBody OrderRequest orderRequest) {
@@ -88,6 +93,7 @@ public class OrderController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('CUSTOMER') || hasRole('ADMIN')")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @Operation(summary = "Delete order")
     public void removeOrder(@Valid @PathVariable UUID id) {
