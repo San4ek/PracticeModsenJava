@@ -17,8 +17,8 @@ public interface UserMapper {
 
     @Mapping(source = "personalInfoId", target = "personalInfo", qualifiedByName = "personalInfoRefFromPersonalInfoId")
     @Mapping(target = "id", ignore = true)
-    @Mapping(target = "tokenRefresh", ignore = true)
-    @Mapping(target = "orders", ignore = true)
+//    @Mapping(target = "tokenRefresh", ignore = true)
+//    @Mapping(target = "orders", ignore = true)
     User toUser(UserRequest userRequest);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
