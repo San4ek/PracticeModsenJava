@@ -2,14 +2,18 @@ package by.modsen.practice.group11.utils;
 
 import by.modsen.practice.group11.model.UserJwt;
 import io.jsonwebtoken.*;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
+import java.time.Duration;
 import java.util.Date;
 
 @Component
+@RequiredArgsConstructor
 public class AccessTokenUtils {
 
     private static final Logger logger = LoggerFactory.getLogger(AccessTokenUtils.class);
@@ -20,8 +24,12 @@ public class AccessTokenUtils {
     @Value("${app.token-access.lifetime}")
     private Long accessTokenLifetime;
 
+    private final RedisTemplate<String, String> redisTemplate;
+
     public String generateAccessToken(UserJwt userJwt) {
-        return generateAccessTokenFromUsername(userJwt.getUsername());
+        String accessToken = generateAccessTokenFromUsername(userJwt.getUsername());
+        redisTemplate.opsForValue().set(userJwt.getId().toString(), accessToken, Duration.ofSeconds(accessTokenLifetime));
+        return accessToken;
     }
 
     public String generateAccessTokenFromUsername(String login) {

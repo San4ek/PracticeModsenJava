@@ -1,14 +1,19 @@
 package by.modsen.practice.group11.model.entity;
 
-import org.springframework.data.redis.core.RedisHash;
-import org.springframework.stereotype.Component;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
-@Component
-@RedisHash()
-public class AccessToken {
+import java.io.Serializable;
+
+@Getter
+@Setter
+@AllArgsConstructor
+public class AccessToken implements Serializable {
+
+    private String id;
 
     private String token;
 
-    private boolean isValid;
 
 }

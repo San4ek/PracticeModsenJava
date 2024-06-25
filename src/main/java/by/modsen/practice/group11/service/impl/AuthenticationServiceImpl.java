@@ -17,6 +17,8 @@ import by.modsen.practice.group11.service.AuthenticationService;
 import by.modsen.practice.group11.utils.AccessTokenUtils;
 import by.modsen.practice.group11.utils.RefreshTokenUtils;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -28,6 +30,7 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class AuthenticationServiceImpl implements AuthenticationService {
 
     private final UserRepository userRepository;
@@ -36,6 +39,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     private final AuthenticationManager authenticationManager;
     private final AccessTokenUtils accessTokenUtils;
     private final RefreshTokenUtils refreshTokenUtils;
+    private final RedisTemplate<String, String> redisTemplate;
 
     @Override
     public JwtResponse loginUser(LoginRequest loginRequest) {
@@ -78,12 +82,18 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     @Override
     public MessageResponse logoutUser() {
-        UserJwt userDetails = (UserJwt) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        SecurityContextHolder.clearContext();
+        UserJwt userDetails = null;
+        try {
+            userDetails = (UserJwt) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        } catch (ClassCastException e) {
+            log.error(e.getMessage());
+//            return new MessageResponse("Log out successful!");
+            // TODO: throw some exception
+        }
+//        SecurityContextHolder.clearContext();
         UUID userId = userDetails.getId();
-
         refreshTokenUtils.deleteByUserId(userId);
-
+        redisTemplate.delete(userId.toString());
         return new MessageResponse("Log out successful!");
     }
 
