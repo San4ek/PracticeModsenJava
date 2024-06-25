@@ -9,5 +9,5 @@ public record UserResponse(
         String email,
         String login,
         Role role,
-        PersonalInfoResponse personalInfoResponse
+        UUID personalInfoId
 ) {}

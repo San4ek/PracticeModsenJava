@@ -7,8 +7,6 @@ import lombok.*;
 import org.hibernate.annotations.UuidGenerator;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -43,10 +41,4 @@ public class PersonalInfo {
     )
     @ToString.Exclude
     private User user;
-
-    @OneToMany(
-            mappedBy = "personalInfo",
-            cascade = CascadeType.ALL)
-    @ToString.Exclude
-    private List<Order> orders = new ArrayList<>();
 }

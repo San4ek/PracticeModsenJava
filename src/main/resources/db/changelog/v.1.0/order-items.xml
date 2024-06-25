@@ -6,8 +6,8 @@
 
     <changeSet id="0" author="admin">
         <createTable tableName="order_items">
-            <column name="id" type="${uuid_type}" valueComputed="${uuid_function}">
-                <constraints nullable="false" primaryKey="true" unique="true"/>
+            <column name="id" type="uuid" valueComputed="${uuid_function}">
+                <constraints nullable="false" primaryKey="true"/>
             </column>
             <column name="order_id" type="uuid">
                 <constraints nullable="false" foreignKeyName="FK_order_items_order" references="orders(id)"/>

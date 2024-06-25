@@ -24,3 +24,31 @@ app:
     lifetime: 300
   token-refresh:
     lifetime: 86400
+  exception:
+    code:
+#      throwable: 1
+#      data-integrity-violation-exception: 2
+#      method-argument-not-valid-exception: 3
+#
+#      services:
+#        authentication:
+#          loginUser: 41
+#          signUpUser: 42
+#
+#
+#        category:
+#
+#            loginUser: 41
+#            signUpUser: 42
+#            logoutUser: 43
+#            refreshToken: 44
+#
+##          resource-not-found-exception:
+##          resource-state-exception:
+#        orderItem:
+#
+#
+#        order:
+#
+#
+#        product:

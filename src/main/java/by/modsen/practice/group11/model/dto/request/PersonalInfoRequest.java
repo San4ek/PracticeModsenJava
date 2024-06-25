@@ -7,7 +7,6 @@ import jakarta.validation.constraints.Size;
 
 import java.time.LocalDateTime;
 
-// TODO а не лучше на request как-то объединить с user?
 public record PersonalInfoRequest(
         @NotNull
         @Size(max = 45, message = "Full name should not be longer than 45 characters")

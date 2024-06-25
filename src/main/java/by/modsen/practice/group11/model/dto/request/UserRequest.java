@@ -6,6 +6,8 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
+import java.util.UUID;
+
 public record UserRequest(
         @Email(message = "Email should be valid")
         @NotBlank(message = "Email is mandatory")
@@ -27,5 +29,5 @@ public record UserRequest(
         Role role,
 
         @NotNull(message = "Personal info is mandatory")
-        PersonalInfoRequest personalInfoRequest
+        UUID personalInfoId
 ) { }

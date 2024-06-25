@@ -23,8 +23,8 @@ public class Order {
     private UUID id;
 
     @ManyToOne
-    @JoinColumn(name = "personal_info_id", nullable = false)
-    private PersonalInfo personalInfo;
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
     @OneToMany(
             mappedBy = "order",

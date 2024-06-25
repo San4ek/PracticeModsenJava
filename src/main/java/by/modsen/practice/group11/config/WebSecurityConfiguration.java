@@ -14,7 +14,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -30,7 +29,7 @@ public class WebSecurityConfiguration { // extends WebSecurityConfigurerAdapter 
 
     private final AuthTokenFilter authTokenFilter;
 
-    private AuthEntryPointJwt unauthorizedHandler;
+    private final AuthEntryPointJwt unauthorizedHandler;
 
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
@@ -57,16 +56,19 @@ public class WebSecurityConfiguration { // extends WebSecurityConfigurerAdapter 
         return http
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(AbstractHttpConfigurer::disable)
+                .exceptionHandling(exception ->
+                    exception.authenticationEntryPoint(unauthorizedHandler)
+                )
                 .sessionManagement(config -> config.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests(auth -> {
-
-                    // TODO: fix matchers
-                    auth.
+                .authorizeHttpRequests(auth -> auth.
                             requestMatchers("auth/**").permitAll().
-//                            requestMatchers("test/**").permitAll().
-//                            requestMatchers("test/admin").hasRole("ADMIN").
-                            anyRequest().authenticated();
-                })
+                            requestMatchers("category/**").permitAll().
+                            requestMatchers("order/**").permitAll().
+                            requestMatchers("orderItem/**").permitAll().
+                            requestMatchers("product/**").permitAll().
+                            requestMatchers("user/**").permitAll().
+                            anyRequest().authenticated()
+                )
                 .authenticationProvider(authenticationProvider())
                 .addFilterBefore(authTokenFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
