@@ -9,8 +9,8 @@
             <column name="id" type="uuid" valueComputed="${uuid_function}">
                 <constraints nullable="false" primaryKey="true"/>
             </column>
-            <column name="personal_info_id" type="uuid">
-                <constraints nullable="false" foreignKeyName="FK_order_personal_info" references="personal_info(id)"/>
+            <column name="user_id" type="uuid">
+                <constraints nullable="false" foreignKeyName="FK_order_user" references="user(id)"/>
             </column>
         </createTable>
     </changeSet>

@@ -1,5 +1,6 @@
 package by.modsen.practice.group11.service.mapper;
 
+import by.modsen.practice.group11.model.UserJwt;
 import by.modsen.practice.group11.model.dto.request.OrderRequest;
 import by.modsen.practice.group11.model.dto.response.OrderResponse;
 import by.modsen.practice.group11.model.entity.Order;
@@ -10,16 +11,21 @@ import java.util.List;
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING, uses = CustomMapper.class)
 public interface OrderMapper {
 
-    @Mapping(target = "personalInfoId", source = "personalInfo.id")
     OrderResponse toOrderResponse(Order order);
 
     List<OrderResponse> toOrderResponseList(List<Order> orders);
 
-    @Mapping(source = "personalInfoId", target = "personalInfo", qualifiedByName = "personalInfoRefFromPersonalInfoId")
+    @Mapping(target = "user", source = "userId")
+    @Mapping(target = "id", ignore = true)
     Order toOrder(OrderRequest orderRequest);
 
+    @Mapping(target = "user", source = "id")
+    @Mapping(target = "id", ignore = true)
+    Order toOrder(UserJwt userJwt);
+
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    @Mapping(source = "personalInfoId", target = "personalInfo", qualifiedByName = "personalInfoRefFromPersonalInfoId")
+    @Mapping(target = "user", source = "userId")
+    @Mapping(target = "id", ignore = true)
     Order partialUpdate(OrderRequest orderRequest, @MappingTarget Order order);
 }
 

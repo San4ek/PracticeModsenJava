@@ -16,9 +16,11 @@ public interface UserMapper {
     List<UserResponse> toUserResponseList(List<User> users);
 
     @Mapping(source = "personalInfoId", target = "personalInfo", qualifiedByName = "personalInfoRefFromPersonalInfoId")
+    @Mapping(target = "id", ignore = true)
     User toUser(UserRequest userRequest);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     @Mapping(source = "personalInfoId", target = "personalInfo", qualifiedByName = "personalInfoRefFromPersonalInfoId")
+    @Mapping(target = "id", ignore = true)
     User partialUpdate(UserRequest userRequest, @MappingTarget User user);
 }

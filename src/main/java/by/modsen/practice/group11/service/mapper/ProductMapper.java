@@ -15,9 +15,11 @@ public interface ProductMapper {
     List<ProductResponse> toProductResponseList(List<Product> productList);
 
     @Mapping(source = "categoryId", target = "category", qualifiedByName = "categoryRefFromCategoryId")
+    @Mapping(target = "id", ignore = true)
     Product toProduct(ProductRequest productRequest);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     @Mapping(source = "categoryId", target = "category", qualifiedByName = "categoryRefFromCategoryId")
+    @Mapping(target = "id", ignore = true)
     Product partialUpdate(ProductRequest productRequest, @MappingTarget Product product);
 }

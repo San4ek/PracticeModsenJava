@@ -17,10 +17,12 @@ public interface OrderItemMapper {
 
     @Mapping(source = "orderId", target = "order", qualifiedByName = "orderRefFromOrderId")
     @Mapping(source = "productId", target = "product", qualifiedByName = "productRefFromProductId")
+    @Mapping(target = "id", ignore = true)
     OrderItem toOrderItem(OrderItemRequest orderItemRequest);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     @Mapping(source = "orderId", target = "order", qualifiedByName = "orderRefFromOrderId")
     @Mapping(source = "productId", target = "product", qualifiedByName = "productRefFromProductId")
+    @Mapping(target = "id", ignore = true)
     OrderItem partialUpdate(OrderItemRequest orderItemRequest, @MappingTarget OrderItem orderItem);
 }

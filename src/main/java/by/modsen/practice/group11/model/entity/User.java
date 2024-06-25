@@ -7,6 +7,8 @@ import lombok.*;
 import org.hibernate.annotations.UuidGenerator;
 import org.hibernate.proxy.HibernateProxy;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -48,6 +50,12 @@ public class User {
             cascade = CascadeType.REMOVE)
     @ToString.Exclude
     private TokenRefresh tokenRefresh;
+
+    @OneToMany(
+            mappedBy = "user",
+            cascade = CascadeType.ALL)
+    @ToString.Exclude
+    private List<Order> orders = new ArrayList<>();
 
     @Override
     public final boolean equals(Object o) {

@@ -5,6 +5,6 @@ import jakarta.validation.constraints.NotNull;
 import java.util.UUID;
 
 public record OrderRequest(
-        @NotNull(message = "Personal info is mandatory")
-        UUID personalInfoId
+        @NotNull(message = "Order id is mandatory")
+        UUID userId
 ) {}
