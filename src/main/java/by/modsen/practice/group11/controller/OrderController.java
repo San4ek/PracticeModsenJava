@@ -23,9 +23,9 @@ public class OrderController {
 
     private final OrderService orderService;
 
-    @GetMapping("/{id}")
+    @GetMapping("/get/{id}")
     @PreAuthorize("hasRole('CUSTOMER') || hasRole('ADMIN')")
-    public ResponseEntity<OrderResponse> getOrder(
+    public ResponseEntity<OrderResponse> getOrderById(
             @Valid @PathVariable UUID id) {
 
         return ResponseEntity
@@ -33,7 +33,7 @@ public class OrderController {
                 .body(orderService.getOrderById(id));
     }
 
-    @GetMapping
+    @GetMapping("/get/all/own")
     @PreAuthorize("hasRole('CUSTOMER')")
     public ResponseEntity<List<OrderResponse>> getAllOwnOrders (
             @Valid @AuthenticationPrincipal UserJwt userJwt) {
@@ -52,7 +52,7 @@ public class OrderController {
                 .body(orderService.getAllOrders());
     }
 
-    @PostMapping
+    @PostMapping("/create/own")
     @PreAuthorize("hasRole('CUSTOMER')")
     public ResponseEntity<OrderResponse> createOwnOrder(
             @Valid @AuthenticationPrincipal UserJwt userJwt) {
@@ -62,7 +62,7 @@ public class OrderController {
                 .body(orderService.createOrder(userJwt));
     }
 
-    @PostMapping("/admin/create")
+    @PostMapping("/create")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<OrderResponse> createOrder(
             @Valid @RequestBody OrderRequest orderRequest) {
@@ -72,7 +72,7 @@ public class OrderController {
                 .body(orderService.createOrder(orderRequest));
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/update/{id}")
     @PreAuthorize("hasRole('CUSTOMER') || hasRole('ADMIN')")
     public ResponseEntity<OrderResponse> updateOrder(
             @Valid @PathVariable UUID id,
@@ -83,10 +83,10 @@ public class OrderController {
                 .body(orderService.updateOrder(id, orderRequest));
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     @PreAuthorize("hasRole('CUSTOMER') || hasRole('ADMIN')")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void removeOrder(@Valid @PathVariable UUID id) {
+    public void deleteOrderById(@Valid @PathVariable UUID id) {
 
         orderService.deleteOrder(id);
     }

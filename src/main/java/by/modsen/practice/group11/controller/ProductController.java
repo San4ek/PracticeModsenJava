@@ -20,7 +20,7 @@ import java.util.UUID;
 public class ProductController {
     private final ProductService productService;
 
-    @GetMapping("/{id}")
+    @GetMapping("/get/{id}")
     public ResponseEntity<ProductResponse> getProductById(
             @Valid @PathVariable UUID id) {
 
@@ -29,7 +29,7 @@ public class ProductController {
                 .body(productService.getProductById(id));
     }
 
-    @GetMapping("categoryName/{category}")
+    @GetMapping("/get/category-name/{category}")
     public ResponseEntity<List<ProductResponse>> getProductsByCategoryName(
             @Valid @PathVariable String category) {
 
@@ -38,15 +38,15 @@ public class ProductController {
                 .body(productService.getProductByCategoryName(category));
     }
 
-    @GetMapping
-    public ResponseEntity<List<ProductResponse>> getAllProducts() {
+    @GetMapping("/get/all")
+    public ResponseEntity<List<ProductResponse>> getAll() {
 
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(productService.getAllProducts());
     }
 
-    @PostMapping
+    @PostMapping("/create")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<ProductResponse> createProduct(
             @Valid @RequestBody ProductRequest productRequest) {
@@ -56,23 +56,23 @@ public class ProductController {
                 .body(productService.createProduct(productRequest));
     }
 
-    @DeleteMapping("/{id}")
+    @PutMapping("/update/{id}")
     @PreAuthorize("hasRole('ADMIN')")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteCategory(
-            @Valid @PathVariable UUID id) {
-
-        productService.deleteProduct(id);
-    }
-
-    @PutMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<ProductResponse> updateCategory(
+    public ResponseEntity<ProductResponse> updateProduct(
             @Valid @PathVariable UUID id,
             @Valid @RequestBody ProductRequest productRequest) {
 
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(productService.updateProduct(id, productRequest));
+    }
+
+    @DeleteMapping("/delete/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteProductBuId(
+            @Valid @PathVariable UUID id) {
+
+        productService.deleteProduct(id);
     }
 }

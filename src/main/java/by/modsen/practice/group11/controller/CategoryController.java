@@ -20,7 +20,7 @@ import java.util.UUID;
 public class CategoryController {
     private final CategoryService categoryService;
 
-    @GetMapping("/{id}")
+    @GetMapping("/get/{id}")
     public ResponseEntity<CategoryResponse> getCategoryById(
             @Valid @PathVariable("id") UUID id) {
 
@@ -29,7 +29,7 @@ public class CategoryController {
                 .body(categoryService.getCategoryById(id));
     }
 
-    @GetMapping
+    @GetMapping("/get/all")
     public ResponseEntity<List<CategoryResponse>> getAll() {
 
         return ResponseEntity
@@ -37,7 +37,7 @@ public class CategoryController {
                 .body(categoryService.getAllCategories());
     }
 
-    @PostMapping
+    @PostMapping("/create")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<CategoryResponse> createCategory(
             @Valid @RequestBody CategoryRequest categoryRequest) {
@@ -47,7 +47,7 @@ public class CategoryController {
                 .body(categoryService.createCategory(categoryRequest));
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/update/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<CategoryResponse> updateCategory(
             @Valid @PathVariable UUID id,
@@ -58,10 +58,10 @@ public class CategoryController {
                 .body(categoryService.updateCategory(id, categoryRequest));
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteCategory(@Valid @PathVariable("id") UUID id) {
+    public void deleteCategoryById(@Valid @PathVariable("id") UUID id) {
 
         categoryService.deleteCategory(id);
     }

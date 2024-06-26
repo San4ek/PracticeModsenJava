@@ -20,7 +20,7 @@ import java.util.UUID;
 public class OrderItemController {
     private final OrderItemService orderItemService;
 
-    @GetMapping("/{id}")
+    @GetMapping("/get/{id}")
     @PreAuthorize("hasRole('CUSTOMER') || hasRole('ADMIN')")
     public ResponseEntity<OrderItemResponse> getById(
             @Valid @PathVariable UUID id) {
@@ -30,7 +30,7 @@ public class OrderItemController {
                 .body(orderItemService.getOrderItemByOrderItemId(id));
     }
 
-    @GetMapping("/order/{orderId}")
+    @GetMapping("/get/all/order-id/{orderId}")
     @PreAuthorize("hasRole('CUSTOMER') || hasRole('ADMIN')")
     public ResponseEntity<List<OrderItemResponse>> getAllByOrderId(
             @Valid @PathVariable UUID orderId) {
@@ -40,7 +40,7 @@ public class OrderItemController {
                 .body(orderItemService.getOrderItemsByOrderId(orderId));
     }
 
-    @GetMapping("/product/{productId}")
+    @GetMapping("/get/all/product-id/{productId}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<OrderItemResponse>> getAllByProductId(
             @Valid @PathVariable UUID productId) {
@@ -50,7 +50,7 @@ public class OrderItemController {
                 .body(orderItemService.getOrdersItemByProductId(productId));
     }
 
-    @GetMapping
+    @GetMapping("/get/all")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<OrderItemResponse>> getAll() {
 
@@ -59,7 +59,7 @@ public class OrderItemController {
                 .body(orderItemService.getAllOrdersItems());
     }
 
-    @PostMapping
+    @PostMapping("/create")
     @PreAuthorize("hasRole('CUSTOMER') || hasRole('ADMIN')")
     public ResponseEntity<OrderItemResponse> createOrderItem(
             @Valid @RequestBody OrderItemRequest orderItemRequest) {
@@ -69,30 +69,30 @@ public class OrderItemController {
                 .body(orderItemService.createOrderItem(orderItemRequest));
     }
 
-    @PutMapping("/{orderItemId}")
+    @PutMapping("/update/{id}")
     @PreAuthorize("hasRole('CUSTOMER') || hasRole('ADMIN')")
     public ResponseEntity<OrderItemResponse> updateOrderItem(
-            @Valid @PathVariable UUID orderItemId,
+            @Valid @PathVariable UUID id,
             @Valid @RequestBody OrderItemRequest orderItemRequest
     ) {
 
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(orderItemService.updateOrderItem(orderItemId, orderItemRequest));
+                .body(orderItemService.updateOrderItem(id, orderItemRequest));
     }
 
-    @DeleteMapping("/{orderItemId}")
+    @DeleteMapping("/delete/{id}")
     @PreAuthorize("hasRole('CUSTOMER') || hasRole('ADMIN')")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteOrderItem(@Valid @PathVariable UUID orderItemId) {
+    public void deleteOrderItemById(@Valid @PathVariable UUID id) {
 
-        orderItemService.deleteOrderItem(orderItemId);
+        orderItemService.deleteOrderItem(id);
     }
 
-    @DeleteMapping("/order/{orderId}")
+    @DeleteMapping("delete/all/order-id/{orderId}")
     @PreAuthorize("hasRole('CUSTOMER') || hasRole('ADMIN')")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteOrder(@PathVariable UUID orderId) {
+    public void deleteOrderItemByOrderId(@PathVariable UUID orderId) {
 
         orderItemService.deleteOrderItemsByOrderId(orderId);
     }
