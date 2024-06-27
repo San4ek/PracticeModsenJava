@@ -8,6 +8,7 @@ import by.modsen.practice.group11.repository.PersonalInfoRepository;
 import by.modsen.practice.group11.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -18,6 +19,7 @@ import java.util.List;
 public class InitConfiguration {
     private final UserRepository userRepository;
     private final PersonalInfoRepository personalInfoRepository;
+    private final PasswordEncoder passwordEncoder;
 
     public void init() {
 
@@ -37,7 +39,7 @@ public class InitConfiguration {
                     id(null).
                     email("admin@gmail.com").
                     login("admin").
-                    password("12345678").
+                    password(passwordEncoder.encode("12345678")).
                     role(Role.ROLE_ADMIN).
                     personalInfo(personalInfo).
                     build());

@@ -21,5 +21,5 @@ public interface OrderService {
 
     OrderResponse updateOrder(UUID orderId, OrderRequest orderRequest);
 
-    void deleteOrder(UUID orderId);
+    void deleteOrder(UserJwt userJwt, UUID orderId);
 }

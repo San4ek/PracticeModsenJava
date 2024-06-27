@@ -86,9 +86,9 @@ public class OrderController {
     @DeleteMapping("/delete/{id}")
     @PreAuthorize("hasRole('CUSTOMER') || hasRole('ADMIN')")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteOrderById(@Valid @PathVariable UUID id) {
+    public void deleteOrderById(@Valid @AuthenticationPrincipal UserJwt userJwt, @Valid @PathVariable UUID id) {
 
-        orderService.deleteOrder(id);
+        orderService.deleteOrder(userJwt, id);
     }
 
 }
