@@ -83,17 +83,9 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     }
 
     @Override
-    public MessageResponse logoutUser() {
-        UserJwt userDetails = null;
-        try {
-            userDetails = (UserJwt) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        } catch (ClassCastException e) {
-            log.error(e.getMessage());
-//            return new MessageResponse("Log out successful!");
-            // TODO: throw some exception
-        }
-//        SecurityContextHolder.clearContext();
-        UUID userId = userDetails.getId();
+    public MessageResponse logoutUser(UserJwt userJwt) {
+
+        UUID userId = userJwt.getId();
         refreshTokenUtils.deleteByUserId(userId);
         redisTemplate.delete(userId.toString());
         return new MessageResponse("Log out successful!");

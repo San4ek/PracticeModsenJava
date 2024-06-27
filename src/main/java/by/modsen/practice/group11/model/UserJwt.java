@@ -2,17 +2,19 @@ package by.modsen.practice.group11.model;
 
 import by.modsen.practice.group11.model.entity.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
 
 @Getter
+@AllArgsConstructor
 public class UserJwt implements UserDetails {
 
     private final UUID id;
@@ -26,6 +28,7 @@ public class UserJwt implements UserDetails {
 
     private final Collection<? extends GrantedAuthority> accessRights;
 
+    @Builder
     public static UserJwt build(User user) {
         List<GrantedAuthority> accessRights = List.of(new SimpleGrantedAuthority(user.getRole().name()));
         return new UserJwt(
@@ -49,26 +52,6 @@ public class UserJwt implements UserDetails {
     @Override
     public String getUsername() {
         return login;
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return true;
     }
 
     private UserJwt(UUID id, String login, String email, String password, List<GrantedAuthority> accessRights) {

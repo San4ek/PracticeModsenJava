@@ -23,7 +23,7 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @Column(name = "name", nullable = false, length = 45)
+    @Column(name = "name", nullable = false, unique = true, length = 45)
     private String name;
 
     @OneToMany(

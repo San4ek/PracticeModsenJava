@@ -4,12 +4,15 @@ import by.modsen.practice.group11.model.UserJwt;
 import by.modsen.practice.group11.model.dto.request.OrderRequest;
 import by.modsen.practice.group11.model.dto.response.OrderResponse;
 import by.modsen.practice.group11.model.entity.Order;
+import by.modsen.practice.group11.model.enums.Role;
 import by.modsen.practice.group11.repository.OrderRepository;
 import by.modsen.practice.group11.service.OrderService;
 import by.modsen.practice.group11.service.exception.ResourceNotFoundException;
 import by.modsen.practice.group11.service.mapper.OrderMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -67,9 +70,17 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     @Transactional
-    public void deleteOrder(UUID orderId) {
+    public void deleteOrder(UserJwt userJwt, UUID orderId) throws DataIntegrityViolationException {
 
-        getOrderOrThrow(orderId);
+        Order order = getOrderOrThrow(orderId);
+        List<String> accessRights = userJwt.getAccessRights().stream().map(GrantedAuthority::getAuthority).toList();
+
+        if (!accessRights.contains(Role.ROLE_ADMIN.name())) {
+            if (order.getUser().getId() != userJwt.getId()) {
+                throw new DataIntegrityViolationException("Can't delete this order. Access denied.");
+            }
+        }
+
         orderRepository.deleteById(orderId);
     }
 
