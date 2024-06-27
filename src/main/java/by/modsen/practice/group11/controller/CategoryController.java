@@ -23,7 +23,7 @@ import java.util.UUID;
 public class CategoryController {
     private final CategoryService categoryService;
 
-    @GetMapping("/{id}")
+    @GetMapping("/get/{id}")
     @Operation(summary = "Get category by id")
     public ResponseEntity<CategoryResponse> getCategoryById(
             @Valid @PathVariable("id") UUID id) {
@@ -33,7 +33,7 @@ public class CategoryController {
                 .body(categoryService.getCategoryById(id));
     }
 
-    @GetMapping
+    @GetMapping("/get/all")
     @Operation(summary = "Get all categories")
     public ResponseEntity<List<CategoryResponse>> getAll() {
 
@@ -42,7 +42,7 @@ public class CategoryController {
                 .body(categoryService.getAllCategories());
     }
 
-    @PostMapping
+    @PostMapping("/create")
     @PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Create category")
     public ResponseEntity<CategoryResponse> createCategory(
@@ -53,7 +53,7 @@ public class CategoryController {
                 .body(categoryService.createCategory(categoryRequest));
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/update/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Update category")
     public ResponseEntity<CategoryResponse> updateCategory(
@@ -65,11 +65,11 @@ public class CategoryController {
                 .body(categoryService.updateCategory(id, categoryRequest));
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @Operation(summary = "Delete category")
-    public void deleteCategory(@Valid @PathVariable("id") UUID id) {
+    public void deleteCategoryById(@Valid @PathVariable("id") UUID id) {
 
         categoryService.deleteCategory(id);
     }

@@ -23,7 +23,7 @@ import java.util.UUID;
 public class UserController {
     private final UserService userService;
 
-    @GetMapping("/{id}")
+    @GetMapping("/get/{id}")
     @Operation(summary = "Get user by id")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<UserResponse> getUser(@PathVariable UUID id) {
@@ -33,7 +33,7 @@ public class UserController {
                 .body(userService.getUserById(id));
     }
 
-    @GetMapping
+    @GetMapping("/get/all")
     @Operation(summary = "Get all users")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<UserResponse>> getAllUsers() {
@@ -43,7 +43,7 @@ public class UserController {
                 .body(userService.getAllUsers());
     }
 
-    @PostMapping
+    @PostMapping("/create")
     @Operation(summary = "Create user")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<UserResponse> createUser(
@@ -54,7 +54,7 @@ public class UserController {
                 .body(userService.createUser(userRequest));
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/update/{id}")
     @Operation(summary = "Update user")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<UserResponse> updateUser(
@@ -66,11 +66,11 @@ public class UserController {
                 .body(userService.updateUser(id, userRequest));
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @Operation(summary = "Delete user")
     @PreAuthorize("hasRole('ADMIN')")
-    public void deleteUser(@PathVariable UUID id) {
+    public void deleteUserById(@PathVariable UUID id) {
 
         userService.deleteUser(id);
     }

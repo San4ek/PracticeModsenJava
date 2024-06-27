@@ -1,5 +1,6 @@
 package by.modsen.practice.group11.controller;
 
+import by.modsen.practice.group11.model.UserJwt;
 import by.modsen.practice.group11.model.dto.request.LoginRequest;
 import by.modsen.practice.group11.model.dto.request.SignUpRequest;
 import by.modsen.practice.group11.model.dto.request.TokenRefreshRequest;
@@ -13,6 +14,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -46,11 +48,12 @@ public class AuthenticationController {
 
     @PostMapping("/logout")
     @Operation(summary = "logout")
-    public ResponseEntity<MessageResponse> logoutUser() {
+    public ResponseEntity<MessageResponse> logoutUser(
+            @Valid @AuthenticationPrincipal UserJwt userJwt) {
 
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(authenticationService.logoutUser());
+                .body(authenticationService.logoutUser(userJwt));
     }
 
     @PostMapping("/refresh-token")

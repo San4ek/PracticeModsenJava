@@ -26,10 +26,10 @@ public class OrderController {
 
     private final OrderService orderService;
 
-    @GetMapping("/{id}")
+    @GetMapping("/get/{id}")
     @PreAuthorize("hasRole('CUSTOMER') || hasRole('ADMIN')")
     @Operation(summary = "Get order by id")
-    public ResponseEntity<OrderResponse> getOrder(
+    public ResponseEntity<OrderResponse> getOrderById(
             @Valid @PathVariable UUID id) {
 
         return ResponseEntity
@@ -37,7 +37,7 @@ public class OrderController {
                 .body(orderService.getOrderById(id));
     }
 
-    @GetMapping
+    @GetMapping("/get/all/own")
     @Operation(summary = "Get all own orders")
     @PreAuthorize("hasRole('CUSTOMER')")
     public ResponseEntity<List<OrderResponse>> getAllOwnOrders (
@@ -58,7 +58,7 @@ public class OrderController {
                 .body(orderService.getAllOrders());
     }
 
-    @PostMapping
+    @PostMapping("/create/own")
     @Operation(summary = "Create order")
     @PreAuthorize("hasRole('CUSTOMER')")
     public ResponseEntity<OrderResponse> createOwnOrder(
@@ -69,7 +69,7 @@ public class OrderController {
                 .body(orderService.createOrder(userJwt));
     }
 
-    @PostMapping("/admin/create")
+    @PostMapping("/create")
     @PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Create order by putting orderRequest")
     public ResponseEntity<OrderResponse> createOrder(
@@ -80,7 +80,7 @@ public class OrderController {
                 .body(orderService.createOrder(orderRequest));
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/update/{id}")
     @Operation(summary = "Update order")
     @PreAuthorize("hasRole('CUSTOMER') || hasRole('ADMIN')")
     public ResponseEntity<OrderResponse> updateOrder(
@@ -92,13 +92,13 @@ public class OrderController {
                 .body(orderService.updateOrder(id, orderRequest));
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     @PreAuthorize("hasRole('CUSTOMER') || hasRole('ADMIN')")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @Operation(summary = "Delete order")
-    public void removeOrder(@Valid @PathVariable UUID id) {
+    public void deleteOrderById(@Valid @AuthenticationPrincipal UserJwt userJwt, @Valid @PathVariable UUID id) {
 
-        orderService.deleteOrder(id);
+        orderService.deleteOrder(userJwt, id);
     }
 
 }

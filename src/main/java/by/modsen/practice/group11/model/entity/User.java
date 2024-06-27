@@ -57,13 +57,15 @@ public class User {
 
     @Builder
     public User(UUID id, String email, String login, String password, Role role,
-                PersonalInfo personalInfo) {
+                PersonalInfo personalInfo, TokenRefresh tokenRefresh, List<Order> orders) {
         this.id = id;
         this.email = email;
         this.login = login;
         this.password = password;
         this.role = role;
         this.personalInfo = personalInfo;
+        this.tokenRefresh = tokenRefresh;
+        this.orders = orders;
     }
 
     @Override

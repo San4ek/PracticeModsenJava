@@ -23,7 +23,7 @@ import java.util.UUID;
 public class OrderItemController {
     private final OrderItemService orderItemService;
 
-    @GetMapping("/{id}")
+    @GetMapping("/get/{id}")
     @Operation(summary = "Get orderItem by id")
     @PreAuthorize("hasRole('CUSTOMER') || hasRole('ADMIN')")
     public ResponseEntity<OrderItemResponse> getById(
@@ -34,7 +34,7 @@ public class OrderItemController {
                 .body(orderItemService.getOrderItemByOrderItemId(id));
     }
 
-    @GetMapping("/order/{orderId}")
+    @GetMapping("/get/all/order-id/{orderId}")
     @Operation(summary = "Get all orderItem by orderId")
     @PreAuthorize("hasRole('CUSTOMER') || hasRole('ADMIN')")
     public ResponseEntity<List<OrderItemResponse>> getAllByOrderId(
@@ -45,7 +45,7 @@ public class OrderItemController {
                 .body(orderItemService.getOrderItemsByOrderId(orderId));
     }
 
-    @GetMapping("/product/{productId}")
+    @GetMapping("/get/all/product-id/{productId}")
     @Operation(summary = "Get all orderItem by productId")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<OrderItemResponse>> getAllByProductId(
@@ -56,7 +56,7 @@ public class OrderItemController {
                 .body(orderItemService.getOrdersItemByProductId(productId));
     }
 
-    @GetMapping
+    @GetMapping("/get/all")
     @PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Get all")
     public ResponseEntity<List<OrderItemResponse>> getAll() {
@@ -66,7 +66,7 @@ public class OrderItemController {
                 .body(orderItemService.getAllOrdersItems());
     }
 
-    @PostMapping
+    @PostMapping("/create")
     @Operation(summary = "Create orderItem")
     @PreAuthorize("hasRole('CUSTOMER') || hasRole('ADMIN')")
     public ResponseEntity<OrderItemResponse> createOrderItem(
@@ -77,29 +77,29 @@ public class OrderItemController {
                 .body(orderItemService.createOrderItem(orderItemRequest));
     }
 
-    @PutMapping("/{orderItemId}")
+    @PutMapping("/update/{id}")
     @Operation(summary = "Update orderItem")
     @PreAuthorize("hasRole('CUSTOMER') || hasRole('ADMIN')")
     public ResponseEntity<OrderItemResponse> updateOrderItem(
-            @Valid @PathVariable UUID orderItemId,
+            @Valid @PathVariable UUID id,
             @Valid @RequestBody OrderItemRequest orderItemRequest
     ) {
 
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(orderItemService.updateOrderItem(orderItemId, orderItemRequest));
+                .body(orderItemService.updateOrderItem(id, orderItemRequest));
     }
 
-    @DeleteMapping("/{orderItemId}")
+    @DeleteMapping("/delete/{id}")
     @PreAuthorize("hasRole('CUSTOMER') || hasRole('ADMIN')")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @Operation(summary = "Delete orderItem by orderItemId")
-    public void deleteOrderItem(@Valid @PathVariable UUID orderItemId) {
+    public void deleteOrderItemById(@Valid @PathVariable UUID id) {
 
-        orderItemService.deleteOrderItem(orderItemId);
+        orderItemService.deleteOrderItem(id);
     }
 
-    @DeleteMapping("/order/{orderId}")
+    @DeleteMapping("delete/all/order-id/{orderId}")
     @PreAuthorize("hasRole('CUSTOMER') || hasRole('ADMIN')")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @Operation(summary = "delete orderItem by orderId")
