@@ -11,6 +11,8 @@ import org.springframework.stereotype.Component;
 
 import java.time.Duration;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 @Component
 @RequiredArgsConstructor
@@ -27,18 +29,24 @@ public class AccessTokenUtils {
     private final RedisTemplate<String, String> redisTemplate;
 
     public String generateAccessToken(UserJwt userJwt) {
-        String accessToken = generateAccessTokenFromUsername(userJwt.getUsername());
+        String accessToken = generateAccessTokenFromLoginAndEmail(userJwt.getLogin(), userJwt.getEmail());
         redisTemplate.opsForValue().set(userJwt.getId().toString(), accessToken, Duration.ofSeconds(accessTokenLifetime));
         return accessToken;
     }
 
-    public String generateAccessTokenFromUsername(String login) {
-        return Jwts.builder().setSubject(login).setIssuedAt(new Date())
+    public String generateAccessTokenFromLoginAndEmail(String login, String email) {
+        Map<String, Object> claims = new HashMap<>() {
+            {
+                put("email", email);
+            }
+        };
+
+        return Jwts.builder().setClaims(claims).setSubject(login).setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + accessTokenLifetime * 1000)).signWith(SignatureAlgorithm.HS256, accessTokenKeySecret)
                 .compact();
     }
 
-    public String getUserNameFromAccessToken(String accessToken) {
+    public String getLoginFromAccessToken(String accessToken) {
         return Jwts.parser().setSigningKey(accessTokenKeySecret).parseClaimsJws(accessToken).getBody().getSubject();
     }
 
