@@ -10,15 +10,19 @@ import by.modsen.practice.group11.model.dto.response.TokenRefreshResponse;
 import by.modsen.practice.group11.model.entity.PersonalInfo;
 import by.modsen.practice.group11.model.entity.TokenRefresh;
 import by.modsen.practice.group11.model.entity.User;
+import by.modsen.practice.group11.model.enums.LinePattern;
 import by.modsen.practice.group11.model.enums.Role;
 import by.modsen.practice.group11.repository.PersonalInfoRepository;
 import by.modsen.practice.group11.repository.UserRepository;
 import by.modsen.practice.group11.service.AuthenticationService;
+import by.modsen.practice.group11.service.exception.ResourceStateException;
 import by.modsen.practice.group11.utils.AccessTokenUtils;
 import by.modsen.practice.group11.utils.RefreshTokenUtils;
+import by.modsen.practice.group11.utils.StringFormatMatcher;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -42,10 +46,11 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     private final AccessTokenUtils accessTokenUtils;
     private final RefreshTokenUtils refreshTokenUtils;
     private final RedisTemplate<String, String> redisTemplate;
+    private final StringFormatMatcher stringFormatMatcher;
 
     @Override
     public JwtResponse loginUser(LoginRequest loginRequest) {
-        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.login(), loginRequest.password()));
+        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.username(), loginRequest.password()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         UserJwt userJwt = (UserJwt) authentication.getPrincipal();
@@ -56,6 +61,18 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     @Override
     public MessageResponse signUpUser(SignUpRequest signUpRequest) {
+        LinePattern linePattern = stringFormatMatcher.isLoginOrUsername(signUpRequest.login());
+
+        if (linePattern != LinePattern.LOGIN) {
+            throw new ResourceStateException(HttpStatus.CONFLICT.value() * 100 + 11, "Request login is not valid");
+        }
+
+        linePattern = stringFormatMatcher.isLoginOrUsername(signUpRequest.email());
+
+        if (linePattern != LinePattern.EMAIL) {
+            throw new ResourceStateException(HttpStatus.CONFLICT.value() * 100 + 12, "Request email is not valid");
+        }
+
         if (userRepository.existsByLogin(signUpRequest.login())) {
             return new MessageResponse("Error: Username is already taken!");
         }
