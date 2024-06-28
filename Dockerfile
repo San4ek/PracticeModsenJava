@@ -1,4 +1,10 @@
-FROM openjdk:23-ea-17-jdk-slim-bookworm
-WORKDIR /app
-COPY /target/PracticeModsenJava-0.0.1-SNAPSHOT.jar /app
-ENTRYPOINT ["java", "-jar", "PracticeModsenJava-1.0.0.jar"]
+FROM openjdk:17
+
+ARG EXTRACTED=/target/extracted
+
+COPY ${EXTRACTED}/dependencies/ ./
+COPY ${EXTRACTED}/spring-boot-loader/ ./
+COPY ${EXTRACTED}/snapshot-dependencies/ ./
+COPY ${EXTRACTED}/application/ ./
+
+ENTRYPOINT ["java","org.springframework.boot.loader.launch.JarLauncher"]

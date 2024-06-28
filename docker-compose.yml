@@ -1,22 +1,45 @@
 version: '3.8'
+
 services:
   application:
-    image: springapp:latest
-    build:
-      context: .
-    container_name: springapp
+    image: practice_modsen:0.0.1
+    container_name: spring-app
+    ports:
+      - "8080:8080"
     depends_on:
       - postgres
-    ports:
-      - 18888:8080
+      - redis
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/pizza_db
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://host.docker.internal/pizza_db
       - SPRING_DATASOURCE_USERNAME=postgres
       - SPRING_DATASOURCE_PASSWORD=postgres
-#      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+    networks:
+      - db_network
+
   postgres:
     image: postgres:latest
     container_name: postgres-server
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./infrastructure/database/database.sql:/docker-entrypoint-initdb.d/database.sql
     environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
+      POSTGRES_DB: pizza_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    networks:
+      - db_network
+
+  redis:
+    image: redis:latest
+    restart: on-failure
+    ports:
+      - "6379:6379"
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+    networks:
+      - db_network
+
+networks:
+  db_network:
+    driver: bridge
