@@ -19,7 +19,9 @@ public class UserJwt implements UserDetails {
 
     private final UUID id;
 
-    private final String username;
+    private final String login;
+
+    private final String email;
 
     @JsonIgnore
     private final String password;
@@ -27,11 +29,12 @@ public class UserJwt implements UserDetails {
     private final Collection<? extends GrantedAuthority> accessRights;
 
     @Builder
-    public static UserJwt build(User user, String username) {
+    public static UserJwt build(User user) {
         List<GrantedAuthority> accessRights = List.of(new SimpleGrantedAuthority(user.getRole().name()));
         return new UserJwt(
                 user.getId(),
-                username,
+                user.getLogin(),
+                user.getEmail(),
                 user.getPassword(),
                 accessRights);
     }
@@ -48,12 +51,13 @@ public class UserJwt implements UserDetails {
 
     @Override
     public String getUsername() {
-        return username;
+        return login;
     }
 
-    private UserJwt(UUID id, String username, String password, List<GrantedAuthority> accessRights) {
+    private UserJwt(UUID id, String login, String email, String password, List<GrantedAuthority> accessRights) {
         this.id = id;
-        this.username = username;
+        this.login = login;
+        this.email = email;
         this.password = password;
         this.accessRights = accessRights;
     }

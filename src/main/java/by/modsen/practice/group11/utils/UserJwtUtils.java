@@ -37,6 +37,6 @@ public class UserJwtUtils implements UserDetailsService {
             throw new ResourceStateException(HttpStatus.CONFLICT.value() * 100 + 11, "Username credential is not recognized");
         }
 
-        return UserJwt.build(user, username);
+        return UserJwt.build(user);
     }
 }
