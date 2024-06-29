@@ -7,4 +7,5 @@ import java.util.UUID;
 public record OrderRequest(
         @NotNull(message = "Order id is mandatory")
         UUID userId
-) {}
+) {
+}

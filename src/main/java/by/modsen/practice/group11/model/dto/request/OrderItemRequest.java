@@ -14,4 +14,5 @@ public record OrderItemRequest(
 
         @Min(value = 0, message = "Amount must be positive")
         int amount
-) {}
+) {
+}

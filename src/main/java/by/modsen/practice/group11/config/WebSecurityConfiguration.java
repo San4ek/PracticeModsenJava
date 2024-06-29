@@ -3,6 +3,8 @@ package by.modsen.practice.group11.config;
 import by.modsen.practice.group11.filter.AuthEntryPointJwt;
 import by.modsen.practice.group11.filter.AuthTokenFilter;
 import by.modsen.practice.group11.utils.UserJwtUtils;
+import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
+import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,6 +25,12 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 @EnableMethodSecurity
 @RequiredArgsConstructor
+@SecurityScheme(
+        type = SecuritySchemeType.HTTP,
+        scheme = "bearer",
+        bearerFormat = "JWT",
+        name = "bearerAuth"
+)
 public class WebSecurityConfiguration { // extends WebSecurityConfigurerAdapter {
 
     private final UserJwtUtils userJwtUtils;
@@ -57,17 +65,13 @@ public class WebSecurityConfiguration { // extends WebSecurityConfigurerAdapter 
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(AbstractHttpConfigurer::disable)
                 .exceptionHandling(exception ->
-                    exception.authenticationEntryPoint(unauthorizedHandler)
+                        exception.authenticationEntryPoint(unauthorizedHandler)
                 )
                 .sessionManagement(config -> config.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth.
-                            requestMatchers("auth/**").permitAll().
-                            requestMatchers("category/**").permitAll().
-                            requestMatchers("order/**").permitAll().
-                            requestMatchers("orderItem/**").permitAll().
-                            requestMatchers("product/**").permitAll().
-                            requestMatchers("user/**").permitAll().
-                            anyRequest().authenticated()
+                        requestMatchers("auth/**").permitAll().
+                        requestMatchers("/swagger-ui/**", "/swagger-resources/*", "/v3/api-docs/**").permitAll().
+                        anyRequest().authenticated()
                 )
                 .authenticationProvider(authenticationProvider())
                 .addFilterBefore(authTokenFilter, UsernamePasswordAuthenticationFilter.class)

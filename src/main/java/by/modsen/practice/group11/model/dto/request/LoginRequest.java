@@ -5,20 +5,16 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Builder;
 
-import java.util.UUID;
-
 @Builder
 public record LoginRequest(
         @NotNull
-        @NotBlank(message = "Email is mandatory")
-        @Size(max = 50, message = "Email should not be longer than 50 characters")
-        String email,
-        @NotNull
-        @NotBlank(message = "Login is mandatory")
-        @Size(max = 20, message = "Login should not be longer than 20 characters")
-        String login,
+        @NotBlank(message = "Username is mandatory")
+        @Size(min = 2, max = 50, message = "Username should be in range [2, 50]")
+        String username,
+
         @NotNull
         @NotBlank(message = "Password is mandatory")
         @Size(min = 8, max = 300, message = "Password should be between 8 and 300 characters")
         String password
-) { }
+) {
+}

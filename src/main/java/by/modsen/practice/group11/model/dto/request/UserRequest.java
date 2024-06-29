@@ -1,6 +1,7 @@
 package by.modsen.practice.group11.model.dto.request;
 
 import by.modsen.practice.group11.model.enums.Role;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -26,6 +27,7 @@ public record UserRequest(
         String password,
 
         @NotNull(message = "Role is mandatory")
+        @Schema(description = "Role, it should be written with a capital letter", example = "ADMIN")
         Role role,
 
         @NotNull(message = "Personal info is mandatory")

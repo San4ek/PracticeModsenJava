@@ -1,5 +1,6 @@
 package by.modsen.practice.group11.service;
 
+import by.modsen.practice.group11.model.UserJwt;
 import by.modsen.practice.group11.model.dto.request.LoginRequest;
 import by.modsen.practice.group11.model.dto.request.SignUpRequest;
 import by.modsen.practice.group11.model.dto.request.TokenRefreshRequest;
@@ -12,7 +13,7 @@ public interface AuthenticationService{
 
     MessageResponse signUpUser(SignUpRequest signupRequest);
 
-    MessageResponse logoutUser();
+    MessageResponse logoutUser(UserJwt userJwt);
 
     TokenRefreshResponse refreshToken(TokenRefreshRequest tokenRefreshRequest);
 }

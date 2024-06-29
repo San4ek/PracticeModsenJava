@@ -42,8 +42,8 @@ public class AuthTokenFilter extends OncePerRequestFilter {
             String accessToken = parseJwt(request);
             if (accessToken != null && accessTokenUtils.validateAccessToken(accessToken)) {
 
-                String username = accessTokenUtils.getUserNameFromAccessToken(accessToken);
-                UserDetails userDetails = userJwtUtils.loadUserByUsername(username);
+                String login = accessTokenUtils.getLoginFromAccessToken(accessToken);
+                UserDetails userDetails = userJwtUtils.loadUserByUsername(login);
                 String userId = ((UserJwt) userDetails).getId().toString();
 
                 if (Boolean.TRUE.equals(redisTemplate.hasKey(userId)) && Objects.equals(redisTemplate.opsForValue().get(userId), accessToken)) {
