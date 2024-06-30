@@ -45,13 +45,13 @@ public class User {
 
     @OneToOne(
             mappedBy = "user",
-            cascade = CascadeType.REMOVE)
+            cascade = CascadeType.REMOVE, orphanRemoval = true)
     @ToString.Exclude
     private TokenRefresh tokenRefresh;
 
     @OneToMany(
             mappedBy = "user",
-            cascade = CascadeType.ALL)
+            cascade = CascadeType.ALL, orphanRemoval = true)
     @ToString.Exclude
     private List<Order> orders = new ArrayList<>();
 

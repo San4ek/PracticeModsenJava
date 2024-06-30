@@ -116,7 +116,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                 .map(refreshTokenUtils::verifyExpiration)
                 .map(TokenRefresh::getUser)
                 .map(user -> {
-                    String token = accessTokenUtils.generateAccessTokenFromLoginAndEmail(user.getLogin(), user.getEmail());
+                    String token = accessTokenUtils.generateAccessToken(UserJwt.build(user));
 
                     return new TokenRefreshResponse(token, requestRefreshToken);
                 })
