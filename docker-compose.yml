@@ -23,12 +23,10 @@ services:
     container_name: postgres-server
     ports:
       - "5432:5432"
-    volumes:
-      - ./infrastructure/database/database.sql:/docker-entrypoint-initdb.d/database.sql
     environment:
-      POSTGRES_DB: pizza_db
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: pizza_db
     networks:
       - db_network
 
