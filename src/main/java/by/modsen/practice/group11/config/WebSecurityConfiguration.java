@@ -63,7 +63,6 @@ public class WebSecurityConfiguration { // extends WebSecurityConfigurerAdapter 
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
-                .cors(AbstractHttpConfigurer::disable)
                 .exceptionHandling(exception ->
                         exception.authenticationEntryPoint(unauthorizedHandler)
                 )

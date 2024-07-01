@@ -18,7 +18,6 @@ import java.util.UUID;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/product")
-@CrossOrigin(origins = "*", maxAge = 3600)
 @Tag(name = "Product Controller")
 public class ProductController {
     private final ProductService productService;

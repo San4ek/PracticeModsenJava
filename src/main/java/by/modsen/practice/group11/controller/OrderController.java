@@ -21,7 +21,6 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @RequestMapping("/order")
 @Tag(name = "Order Controller")
-@CrossOrigin(origins = "*", maxAge = 3600)
 public class OrderController {
 
     private final OrderService orderService;
