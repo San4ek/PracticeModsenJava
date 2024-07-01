@@ -24,8 +24,8 @@ app:
     lifetime: 300
   token-refresh:
     lifetime: 86400
-  exception:
-    code:
+#  exception:
+#    code:
 #      throwable: 1
 #      data-integrity-violation-exception: 2
 #      method-argument-not-valid-exception: 3

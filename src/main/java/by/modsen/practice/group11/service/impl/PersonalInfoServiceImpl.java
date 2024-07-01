@@ -23,12 +23,12 @@ public class PersonalInfoServiceImpl implements PersonalInfoService {
     private final PersonalInfoMapper personalInfoMapper;
 
 
-    @Override
-    @Transactional(readOnly = true)
-    public PersonalInfoResponse getPersonalInfoById(UUID personalInfoId) {
-
-        return personalInfoMapper.toPersonalInfoResponse(getPersonalInfoOrThrow(personalInfoId));
-    }
+//    @Override
+//    @Transactional(readOnly = true)
+//    public PersonalInfoResponse getPersonalInfoById(UUID personalInfoId) {
+//
+//        return personalInfoMapper.toPersonalInfoResponse(getPersonalInfoOrThrow(personalInfoId));
+//    }
 
     @Override
     @Transactional(readOnly = true)
@@ -37,13 +37,13 @@ public class PersonalInfoServiceImpl implements PersonalInfoService {
         return personalInfoMapper.toPersonalInfoResponseList(personalInfoRepository.findAll());
     }
 
-    @Override
-    @Transactional
-    public PersonalInfoResponse createPersonalInfo(PersonalInfoRequest personalInfoRequest) {
-
-        return personalInfoMapper.toPersonalInfoResponse(personalInfoRepository.save(personalInfoMapper.
-                toPersonalInfo(personalInfoRequest)));
-    }
+//    @Override
+//    @Transactional
+//    public PersonalInfoResponse createPersonalInfo(PersonalInfoRequest personalInfoRequest) {
+//
+//        return personalInfoMapper.toPersonalInfoResponse(personalInfoRepository.save(personalInfoMapper.
+//                toPersonalInfo(personalInfoRequest)));
+//    }
 
     @Override
     @Transactional
@@ -53,13 +53,13 @@ public class PersonalInfoServiceImpl implements PersonalInfoService {
                 partialUpdate(personalInfoRequest, getPersonalInfoOrThrow(personalInfoId))));
     }
 
-    @Override
-    @Transactional
-    public void deletePersonalInfo(UUID personalInfoId) {
-
-        getPersonalInfoOrThrow(personalInfoId);
-        personalInfoRepository.deleteById(personalInfoId);
-    }
+//    @Override
+//    @Transactional
+//    public void deletePersonalInfo(UUID personalInfoId) {
+//
+//        getPersonalInfoOrThrow(personalInfoId);
+//        personalInfoRepository.deleteById(personalInfoId);
+//    }
 
     private PersonalInfo getPersonalInfoOrThrow(UUID personalInfoId) {
 

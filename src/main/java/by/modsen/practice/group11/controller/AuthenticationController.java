@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/auth")
-@CrossOrigin(origins = "*", maxAge = 3600)
 @Tag(name = "Authentication controller")
 public class AuthenticationController {
 

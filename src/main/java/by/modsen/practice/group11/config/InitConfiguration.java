@@ -22,7 +22,7 @@ public class InitConfiguration {
     private final PasswordEncoder passwordEncoder;
 
     public void init() {
-
+        
         List<User> admins = userRepository.findAllByRole(Role.ROLE_ADMIN);
 
         if (admins.isEmpty()) {
