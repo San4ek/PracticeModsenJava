@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="insert-in-user-table" author="Ptuxa">
+        <insert tableName="users">
+            <column name="id" value="f6602e45-83d2-427a-94bc-885ebaee4d29"/>
+            <column name="email" value="admin@gmail.com" />
+            <column name="login" value="admin" />
+            <column name="password" value="{bcrypt}$2a$10$gxvwcM9BOI/aPWVNaXKHW.vPBZBlWEvy1TcGzmGpH/77E4r0kfCsy" />
+            <column name="role" value="ROLE_ADMIN" />
+            <column name="personal_info_id" value="68de6392-7563-4ade-9d56-b704de8d48f5" />
+        </insert>
+        <insert tableName="users">
+            <column name="id" value="eade0166-b0db-4e65-8f02-859f15ceded6"/>
+            <column name="email" value="maria@gmail.com" />
+            <column name="login" value="maria" />
+            <column name="password" value="{bcrypt}$2a$10$fA1WPoptUafZ0gmtJrmkXOMyysGcs1KGs0wo9DnV4Uoz4wkczTXzO" />
+            <column name="role" value="ROLE_CUSTOMER" />
+            <column name="personal_info_id" value="b31f5e79-5b54-4856-aa2a-5c5e07520dee" />
+        </insert>
+        <insert tableName="users">
+            <column name="id" value="b78339bc-1d10-4013-a46e-bc9ba454d9f9"/>
+            <column name="email" value="bob@gmail.com" />
+            <column name="login" value="bob" />
+            <column name="password" value="{bcrypt}$2a$10$l0s2QzH7dM3E09NL.ioFAO3D68MrD3TfR.Aq9auLZpsY4PmmLh/7O" />
+            <column name="role" value="ROLE_CUSTOMER" />
+            <column name="personal_info_id" value="a65d63e7-e850-4097-aa04-4ac49071dd55" />
+        </insert>
+    </changeSet>
+</databaseChangeLog>

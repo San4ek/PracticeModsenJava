@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="insert-in-product-table" author="admin">
+        <insert tableName="products">
+            <column name="id" value="dfa10735-992e-49a6-b1da-49e100559678"/>
+            <column name="category_id" value="1436d137-8f10-4657-845e-3e06cd30db65" />
+            <column name="name" value="Caesar salad" />
+        </insert>
+        <insert tableName="products">
+            <column name="id" value="e04e0c21-d110-4ed8-8b33-0224495633da"/>
+            <column name="category_id" value="1436d137-8f10-4657-845e-3e06cd30db65" />
+            <column name="name" value="Greek salad" />
+        </insert>
+        <insert tableName="products">
+            <column name="id" value="a54f8034-3f59-4729-ad13-8f0d62c3c1eb"/>
+            <column name="category_id" value="7077da2e-743d-45fa-ad2f-6909f84a57a1" />
+            <column name="name" value="Meat pizza" />
+        </insert>
+        <insert tableName="products">
+            <column name="id" value="25fa9a54-039b-473f-9c65-4b9028402f50"/>
+            <column name="category_id" value="7077da2e-743d-45fa-ad2f-6909f84a57a1" />
+            <column name="name" value="Four seasons pizza" />
+        </insert>
+    </changeSet>
+</databaseChangeLog>
