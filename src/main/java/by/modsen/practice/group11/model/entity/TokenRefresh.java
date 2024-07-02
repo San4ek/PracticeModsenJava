@@ -30,7 +30,13 @@ public class TokenRefresh {
     private Instant expiryDate;
 
     @OneToOne
-    @JoinColumn(name = "user_id", nullable = false, unique = true)
+    @JoinColumn(name = "user_id", unique = true)
     @ToString.Exclude
     private User user;
+
+    @PreRemove
+    public void dismissParent() {
+        user.setTokenRefresh(null);
+        user = null;
+    }
 }

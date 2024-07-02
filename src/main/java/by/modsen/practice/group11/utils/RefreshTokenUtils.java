@@ -7,7 +7,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
 import java.util.Optional;
@@ -29,7 +28,7 @@ public class RefreshTokenUtils {
     }
 
     public TokenRefresh takeOrCreateActualRefreshToken(UUID userId) {
-        return refreshTokenRepository.findByUserId(userId).map(tokenRefresh -> {
+        return refreshTokenRepository.findByUser_Id(userId).map(tokenRefresh -> {
             try {
                 tokenRefresh = verifyExpiration(tokenRefresh);
             } catch (RuntimeException ex) {
@@ -58,7 +57,6 @@ public class RefreshTokenUtils {
         return token;
     }
 
-    @Transactional
     public void deleteByUserId(UUID userId) {
         refreshTokenRepository.deleteByUser(userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found")));
     }
