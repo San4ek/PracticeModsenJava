@@ -45,7 +45,7 @@ public class User {
 
     @OneToOne(
             mappedBy = "user",
-            cascade = CascadeType.REMOVE, orphanRemoval = true)
+            cascade = CascadeType.ALL, orphanRemoval = true)
     @ToString.Exclude
     private TokenRefresh tokenRefresh;
 

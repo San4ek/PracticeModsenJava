@@ -40,7 +40,6 @@ public class WebSecurityConfiguration { // extends WebSecurityConfigurerAdapter 
 
     private final AuthEntryPointJwt unauthorizedHandler;
 
-
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
@@ -79,4 +78,5 @@ public class WebSecurityConfiguration { // extends WebSecurityConfigurerAdapter 
                 .addFilterBefore(authTokenFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
+
 }

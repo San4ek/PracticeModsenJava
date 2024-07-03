@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="insert-in-orders-items-data" author="Ptuxa">
+        <insert tableName="order_items">
+            <column name="id" value="8425be0e-8579-4939-9b8f-960da5939b9b"/>
+            <column name="order_id" value="5623126c-4b5d-4cb1-a5c6-8e454a782e5d" />
+            <column name="product_id" value="dfa10735-992e-49a6-b1da-49e100559678" />
+            <column name="amount" value="1" />
+        </insert>
+        <insert tableName="order_items">
+            <column name="id" value="eb87f54b-fa46-4c6b-ada5-aeb0d3ec3b18"/>
+            <column name="order_id" value="5623126c-4b5d-4cb1-a5c6-8e454a782e5d" />
+            <column name="product_id" value="a54f8034-3f59-4729-ad13-8f0d62c3c1eb" />
+            <column name="amount" value="2" />
+        </insert>
+        <insert tableName="order_items">
+            <column name="id" value="5dd871e9-6bb8-4caa-a71e-6808211a8975"/>
+            <column name="order_id" value="490aa544-919d-4ee5-92cf-af4374230f6c" />
+            <column name="product_id" value="e04e0c21-d110-4ed8-8b33-0224495633da" />
+            <column name="amount" value="3" />
+        </insert>
+        <insert tableName="order_items">
+            <column name="id" value="7ec40f96-76c3-4685-993c-ccc158ecdf9c"/>
+            <column name="order_id" value="490aa544-919d-4ee5-92cf-af4374230f6c" />
+            <column name="product_id" value="25fa9a54-039b-473f-9c65-4b9028402f50" />
+            <column name="amount" value="2" />
+        </insert>
+        <insert tableName="order_items">
+            <column name="id" value="83c9e961-b366-49e1-aace-1b63103bb3bb"/>
+            <column name="order_id" value="490aa544-919d-4ee5-92cf-af4374230f6c" />
+            <column name="product_id" value="e04e0c21-d110-4ed8-8b33-0224495633da" />
+            <column name="amount" value="1" />
+        </insert>
+        <insert tableName="order_items">
+            <column name="id" value="693ecc70-e4c7-4e40-a74c-318bcc44c26d"/>
+            <column name="order_id" value="50d53b43-6a87-425a-a3ab-65e70f5075ea" />
+            <column name="product_id" value="a54f8034-3f59-4729-ad13-8f0d62c3c1eb" />
+            <column name="amount" value="3" />
+        </insert>
+        <insert tableName="order_items">
+            <column name="id" value="9b961601-bba4-4400-9acc-798297489021"/>
+            <column name="order_id" value="23d8b291-d39d-4c7c-ab2a-da8e81a99996" />
+            <column name="product_id" value="25fa9a54-039b-473f-9c65-4b9028402f50" />
+            <column name="amount" value="5" />
+        </insert>
+        <insert tableName="order_items">
+            <column name="id" value="6357eadc-0946-4183-b810-845424e2f52d"/>
+            <column name="order_id" value="23d8b291-d39d-4c7c-ab2a-da8e81a99996" />
+            <column name="product_id" value="e04e0c21-d110-4ed8-8b33-0224495633da" />
+            <column name="amount" value="2" />
+        </insert>
+        <insert tableName="order_items">
+            <column name="id" value="710ef25d-79d5-4e47-bda8-a90d49c1f8b3"/>
+            <column name="order_id" value="23d8b291-d39d-4c7c-ab2a-da8e81a99996" />
+            <column name="product_id" value="25fa9a54-039b-473f-9c65-4b9028402f50" />
+            <column name="amount" value="1" />
+        </insert>
+        <insert tableName="order_items">
+            <column name="id" value="010ee5f6-536a-4a1a-94d3-e7f61d8bb286"/>
+            <column name="order_id" value="23d8b291-d39d-4c7c-ab2a-da8e81a99996" />
+            <column name="product_id" value="dfa10735-992e-49a6-b1da-49e100559678" />
+            <column name="amount" value="2" />
+        </insert>
+    </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+
+    <changeSet id="insert-in-category-table" author="Ptuxa">
+        <insert tableName="categories">
+            <column name="id" value="ce1dbbee-530e-4ffe-8f94-d8da2330db7e"/>
+            <column name="name" value="breakfasts" />
+        </insert>
+        <insert tableName="categories">
+            <column name="id" value="5f35cb75-7680-4925-b91a-49959757872b"/>
+            <column name="name" value="lunch" />
+        </insert>
+        <insert tableName="categories">
+            <column name="id" value="708eee8b-983b-4871-b9fc-7c1a39fa8e58"/>
+            <column name="name" value="cold appetizers" />
+        </insert>
+        <insert tableName="categories">
+            <column name="id" value="0cb75a62-78b3-4632-ae94-359a75d802b0"/>
+            <column name="name" value="hot appetizers" />
+        </insert>
+        <insert tableName="categories">
+            <column name="id" value="1436d137-8f10-4657-845e-3e06cd30db65"/>
+            <column name="name" value="salads" />
+        </insert>
+        <insert tableName="categories">
+            <column name="id" value="814a211d-0914-4e24-8433-22cf6bccc2f9"/>
+            <column name="name" value="soups" />
+        </insert>
+        <insert tableName="categories">
+            <column name="id" value="7077da2e-743d-45fa-ad2f-6909f84a57a1"/>
+            <column name="name" value="pizza" />
+        </insert>
+    </changeSet>
+</databaseChangeLog>

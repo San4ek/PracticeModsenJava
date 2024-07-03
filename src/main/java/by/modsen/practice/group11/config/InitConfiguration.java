@@ -7,17 +7,15 @@ import by.modsen.practice.group11.model.enums.Role;
 import by.modsen.practice.group11.repository.PersonalInfoRepository;
 import by.modsen.practice.group11.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.password.PasswordEncoder;
-
-import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.LocalDate;
 import java.util.List;
 
 @Configuration
 @RequiredArgsConstructor
-@Slf4j
+
 public class InitConfiguration {
     private final UserRepository userRepository;
     private final PersonalInfoRepository personalInfoRepository;
@@ -25,7 +23,6 @@ public class InitConfiguration {
 
 
     public void init() {
-        log.info(passwordEncoder.encode("12345678"));
         List<User> admins = userRepository.findAllByRole(Role.ROLE_ADMIN);
 
         if (admins.isEmpty()) {
@@ -50,4 +47,3 @@ public class InitConfiguration {
         }
     }
 }
-

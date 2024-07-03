@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="insert-in-orders-data" author="Ptuxa">
+        <insert tableName="orders">
+            <column name="id" value="5623126c-4b5d-4cb1-a5c6-8e454a782e5d"/>
+            <column name="user_id" value="eade0166-b0db-4e65-8f02-859f15ceded6" />
+        </insert>
+        <insert tableName="orders">
+            <column name="id" value="490aa544-919d-4ee5-92cf-af4374230f6c"/>
+            <column name="user_id" value="eade0166-b0db-4e65-8f02-859f15ceded6" />
+        </insert>
+        <insert tableName="orders">
+            <column name="id" value="50d53b43-6a87-425a-a3ab-65e70f5075ea"/>
+            <column name="user_id" value="eade0166-b0db-4e65-8f02-859f15ceded6" />
+        </insert>
+        <insert tableName="orders">
+            <column name="id" value="23d8b291-d39d-4c7c-ab2a-da8e81a99996"/>
+            <column name="user_id" value="b78339bc-1d10-4013-a46e-bc9ba454d9f9" />
+        </insert>
+    </changeSet>
+</databaseChangeLog>

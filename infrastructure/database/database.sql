@@ -1,1 +1,0 @@
-create database pizza_db;
