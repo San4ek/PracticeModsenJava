@@ -15,10 +15,10 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.UUID;
 
-@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/category")
+@CrossOrigin(origins = "http://localhost:3000")
 @Tag(name = "Category controller")
 public class CategoryController {
     private final CategoryService categoryService;
