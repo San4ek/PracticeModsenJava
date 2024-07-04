@@ -8,9 +8,9 @@ import lombok.Builder;
 @Builder
 public record LoginRequest(
         @NotNull
-        @NotBlank(message = "Username is mandatory")
-        @Size(min = 2, max = 50, message = "Username should be in range [2, 50]")
-        String username,
+        @NotBlank(message = "Login is mandatory")
+        @Size(min = 2, max = 50, message = "Login should be in range [2, 50]")
+        String login,
 
         @NotNull
         @NotBlank(message = "Password is mandatory")
