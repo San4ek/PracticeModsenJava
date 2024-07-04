@@ -40,8 +40,6 @@ public class WebSecurityConfiguration { // extends WebSecurityConfigurerAdapter 
 
     private final AuthEntryPointJwt unauthorizedHandler;
 
-    private final CorsConfigurationSource corsConfigurationSource;
-
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
@@ -66,7 +64,7 @@ public class WebSecurityConfiguration { // extends WebSecurityConfigurerAdapter 
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
-                .cors(cors -> cors.configurationSource(corsConfigurationSource))
+                //.cors((cors) -> cors.configurationSource(corsConfigurationSource))
                 .exceptionHandling(exception ->
                         exception.authenticationEntryPoint(unauthorizedHandler)
                 )

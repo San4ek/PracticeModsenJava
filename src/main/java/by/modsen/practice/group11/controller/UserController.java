@@ -18,6 +18,7 @@ import java.util.UUID;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/user")
+@CrossOrigin(origins = "http://localhost:3000")
 @Tag(name = "Admin panel controller")
 public class UserController {
     private final UserService userService;

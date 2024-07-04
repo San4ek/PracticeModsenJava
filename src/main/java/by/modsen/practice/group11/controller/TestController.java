@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @RequestMapping("/test")
 @Tag(name = "Test connection controller")
+@CrossOrigin(origins = "http://localhost:3000")
 public class TestController {
 
     @GetMapping("/all")
