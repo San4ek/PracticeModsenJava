@@ -1,5 +1,6 @@
 package by.modsen.practice.group11.service;
 
+import by.modsen.practice.group11.model.UserJwt;
 import by.modsen.practice.group11.model.dto.request.UserRequest;
 import by.modsen.practice.group11.model.dto.response.UserResponse;
 import by.modsen.practice.group11.model.enums.Gender;
@@ -10,6 +11,8 @@ import java.util.List;
 import java.util.UUID;
 
 public interface UserService {
+
+    UserResponse getMe(UserJwt userJwt);
 
     UserResponse getUserById(UUID userId);
 

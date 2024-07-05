@@ -1,5 +1,6 @@
 package by.modsen.practice.group11.controller;
 
+import by.modsen.practice.group11.model.UserJwt;
 import by.modsen.practice.group11.model.dto.request.UserRequest;
 import by.modsen.practice.group11.model.dto.response.UserResponse;
 import by.modsen.practice.group11.service.UserService;
@@ -10,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,6 +24,16 @@ import java.util.UUID;
 @Tag(name = "Admin panel controller")
 public class UserController {
     private final UserService userService;
+
+    @GetMapping("/me")
+    @Operation(summary = "Get me by authentication principal")
+    public ResponseEntity<UserResponse> getMe(
+            @AuthenticationPrincipal UserJwt userJwt) {
+
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(userService.getMe(userJwt));
+    }
 
     @GetMapping("/get/{id}")
     @Operation(summary = "Get user by id")

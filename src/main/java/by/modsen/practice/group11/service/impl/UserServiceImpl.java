@@ -1,5 +1,6 @@
 package by.modsen.practice.group11.service.impl;
 
+import by.modsen.practice.group11.model.UserJwt;
 import by.modsen.practice.group11.model.dto.request.UserRequest;
 import by.modsen.practice.group11.model.dto.response.UserResponse;
 import by.modsen.practice.group11.model.entity.User;
@@ -21,6 +22,11 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final UserMapper userMapper;
+
+    @Override
+    public UserResponse getMe(UserJwt userJwt) {
+        return userMapper.toUserResponse(getUserOrThrow(userJwt.getId()));
+    }
 
     @Override
     @Transactional(readOnly = true)
