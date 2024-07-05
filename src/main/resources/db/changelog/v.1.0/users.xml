@@ -9,10 +9,10 @@
             <column name="id" type="uuid" valueComputed="${uuid_function}">
                 <constraints nullable="false" primaryKey="true"/>
             </column>
-            <column name="email" type="varchar(20)">
+            <column name="email" type="varchar(45)">
                 <constraints nullable="false" unique="true"/>
             </column>
-            <column name="login" type="varchar(20)">
+            <column name="login" type="varchar(45)">
                 <constraints nullable="false" unique="true"/>
             </column>
             <column name="password" type="varchar(300)">

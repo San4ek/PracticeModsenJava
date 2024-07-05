@@ -37,9 +37,9 @@ public record SignUpRequest(
         @Schema(description = "Gender, it should be written with a capital letter", example = "MALE")
         Gender gender,
 
-        @JsonFormat(pattern="dd-MM-yyyy")
+        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
         @Past(message = "Birthday must be in the past")
-        @Schema(description = "Your birthday, it should be written in this format dd:mm:yy", example = "23:08:2023")
+        @Schema(description = "Your birthday, it should be written in this format dd-MM-yyyy", example = "23-08-2023")
         LocalDate birthday
 ) {
 }
