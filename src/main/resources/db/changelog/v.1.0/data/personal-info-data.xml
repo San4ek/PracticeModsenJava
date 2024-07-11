@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="insert-in-personal-info-table" author="Ptuxa">
+        <insert tableName="personal_info">
+            <column name="id" value="68de6392-7563-4ade-9d56-b704de8d48f5"/>
+            <column name="full_name" value="Admin Adminovich" />
+            <column name="gender" value="MALE" />
+            <column name="birthday" value="2002-01-23" />
+        </insert>
+        <insert tableName="personal_info">
+            <column name="id" value="b31f5e79-5b54-4856-aa2a-5c5e07520dee"/>
+            <column name="full_name" value="Maria Marinovna" />
+            <column name="gender" value="FEMALE" />
+            <column name="birthday" value="1987-02-02" />
+        </insert>
+        <insert tableName="personal_info">
+            <column name="id" value="a65d63e7-e850-4097-aa04-4ac49071dd55"/>
+            <column name="full_name" value="Bob Bobovich" />
+            <column name="gender" value="MALE" />
+            <column name="birthday" value="1988-03-03" />
+        </insert>
+    </changeSet>
+</databaseChangeLog>

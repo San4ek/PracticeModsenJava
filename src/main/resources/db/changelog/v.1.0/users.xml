@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="create-table-users" author="Ptuxa">
+        <createTable tableName="users">
+            <column name="id" type="uuid" valueComputed="${uuid_function}">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="email" type="varchar(45)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="login" type="varchar(45)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="password" type="varchar(300)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="role" type="varchar(45)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="personal_info_id" type="uuid">
+                <constraints nullable="false" foreignKeyName="FK_user_personal_info" references="personal_info(id)"/>
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

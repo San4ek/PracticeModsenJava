@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="create-product-table" author="Vladislav Protchenko">
+        <createTable tableName="products">
+            <column name="id" type="uuid" valueComputed="${uuid_function}">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="category_id" type="uuid">
+                <constraints nullable="false" foreignKeyName="FK_products_category" references="categories(id)"/>
+            </column>
+            <column name="name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>
